@@ -1,5 +1,5 @@
 import React from 'react';
-import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
+import { BrowserRouter, Routes, Route, Navigate, useLocation } from 'react-router-dom';
 import { AuthProvider } from './context/AuthContext';
 import { LanguageProvider } from './context/LanguageContext';
 
@@ -21,15 +21,36 @@ import { S11_CommandCentre } from './pages/S11_CommandCentre';
 import { S12_GeoMaturity } from './pages/S12_GeoMaturity';
 import { S13_OpenData } from './pages/S13_OpenData';
 import { S14_SecurityConsole } from './pages/S14_SecurityConsole';
+import { S15_Developers } from './pages/S15_Developers';
 import { StandaloneMapViewer } from './pages/StandaloneMapViewer';
 import { ServicesApis } from './pages/ServicesApis';
 import { PoliciesStandards } from './pages/PoliciesStandards';
+
+const ScrollToTop: React.FC = () => {
+  const { pathname, hash } = useLocation();
+
+  React.useEffect(() => {
+    if (hash) {
+      const timer = setTimeout(() => {
+        const element = document.getElementById(hash.replace('#', ''));
+        if (element) {
+          element.scrollIntoView({ behavior: 'smooth' });
+        }
+      }, 100);
+      return () => clearTimeout(timer);
+    }
+    window.scrollTo(0, 0);
+  }, [pathname, hash]);
+
+  return null;
+};
 
 export const App: React.FC = () => {
   return (
     <LanguageProvider>
       <AuthProvider>
         <BrowserRouter>
+          <ScrollToTop />
           <Routes>
             {/* Public Layout Routes */}
             <Route path="/" element={<S01_Home />} />
@@ -37,6 +58,8 @@ export const App: React.FC = () => {
             <Route path="/catalogue" element={<S02_Catalogue />} />
             <Route path="/catalogue/land-parcels" element={<S03_DatasetDetail />} />
             <Route path="/open-data" element={<S13_OpenData />} />
+            <Route path="/developers" element={<S15_Developers />} />
+            <Route path="/developer" element={<Navigate to="/developers" replace />} />
 
             {/* Marketplace Module Routes */}
             <Route path="/marketplace" element={<S08_Marketplace />} />

@@ -247,12 +247,21 @@ export const S13_OpenData: React.FC = () => {
 
         {/* Developer Section */}
         <section id="developers" className="bg-white rounded-2xl border border-border p-8 shadow-xs space-y-6">
-          <div className="max-w-2xl">
-            <span className="text-xs font-bold uppercase tracking-wider text-emerald-700">Developer Ecosystem</span>
-            <h2 className="text-xl font-bold text-navy-900 mt-1">Open APIs & Integration Toolkits</h2>
-            <p className="text-xs text-text-secondary mt-1 leading-relaxed">
-              Build civic mobile applications, municipal dashboards, and analytical workflows using OGC API Features and modern REST endpoints.
-            </p>
+          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+            <div className="max-w-2xl">
+              <span className="text-xs font-bold uppercase tracking-wider text-emerald-700">Developer Ecosystem</span>
+              <h2 className="text-xl font-bold text-navy-900 mt-1">Open APIs & Integration Toolkits</h2>
+              <p className="text-xs text-text-secondary mt-1 leading-relaxed">
+                Build civic mobile applications, municipal dashboards, and analytical workflows using OGC API Features and modern REST endpoints.
+              </p>
+            </div>
+            <Link
+              to="/developers"
+              className="px-4 py-2.5 rounded-xl bg-blue-600 hover:bg-blue-700 text-white font-bold text-xs flex items-center gap-2 transition-colors shrink-0 shadow-xs"
+            >
+              <span>Explore Full Developer Portal</span>
+              <ArrowRight className="w-4 h-4 rtl:rotate-180" />
+            </Link>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4">

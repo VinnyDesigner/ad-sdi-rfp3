@@ -64,6 +64,7 @@ export const Footer: React.FC = () => {
               <li><Link to="/workspace/geoai/change-detection" className="hover:text-white transition-colors">GeoAI Studio</Link></li>
               <li><Link to="/workspace/digital-twin" className="hover:text-white transition-colors">Digital Twin 3D</Link></li>
               <li><Link to="/open-data" className="hover:text-white transition-colors">Open Data Portal</Link></li>
+              <li><Link to="/developers" className="hover:text-white transition-colors">Developer Portal & APIs</Link></li>
             </ul>
           </div>
 

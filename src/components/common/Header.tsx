@@ -27,7 +27,7 @@ export const Header: React.FC = () => {
     { name: t('nav.services'), path: '/workspace/services' },
     { name: t('nav.marketplace'), path: '/marketplace' },
     { name: t('nav.opendata'), path: '/open-data' },
-    { name: t('nav.developers'), path: '/open-data#developers' },
+    { name: t('nav.developers'), path: '/developers' },
   ];
 
   return (
@@ -57,11 +57,18 @@ export const Header: React.FC = () => {
             {/* Main Navigation Links */}
             <nav className="hidden lg:flex items-center gap-1 shrink-0">
               {navLinks.map((link) => {
-                const isActive = location.pathname === link.path;
+                const isActive =
+                  location.pathname === link.path ||
+                  (link.path !== '/' && location.pathname.startsWith(link.path));
                 return (
                   <Link
                     key={link.name}
                     to={link.path}
+                    onClick={() => {
+                      if (location.pathname !== link.path) {
+                        navigate(link.path);
+                      }
+                    }}
                     className={`px-3 py-1.5 rounded-lg text-xs font-semibold whitespace-nowrap transition-colors ${
                       isActive
                         ? 'text-blue-600 bg-blue-50/80 font-bold'
