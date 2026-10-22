@@ -299,13 +299,15 @@ export const S02_Catalogue: React.FC = () => {
           <div className="space-y-3 overflow-y-auto max-h-[calc(100vh-280px)] pr-1">
             {filteredDatasets.length === 0 ? (
               <div className="bg-white rounded-xl border border-border p-8 text-center text-xs text-text-secondary">
-                <div className="text-sm font-semibold text-navy-900 mb-1">No matching datasets found</div>
-                <p>Try resetting your search query or loosening applied filters.</p>
+                <div className="text-sm font-semibold text-navy-900 mb-1">
+                  {language === 'ar' ? 'لم يتم العثور على مجموعات بيانات مطابقة' : 'No matching datasets found'}
+                </div>
+                <p>{language === 'ar' ? 'جرّب إعادة تعيين كلمة البحث أو تخفيف معايير التصفية.' : 'Try resetting your search query or loosening applied filters.'}</p>
                 <button
                   onClick={handleClearAllFilters}
                   className="mt-3 px-3 py-1.5 rounded-lg bg-blue-600 text-white text-xs font-semibold"
                 >
-                  Reset all filters
+                  {language === 'ar' ? 'إعادة ضبط التصفية' : 'Reset all filters'}
                 </button>
               </div>
             ) : (
@@ -334,15 +336,33 @@ export const S02_Catalogue: React.FC = () => {
                               ? 'bg-blue-50 text-blue-700 border border-blue-200'
                               : 'bg-amber-50 text-amber-700 border border-amber-200'
                           }`}>
-                            {dataset.classification}
+                            {language === 'ar' ? (
+                              dataset.classification === 'Open' ? 'بيانات مفتوحة'
+                              : dataset.classification === 'FGDS – Fundamental' ? 'أساسي FGDS'
+                              : dataset.classification === 'Shared – Government' ? 'مشترك حكومي'
+                              : 'بيانات مقيدة'
+                            ) : dataset.classification}
                           </span>
 
                           <span className="text-[10px] text-text-secondary px-1.5 py-0.5 rounded bg-canvas border border-border">
-                            {dataset.audience}
+                            {language === 'ar' ? (
+                              dataset.audience === 'Public' ? 'عام'
+                              : dataset.audience === 'Government Only' ? 'جهات حكومية فقط'
+                              : 'شركاء معتمدون'
+                            ) : dataset.audience}
                           </span>
 
                           <span className="text-[10px] text-text-secondary font-medium">
-                            {dataset.theme}
+                            {language === 'ar' ? (
+                              dataset.theme === 'Environment' ? 'البيئة والمحميات'
+                              : dataset.theme === 'Land & Cadastre' ? 'الأراضي والمسح العقاري'
+                              : dataset.theme === 'Transport' ? 'النقل والمواصلات'
+                              : dataset.theme === 'Buildings & 3D' ? 'المباني وثلاثية الأبعاد'
+                              : dataset.theme === 'Utilities' ? 'شبكات المرافق'
+                              : dataset.theme === 'Population' ? 'السكان والإحصاء'
+                              : dataset.theme === 'Imagery' ? 'الصور الفضائية والجوية'
+                              : dataset.theme
+                            ) : dataset.theme}
                           </span>
                         </div>
 
@@ -353,7 +373,15 @@ export const S02_Catalogue: React.FC = () => {
 
                         {/* Publisher */}
                         <div className="text-[11px] font-medium text-text-secondary mt-0.5">
-                          {dataset.publisher} ({dataset.publisherCode})
+                          {language === 'ar' ? (
+                            dataset.publisherCode === 'EAD' ? 'هيئة البيئة – أبوظبي (EAD)'
+                            : dataset.publisherCode === 'DMT' ? 'دائرة البلديات والنقل (DMT)'
+                            : dataset.publisherCode === 'SCAD' ? 'مركز الإحصاء – أبوظبي (SCAD)'
+                            : dataset.publisherCode === 'ADEK' ? 'دائرة التعليم والمعرفة (ADEK)'
+                            : `${dataset.publisher} (${dataset.publisherCode})`
+                          ) : (
+                            `${dataset.publisher} (${dataset.publisherCode})`
+                          )}
                         </div>
 
                         {/* Description snippet */}
@@ -366,10 +394,10 @@ export const S02_Catalogue: React.FC = () => {
                           <div className="flex items-center gap-2">
                             <span className="flex items-center gap-1 text-emerald-600 font-medium">
                               <CheckCircle className="w-3.5 h-3.5" />
-                              {dataset.qualityStatus}
+                              {language === 'ar' ? 'اجتاز بنجاح' : dataset.qualityStatus}
                             </span>
                             <span>•</span>
-                            <span>{language === 'ar' ? `تحديث ${dataset.updatedAt}` : `Updated ${dataset.updatedAt}`}</span>
+                            <span>{language === 'ar' ? `تحديث ${dataset.updatedAt.replace('Aug', 'أغسطس').replace('Sep', 'سبتمبر').replace('Jul', 'يوليو').replace('Oct', 'أكتوبر')}` : `Updated ${dataset.updatedAt}`}</span>
                           </div>
 
                           <div className="flex items-center gap-1">

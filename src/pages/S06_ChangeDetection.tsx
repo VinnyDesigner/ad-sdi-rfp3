@@ -102,11 +102,11 @@ export const S06_ChangeDetection: React.FC = () => {
         {/* Pipeline Stage Counts Strip */}
         <div className="grid grid-cols-2 sm:grid-cols-5 gap-3">
           {[
-            { label: 'Candidate', count: '12' },
-            { label: 'Scored', count: '8' },
-            { label: 'Approved', count: '5' },
-            { label: 'In Development', count: '3' },
-            { label: 'Production', count: '2', highlight: true },
+            { label: isAr ? 'مرشح' : 'Candidate', count: '12' },
+            { label: isAr ? 'مقيّم' : 'Scored', count: '8' },
+            { label: isAr ? 'معتمد' : 'Approved', count: '5' },
+            { label: isAr ? 'قيد التطوير' : 'In Development', count: '3' },
+            { label: isAr ? 'الإنتاج الفعلي' : 'Production', count: '2', highlight: true },
           ].map((item) => (
             <div
               key={item.label}
@@ -127,10 +127,10 @@ export const S06_ChangeDetection: React.FC = () => {
         {/* Tabs Bar */}
         <div className="flex items-center gap-1 border-b border-border text-xs">
           {[
-            { id: 'change', label: 'Change Detection (Active)' },
-            { id: 'feature', label: 'Feature Extraction' },
-            { id: 'models', label: 'Model Registry' },
-            { id: 'usecases', label: 'Use Case Pipeline' },
+            { id: 'change', label: isAr ? 'كشف التغيرات (نشط)' : 'Change Detection (Active)' },
+            { id: 'feature', label: isAr ? 'استخراج المعالم' : 'Feature Extraction' },
+            { id: 'models', label: isAr ? 'سجل النماذج' : 'Model Registry' },
+            { id: 'usecases', label: isAr ? 'مسار حالات الاستخدام' : 'Use Case Pipeline' },
           ].map((tab) => (
             <button
               key={tab.id}
@@ -152,48 +152,56 @@ export const S06_ChangeDetection: React.FC = () => {
           <div className="lg:col-span-4 space-y-4">
             <div className="bg-white rounded-2xl border border-border p-5 shadow-xs space-y-4">
               <h3 className="text-xs font-bold text-navy-900 uppercase tracking-wider border-b border-border pb-2">
-                Inference Configuration
+                {isAr ? 'إعدادات الاستنتاج والتحليل' : 'Inference Configuration'}
               </h3>
 
               <div className="space-y-3 text-xs">
                 <div>
-                  <label className="text-[11px] text-text-muted font-bold block mb-1">Model Name</label>
+                  <label className="text-[11px] text-text-muted font-bold block mb-1">
+                    {isAr ? 'اسم النموذج' : 'Model Name'}
+                  </label>
                   <div className="font-semibold text-navy-900 p-2 rounded-lg bg-canvas border border-border">
-                    Building Change Detection v3.2
+                    {isAr ? 'كشف التغيرات العمرانية الإصدار 3.2' : 'Building Change Detection v3.2'}
                   </div>
                 </div>
 
                 <div>
-                  <label className="text-[11px] text-text-muted font-bold block mb-1">Target Use Case</label>
+                  <label className="text-[11px] text-text-muted font-bold block mb-1">
+                    {isAr ? 'حالة الاستخدام المستهدفة' : 'Target Use Case'}
+                  </label>
                   <div className="font-semibold text-navy-900 p-2 rounded-lg bg-canvas border border-border">
-                    New construction monitoring & unpermitted works
+                    {isAr ? 'مراقبة الإنشاءات الجديدة والأعمال غير المصرح بها' : 'New construction monitoring & unpermitted works'}
                   </div>
                 </div>
 
                 <div>
-                  <label className="text-[11px] text-text-muted font-bold block mb-1">Study Area</label>
+                  <label className="text-[11px] text-text-muted font-bold block mb-1">
+                    {isAr ? 'منطقة الدراسة' : 'Study Area'}
+                  </label>
                   <div className="font-semibold text-navy-900 p-2 rounded-lg bg-canvas border border-border">
-                    Khalifa City – South-West
+                    {isAr ? 'مدينة خليفة — الجنوب الغربي' : 'Khalifa City – South-West'}
                   </div>
                 </div>
 
                 {/* Multi-temporal Imagery Pairs */}
                 <div className="p-3 rounded-xl bg-canvas border border-border space-y-2">
-                  <div className="text-[10px] uppercase font-bold text-purple-700">Multi-Temporal Pair</div>
-                  <div className="flex justify-between items-center text-[11px]">
-                    <span className="text-text-secondary">Epoch T1 (Baseline):</span>
-                    <span className="font-mono font-bold text-navy-900">Jan 2027 (0.5 m)</span>
+                  <div className="text-[10px] uppercase font-bold text-purple-700">
+                    {isAr ? 'زوج الصور المتعدد زمنياً' : 'Multi-Temporal Pair'}
                   </div>
                   <div className="flex justify-between items-center text-[11px]">
-                    <span className="text-text-secondary">Epoch T2 (Recent):</span>
-                    <span className="font-mono font-bold text-navy-900">Aug 2027 (0.5 m)</span>
+                    <span className="text-text-secondary">{isAr ? 'الفترة T1 (خط الأساس):' : 'Epoch T1 (Baseline):'}</span>
+                    <span className="font-mono font-bold text-navy-900">{isAr ? 'يناير 2027 (0.5 م)' : 'Jan 2027 (0.5 m)'}</span>
+                  </div>
+                  <div className="flex justify-between items-center text-[11px]">
+                    <span className="text-text-secondary">{isAr ? 'الفترة T2 (الحديثة):' : 'Epoch T2 (Recent):'}</span>
+                    <span className="font-mono font-bold text-navy-900">{isAr ? 'أغسطس 2027 (0.5 م)' : 'Aug 2027 (0.5 m)'}</span>
                   </div>
                 </div>
 
                 {/* Threshold Slider */}
                 <div>
                   <div className="flex justify-between text-xs mb-1">
-                    <span className="text-text-secondary">Confidence Cutoff</span>
+                    <span className="text-text-secondary">{isAr ? 'حد الثقة الأدنى' : 'Confidence Cutoff'}</span>
                     <span className="font-mono font-bold text-purple-700">{(confidenceThreshold * 100).toFixed(0)}%</span>
                   </div>
                   <input
@@ -209,7 +217,7 @@ export const S06_ChangeDetection: React.FC = () => {
 
                 <div>
                   <div className="flex justify-between text-xs mb-1">
-                    <span className="text-text-secondary">Minimum Polygon Area</span>
+                    <span className="text-text-secondary">{isAr ? 'الحد الأدنى لمساحة المضلع' : 'Minimum Polygon Area'}</span>
                     <span className="font-mono font-bold text-purple-700">{minAreaSqm} m²</span>
                   </div>
                   <input
@@ -234,12 +242,12 @@ export const S06_ChangeDetection: React.FC = () => {
                 {isAnalyzing ? (
                   <>
                     <ArrowsClockwise className="w-4 h-4 animate-spin" />
-                    <span>Processing Demonstration Inference...</span>
+                    <span>{isAr ? 'جاري معالجة الاستنتاج التجريبي...' : 'Processing Demonstration Inference...'}</span>
                   </>
                 ) : (
                   <>
                     <Play className="w-4 h-4 fill-current" />
-                    <span>Run Change Detection Inference</span>
+                    <span>{isAr ? 'تشغيل استنتاج كشف التغيرات' : 'Run Change Detection Inference'}</span>
                   </>
                 )}
               </button>
@@ -248,19 +256,19 @@ export const S06_ChangeDetection: React.FC = () => {
             {/* Precision / Recall KPI Metrics */}
             <div className="bg-white rounded-2xl border border-border p-5 shadow-xs">
               <div className="text-xs font-bold text-navy-900 uppercase tracking-wider mb-3">
-                Validation Performance
+                {isAr ? 'أداء التحقق والتقييم' : 'Validation Performance'}
               </div>
               <div className="grid grid-cols-3 gap-2 text-center text-xs">
                 <div className="p-2.5 rounded-xl bg-canvas border border-border">
-                  <div className="text-[10px] text-text-muted uppercase">Precision</div>
+                  <div className="text-[10px] text-text-muted uppercase">{isAr ? 'الدقة' : 'Precision'}</div>
                   <div className="font-mono font-bold text-base text-navy-900 mt-0.5">0.93</div>
                 </div>
                 <div className="p-2.5 rounded-xl bg-canvas border border-border">
-                  <div className="text-[10px] text-text-muted uppercase">Recall</div>
+                  <div className="text-[10px] text-text-muted uppercase">{isAr ? 'الاستدعاء' : 'Recall'}</div>
                   <div className="font-mono font-bold text-base text-navy-900 mt-0.5">0.89</div>
                 </div>
                 <div className="p-2.5 rounded-xl bg-canvas border border-border">
-                  <div className="text-[10px] text-text-muted uppercase">F1-Score</div>
+                  <div className="text-[10px] text-text-muted uppercase">{isAr ? 'درجة F1' : 'F1-Score'}</div>
                   <div className="font-mono font-bold text-base text-purple-700 mt-0.5">0.91</div>
                 </div>
               </div>
@@ -275,20 +283,20 @@ export const S06_ChangeDetection: React.FC = () => {
                 <div className="flex items-center gap-2">
                   <span className="w-2.5 h-2.5 rounded-full bg-purple-600"></span>
                   <h3 className="text-xs font-bold text-navy-900 uppercase tracking-wider">
-                    Spatial Comparison View — Khalifa City South-West
+                    {isAr ? 'عرض المقارنة المكانية — مدينة خليفة الجنوب الغربي' : 'Spatial Comparison View — Khalifa City South-West'}
                   </h3>
                 </div>
 
                 {/* Legend badges */}
                 <div className="flex items-center gap-3 text-[11px]">
                   <span className="flex items-center gap-1 font-semibold text-emerald-700">
-                    <span className="w-3 h-3 rounded bg-emerald-500"></span> New (168)
+                    <span className="w-3 h-3 rounded bg-emerald-500"></span> {isAr ? 'جديد (168)' : 'New (168)'}
                   </span>
                   <span className="flex items-center gap-1 font-semibold text-amber-700">
-                    <span className="w-3 h-3 rounded bg-amber-500"></span> Extension (25)
+                    <span className="w-3 h-3 rounded bg-amber-500"></span> {isAr ? 'توسعة (25)' : 'Extension (25)'}
                   </span>
                   <span className="flex items-center gap-1 font-semibold text-red-700">
-                    <span className="w-3 h-3 rounded bg-red-500"></span> Demolished (21)
+                    <span className="w-3 h-3 rounded bg-red-500"></span> {isAr ? 'إزالة (21)' : 'Demolished (21)'}
                   </span>
                 </div>
               </div>
@@ -305,9 +313,9 @@ export const S06_ChangeDetection: React.FC = () => {
                 />
 
                 {/* Simulation indicator */}
-                <div className="absolute bottom-10 left-3 z-[1000] bg-white/95 px-3 py-1.5 rounded-lg border border-border text-[11px] shadow">
-                  <span className="text-text-muted">Simulated analysis: </span>
-                  <span className="font-bold text-navy-900">214 changes detected</span>
+                <div className="absolute bottom-10 left-3 rtl:left-auto rtl:right-3 z-[1000] bg-white/95 px-3 py-1.5 rounded-lg border border-border text-[11px] shadow">
+                  <span className="text-text-muted">{isAr ? 'تحليل محاكاة: ' : 'Simulated analysis: '}</span>
+                  <span className="font-bold text-navy-900">{isAr ? '214 تغيراً مكتشفاً' : '214 changes detected'}</span>
                 </div>
               </div>
             </div>
@@ -322,17 +330,20 @@ export const S06_ChangeDetection: React.FC = () => {
                       selectedFeature.type === 'New construction' ? 'bg-emerald-100 text-emerald-800' :
                       selectedFeature.type === 'Extension' ? 'bg-amber-100 text-amber-800' : 'bg-red-100 text-red-800'
                     }`}>
-                      {selectedFeature.type}
+                      {isAr ? (
+                        selectedFeature.type === 'New construction' ? 'إنشاء جديد' :
+                        selectedFeature.type === 'Extension' ? 'توسعة' : 'إزالة'
+                      ) : selectedFeature.type}
                     </span>
                     <span className="font-mono text-purple-700 font-semibold text-[11px]">
-                      Confidence: {(selectedFeature.confidence * 100).toFixed(0)}%
+                      {isAr ? 'مستوى الثقة: ' : 'Confidence: '}{(selectedFeature.confidence * 100).toFixed(0)}%
                     </span>
                   </div>
 
                   <div className="flex items-center gap-4 text-xs text-text-secondary pt-1">
-                    <div>Area: <strong className="text-navy-900">{selectedFeature.areaSqm} m²</strong></div>
-                    <div>Height: <strong className="text-navy-900">{selectedFeature.heightEstimate}</strong></div>
-                    <div>Status: <span className="font-semibold text-amber-600">{selectedFeature.reviewStatus}</span></div>
+                    <div>{isAr ? 'المساحة: ' : 'Area: '}<strong className="text-navy-900">{selectedFeature.areaSqm} m²</strong></div>
+                    <div>{isAr ? 'الارتفاع: ' : 'Height: '}<strong className="text-navy-900">{selectedFeature.heightEstimate}</strong></div>
+                    <div>{isAr ? 'الحالة: ' : 'Status: '}<span className="font-semibold text-amber-600">{isAr ? (selectedFeature.reviewStatus === 'Pending Review' ? 'قيد المراجعة' : selectedFeature.reviewStatus) : selectedFeature.reviewStatus}</span></div>
                   </div>
                 </div>
 
@@ -342,8 +353,8 @@ export const S06_ChangeDetection: React.FC = () => {
                     onClick={handleSendToReview}
                     className="px-3.5 py-2 rounded-lg bg-navy-900 hover:bg-navy-800 text-white font-semibold text-xs flex items-center gap-1.5 shadow-xs transition-colors"
                   >
-                    <span>Send to Review Queue</span>
-                    <ArrowRight className="w-3.5 h-3.5" />
+                    <span>{isAr ? 'إرسال إلى قائمة المراجعة' : 'Send to Review Queue'}</span>
+                    <ArrowRight className="w-3.5 h-3.5 rtl:rotate-180" />
                   </button>
                 </div>
               </div>
@@ -359,7 +370,7 @@ export const S06_ChangeDetection: React.FC = () => {
                 <div className="flex items-center gap-2">
                   <Brain className="w-5 h-5 text-purple-600" />
                   <h3 className="text-base font-bold text-navy-900">
-                    Model Card: Building Change Detection v3.2
+                    {isAr ? 'بطاقة النموذج: كشف التغيرات العمرانية v3.2' : 'Model Card: Building Change Detection v3.2'}
                   </h3>
                 </div>
                 <button
@@ -372,27 +383,29 @@ export const S06_ChangeDetection: React.FC = () => {
 
               <div className="grid grid-cols-2 gap-3 text-xs">
                 <div className="p-3 rounded-lg bg-canvas border border-border">
-                  <div className="text-text-muted text-[10px] uppercase font-bold">Registry ID</div>
+                  <div className="text-text-muted text-[10px] uppercase font-bold">{isAr ? 'معرف السجل' : 'Registry ID'}</div>
                   <div className="font-mono font-bold text-navy-900 mt-0.5">MR-B-007</div>
                 </div>
                 <div className="p-3 rounded-lg bg-canvas border border-border">
-                  <div className="text-text-muted text-[10px] uppercase font-bold">Owner</div>
-                  <div className="font-bold text-navy-900 mt-0.5">AD-SDI GeoAI Team</div>
+                  <div className="text-text-muted text-[10px] uppercase font-bold">{isAr ? 'المالك' : 'Owner'}</div>
+                  <div className="font-bold text-navy-900 mt-0.5">{isAr ? 'فريق الذكاء الاصطناعي الجغرافي AD-SDI' : 'AD-SDI GeoAI Team'}</div>
                 </div>
                 <div className="p-3 rounded-lg bg-canvas border border-border">
-                  <div className="text-text-muted text-[10px] uppercase font-bold">Training Samples</div>
-                  <div className="font-mono font-bold text-navy-900 mt-0.5">14,200 Annotated Tiles</div>
+                  <div className="text-text-muted text-[10px] uppercase font-bold">{isAr ? 'عينات التدريب' : 'Training Samples'}</div>
+                  <div className="font-mono font-bold text-navy-900 mt-0.5">{isAr ? '14,200 بلاطة معلّمة' : '14,200 Annotated Tiles'}</div>
                 </div>
                 <div className="p-3 rounded-lg bg-canvas border border-border">
-                  <div className="text-text-muted text-[10px] uppercase font-bold">Evaluation Date</div>
-                  <div className="font-bold text-navy-900 mt-0.5">30 Aug 2027</div>
+                  <div className="text-text-muted text-[10px] uppercase font-bold">{isAr ? 'تاريخ التقييم' : 'Evaluation Date'}</div>
+                  <div className="font-bold text-navy-900 mt-0.5">{isAr ? '30 أغسطس 2027' : '30 Aug 2027'}</div>
                 </div>
               </div>
 
               <div className="p-3 rounded-xl bg-purple-50 border border-purple-200 text-xs text-purple-900 space-y-1">
-                <div className="font-bold">Governance & Human-in-the-Loop Gate</div>
+                <div className="font-bold">{isAr ? 'الحوكمة وبوابة الإشراف البشري' : 'Governance & Human-in-the-Loop Gate'}</div>
                 <p className="text-[11px] leading-relaxed">
-                  Drift: Stable. Deployment approved for municipal monitoring. All unpermitted flags require DMT field steward confirmation prior to enforcement actions.
+                  {isAr
+                    ? 'الانحراف: مستقر. النشر معتمد للمراقبة البلدية. تتطلب جميع الإشارات غير المصرح بها تأكيد مشرف الميدان من DMT قبل اتخاذ إجراءات الإنفاذ.'
+                    : 'Drift: Stable. Deployment approved for municipal monitoring. All unpermitted flags require DMT field steward confirmation prior to enforcement actions.'}
                 </p>
               </div>
 
@@ -401,7 +414,7 @@ export const S06_ChangeDetection: React.FC = () => {
                   onClick={() => setShowModelCard(false)}
                   className="px-4 py-2 rounded-lg bg-navy-900 text-white font-semibold text-xs"
                 >
-                  Close Model Card
+                  {isAr ? 'إغلاق بطاقة النموذج' : 'Close Model Card'}
                 </button>
               </div>
             </div>

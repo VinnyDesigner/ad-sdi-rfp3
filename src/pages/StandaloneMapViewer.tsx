@@ -79,7 +79,7 @@ export const StandaloneMapViewer: React.FC = () => {
               <div className="space-y-4">
                 <div className="flex items-center justify-between border-b border-border pb-2">
                   <span className="text-xs font-bold text-navy-900 uppercase tracking-wider">
-                    Map Layers & Catalog
+                    {isAr ? 'طبقات الخريطة والفهرس' : 'Map Layers & Catalog'}
                   </span>
                   <button onClick={() => setSidebarOpen(false)} className="text-text-muted hover:text-navy-900">
                     <X className="w-4 h-4" />
@@ -89,7 +89,7 @@ export const StandaloneMapViewer: React.FC = () => {
                 {/* Layer Opacity Slider */}
                 <div className="space-y-1 text-xs">
                   <div className="flex justify-between text-text-secondary text-[11px]">
-                    <span>Global Vector Opacity</span>
+                    <span>{isAr ? 'شفافية الطبقات الشعاعية' : 'Global Vector Opacity'}</span>
                     <span className="font-mono font-bold text-navy-900">{Math.round(layerOpacity * 100)}%</span>
                   </div>
                   <input
@@ -106,7 +106,7 @@ export const StandaloneMapViewer: React.FC = () => {
                 {/* Layer Toggles */}
                 <div className="space-y-2">
                   <div className="text-[10px] font-bold text-text-muted uppercase tracking-wider">
-                    Active Layers (Click to Toggle)
+                    {isAr ? 'الطبقات النشطة (انقر للتبديل)' : 'Active Layers (Click to Toggle)'}
                   </div>
 
                   <div
@@ -118,8 +118,8 @@ export const StandaloneMapViewer: React.FC = () => {
                     <div className="flex items-center gap-2">
                       <span className="w-3 h-3 rounded-full bg-emerald-600"></span>
                       <div>
-                        <div className="font-semibold text-navy-900">Eastern Mangroves 2027</div>
-                        <div className="text-[10px] text-text-secondary">EAD • WFS Vector Layer</div>
+                        <div className="font-semibold text-navy-900">{isAr ? 'قرم الشرقية 2027' : 'Eastern Mangroves 2027'}</div>
+                        <div className="text-[10px] text-text-secondary">{isAr ? 'هيئة البيئة • طبقة WFS شعاعية' : 'EAD • WFS Vector Layer'}</div>
                       </div>
                     </div>
                     {activeLayers.mangroves ? <Eye className="w-4 h-4 text-blue-600" /> : <EyeSlash className="w-4 h-4" />}
@@ -134,8 +134,8 @@ export const StandaloneMapViewer: React.FC = () => {
                     <div className="flex items-center gap-2">
                       <span className="w-3 h-3 rounded-full bg-blue-600"></span>
                       <div>
-                        <div className="font-semibold text-navy-900">Land Parcels (Cadastre)</div>
-                        <div className="text-[10px] text-text-secondary">DMT • Khalifa City Fabric</div>
+                        <div className="font-semibold text-navy-900">{isAr ? 'قطع الأراضي (السجل العقاري)' : 'Land Parcels (Cadastre)'}</div>
+                        <div className="text-[10px] text-text-secondary">{isAr ? 'دائرة البلديات والنقل • نسيج مدينة خليفة' : 'DMT • Khalifa City Fabric'}</div>
                       </div>
                     </div>
                     {activeLayers.cadastre ? <Eye className="w-4 h-4 text-blue-600" /> : <EyeSlash className="w-4 h-4" />}
@@ -150,8 +150,8 @@ export const StandaloneMapViewer: React.FC = () => {
                     <div className="flex items-center gap-2">
                       <span className="w-3 h-3 rounded-full bg-teal-500"></span>
                       <div>
-                        <div className="font-semibold text-navy-900">Coastal Protected Areas</div>
-                        <div className="text-[10px] text-text-secondary">EAD • Marine Sanctuaries</div>
+                        <div className="font-semibold text-navy-900">{isAr ? 'المحميات البحرية الساحلية' : 'Coastal Protected Areas'}</div>
+                        <div className="text-[10px] text-text-secondary">{isAr ? 'هيئة البيئة • محميات بحرية' : 'EAD • Marine Sanctuaries'}</div>
                       </div>
                     </div>
                     {activeLayers.protectedMarine ? <Eye className="w-4 h-4 text-blue-600" /> : <EyeSlash className="w-4 h-4" />}
@@ -166,8 +166,8 @@ export const StandaloneMapViewer: React.FC = () => {
                     <div className="flex items-center gap-2">
                       <span className="w-3 h-3 rounded-full bg-indigo-600"></span>
                       <div>
-                        <div className="font-semibold text-navy-900">Bus Stops & Routes</div>
-                        <div className="text-[10px] text-text-secondary">ITC / DMT • GTFS Feeds</div>
+                        <div className="font-semibold text-navy-900">{isAr ? 'محطات وخطوط الحافلات' : 'Bus Stops & Routes'}</div>
+                        <div className="text-[10px] text-text-secondary">{isAr ? 'مركز النقل المتكامل / DMT • تغذية GTFS' : 'ITC / DMT • GTFS Feeds'}</div>
                       </div>
                     </div>
                     {activeLayers.transitStops ? <Eye className="w-4 h-4 text-blue-600" /> : <EyeSlash className="w-4 h-4" />}
@@ -177,7 +177,7 @@ export const StandaloneMapViewer: React.FC = () => {
 
               {/* Feature Information Inspector */}
               <div className="p-3 rounded-xl bg-canvas border border-border text-xs space-y-1">
-                <div className="text-[10px] font-bold uppercase text-text-muted">Feature Inspection</div>
+                <div className="text-[10px] font-bold uppercase text-text-muted">{isAr ? 'معاينة خصائص المعلم' : 'Feature Inspection'}</div>
                 {selectedFeature ? (
                   <div>
                     <div className="font-bold text-navy-900">{selectedFeature.name || selectedFeature.parcelId}</div>
@@ -185,7 +185,7 @@ export const StandaloneMapViewer: React.FC = () => {
                     {selectedFeature.areaSqm && <div className="text-[10px] font-mono text-blue-700 mt-1">{selectedFeature.areaSqm.toLocaleString()} m²</div>}
                   </div>
                 ) : (
-                  <p className="text-[11px] text-text-muted italic">Click any vector feature on the map to inspect its attributes.</p>
+                  <p className="text-[11px] text-text-muted italic">{isAr ? 'انقر على أي معلم شعاعي على الخريطة لمعاينة سماته.' : 'Click any vector feature on the map to inspect its attributes.'}</p>
                 )}
               </div>
             </div>

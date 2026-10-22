@@ -27,6 +27,7 @@ import {
 
 export const S01_Home: React.FC = () => {
   const { language, t } = useLanguage();
+  const isAr = language === 'ar';
   const navigate = useNavigate();
 
   const [searchQuery, setSearchQuery] = useState('');
@@ -154,12 +155,12 @@ export const S01_Home: React.FC = () => {
               {/* Filter pills */}
               <div className="flex items-center gap-1.5 overflow-x-auto pb-2 border-b border-border/80 text-xs px-1">
                 {[
-                  { id: 'all', label: 'All' },
-                  { id: 'datasets', label: 'Datasets' },
-                  { id: 'services', label: 'Services' },
-                  { id: 'maps', label: 'Maps' },
-                  { id: 'apis', label: 'APIs' },
-                  { id: 'ai', label: 'AI Models' },
+                  { id: 'all', label: isAr ? 'الكل' : 'All' },
+                  { id: 'datasets', label: isAr ? 'مجموعات البيانات' : 'Datasets' },
+                  { id: 'services', label: isAr ? 'الخدمات' : 'Services' },
+                  { id: 'maps', label: isAr ? 'الخرائط' : 'Maps' },
+                  { id: 'apis', label: isAr ? 'واجهات البرمجة' : 'APIs' },
+                  { id: 'ai', label: isAr ? 'نماذج الذكاء الاصطناعي' : 'AI Models' },
                 ].map((pill) => (
                   <button
                     key={pill.id}
@@ -192,7 +193,7 @@ export const S01_Home: React.FC = () => {
                   type="submit"
                   className="px-5 py-3 rounded-xl bg-blue-600 hover:bg-blue-700 text-white font-semibold text-xs sm:text-sm flex items-center gap-2 transition-colors shrink-0 shadow-md"
                 >
-                  <span>Search</span>
+                  <span>{isAr ? 'بحث' : 'Search'}</span>
                   <ArrowRight className="w-4 h-4 rtl:rotate-180" />
                 </button>
               </form>
@@ -229,17 +230,17 @@ export const S01_Home: React.FC = () => {
             <div className="flex items-end justify-between mb-8">
               <div>
                 <h2 className="text-xl sm:text-2xl font-bold text-navy-900 tracking-tight">
-                  Explore by Geospatial Theme
+                  {isAr ? 'استكشف حسب المجال الجيومكاني' : 'Explore by Geospatial Theme'}
                 </h2>
                 <p className="text-xs sm:text-sm text-text-secondary mt-1">
-                  Categorized in accordance with the Abu Dhabi Fundamental Geospatial Data Standards (FGDS).
+                  {isAr ? 'مصنفة وفقاً لمعايير البيانات الجيومكانية الأساسية لإمارة أبوظبي (FGDS).' : 'Categorized in accordance with the Abu Dhabi Fundamental Geospatial Data Standards (FGDS).'}
                 </p>
               </div>
               <Link
                 to="/catalogue"
                 className="hidden sm:flex items-center gap-1.5 text-xs font-semibold text-blue-600 hover:text-blue-700 transition-colors"
               >
-                <span>View all themes</span>
+                <span>{isAr ? 'عرض جميع المجالات' : 'View all themes'}</span>
                 <ArrowRight className="w-3.5 h-3.5 rtl:rotate-180" />
               </Link>
             </div>
@@ -271,19 +272,35 @@ export const S01_Home: React.FC = () => {
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="text-center max-w-2xl mx-auto mb-12">
               <span className="text-xs font-bold uppercase tracking-wider text-blue-600 bg-blue-50 px-3 py-1 rounded-full border border-blue-100">
-                Architectural Modules
+                {isAr ? 'الوحدات المعمارية' : 'Architectural Modules'}
               </span>
               <h2 className="text-2xl sm:text-3xl font-extrabold text-navy-900 tracking-tight mt-3">
-                Six Integrated Geospatial Services
+                {isAr ? 'ست خدمات جيومكانية متكاملة' : 'Six Integrated Geospatial Services'}
               </h2>
               <p className="text-xs sm:text-sm text-text-secondary mt-2">
-                A unified ecosystem powering government data custodians, urban analysts, commercial partners, and developers.
+                {isAr
+                  ? 'منظومة موحدة لتمكين المشرفين الحكوميين والمحللين الحضريين والشركاء المعتمدين والمطورين.'
+                  : 'A unified ecosystem powering government data custodians, urban analysts, commercial partners, and developers.'}
               </p>
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
               {services.map((svc) => {
                 const IconComp = svc.icon;
+                const moduleCodeAr = svc.code.replace('Module A', 'الوحدة أ')
+                  .replace('Module B', 'الوحدة ب')
+                  .replace('Module C', 'الوحدة ج')
+                  .replace('Module D', 'الوحدة د')
+                  .replace('Module E', 'الوحدة هـ')
+                  .replace('Module F', 'الوحدة و');
+                const moduleTagAr = svc.tag === 'Core SDI' ? 'البنية التحتية الأساسية'
+                  : svc.tag === 'AI & Inference' ? 'الاستدلال والذكاء الاصطناعي'
+                  : svc.tag === 'Commercial & Shared' ? 'تجاري ومشترك'
+                  : svc.tag === 'Training & Maturity' ? 'التدريب والنضج'
+                  : svc.tag === '3D & 4D Simulation' ? 'محاكاة ثلاثية ورباعية الأبعاد'
+                  : svc.tag === 'Public Access' ? 'الوصول العام'
+                  : svc.tag;
+
                 return (
                   <Link
                     key={svc.code}
@@ -305,7 +322,7 @@ export const S01_Home: React.FC = () => {
                           <IconComp className="w-5 h-5" />
                         </div>
                         <span className="text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded bg-canvas-subtle border border-border text-text-secondary">
-                          {svc.code} • {svc.tag}
+                          {isAr ? `${moduleCodeAr} • ${moduleTagAr}` : `${svc.code} • ${svc.tag}`}
                         </span>
                       </div>
 
@@ -319,7 +336,7 @@ export const S01_Home: React.FC = () => {
                     </div>
 
                     <div className="pt-4 border-t border-border/80 flex items-center justify-between text-xs font-semibold text-blue-600 group-hover:text-navy-900 transition-colors">
-                      <span>Launch module</span>
+                      <span>{isAr ? 'تشغيل الوحدة' : 'Launch module'}</span>
                       <ArrowRight className="w-3.5 h-3.5 rtl:rotate-180 group-hover:translate-x-1 transition-transform" />
                     </div>
                   </Link>
@@ -338,9 +355,13 @@ export const S01_Home: React.FC = () => {
                   <CheckCircle className="w-6 h-6" />
                 </div>
                 <div>
-                  <h4 className="text-sm font-bold text-white mb-1">Authoritative Custodians</h4>
+                  <h4 className="text-sm font-bold text-white mb-1">
+                    {isAr ? 'جهات مشرفة معتمدة' : 'Authoritative Custodians'}
+                  </h4>
                   <p className="text-xs text-slate-300 leading-relaxed">
-                    Data published directly by accredited entities such as DMT, EAD, SCAD, and ADEK under formal DSAs.
+                    {isAr
+                      ? 'تُنشر البيانات مباشرة من الجهات المعتمدة مثل دائرة البلديات والنقل وهيئة البيئة ومركز الإحصاء ودائرة التعليم والمعرفة وفق اتفاقيات تبادل بيانات معتمدة.'
+                      : 'Data published directly by accredited entities such as DMT, EAD, SCAD, and ADEK under formal DSAs.'}
                   </p>
                 </div>
               </div>
@@ -350,9 +371,13 @@ export const S01_Home: React.FC = () => {
                   <Sparkle className="w-6 h-6" />
                 </div>
                 <div>
-                  <h4 className="text-sm font-bold text-white mb-1">Automated Quality Gateway</h4>
+                  <h4 className="text-sm font-bold text-white mb-1">
+                    {isAr ? 'بوابة جودة آلية متقدمة' : 'Automated Quality Gateway'}
+                  </h4>
                   <p className="text-xs text-slate-300 leading-relaxed">
-                    Topology verification, EPSG:32640 alignment, domain lookup enforcement, and metadata completeness audits.
+                    {isAr
+                      ? 'فحص الطوبولوجيا، والتوافق مع الإسقاط EPSG:32640، وتطبيق النطاقات القيمية، وتدقيق اكتمال البيانات الوصفية.'
+                      : 'Topology verification, EPSG:32640 alignment, domain lookup enforcement, and metadata completeness audits.'}
                   </p>
                 </div>
               </div>
@@ -362,9 +387,13 @@ export const S01_Home: React.FC = () => {
                   <Globe className="w-6 h-6" />
                 </div>
                 <div>
-                  <h4 className="text-sm font-bold text-white mb-1">Standards Compliant</h4>
+                  <h4 className="text-sm font-bold text-white mb-1">
+                    {isAr ? 'مطابقة للمعايير الدولية' : 'Standards Compliant'}
+                  </h4>
                   <p className="text-xs text-slate-300 leading-relaxed">
-                    Full support for OGC API Features, WMS, WFS, WMTS, 3D Tiles, GeoJSON, and FGDS metadata schemas.
+                    {isAr
+                      ? 'دعم كامل لمعايير OGC API Features و WMS و WFS و WMTS و 3D Tiles و GeoJSON ومخططات FGDS للبيانات الوصفية.'
+                      : 'Full support for OGC API Features, WMS, WFS, WMTS, 3D Tiles, GeoJSON, and FGDS metadata schemas.'}
                   </p>
                 </div>
               </div>

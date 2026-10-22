@@ -80,11 +80,13 @@ export const S09b_Entitlements: React.FC = () => {
           <div className="flex items-center gap-2.5">
             <Clock className="w-5 h-5 text-amber-600 shrink-0" />
             <div>
-              <span className="font-bold">1 request awaiting provider approval:</span>{' '}
-              <span>Building Footprints 3D (Department of Municipalities and Transport) is currently under review by Khalid M.</span>
+              <span className="font-bold">{isAr ? 'طلب واحد بانتظار موافقة المزود:' : '1 request awaiting provider approval:'}</span>{' '}
+              <span>{isAr ? 'البصمات ثلاثية الأبعاد للمباني (دائرة البلديات والنقل) قيد المراجعة حالياً من قبل خالد م.' : 'Building Footprints 3D (Department of Municipalities and Transport) is currently under review by Khalid M.'}</span>
             </div>
           </div>
-          <span className="text-[11px] font-mono text-amber-800 font-bold shrink-0">Status: Pending</span>
+          <span className="text-[11px] font-mono text-amber-800 font-bold shrink-0">
+            {isAr ? 'الحالة: معلق' : 'Status: Pending'}
+          </span>
         </div>
 
         {/* Feedback Toast */}
@@ -99,22 +101,24 @@ export const S09b_Entitlements: React.FC = () => {
         <div className="bg-white rounded-2xl border border-border shadow-xs overflow-hidden">
           <div className="p-4 border-b border-border flex items-center justify-between">
             <h3 className="text-xs font-bold text-navy-900 uppercase tracking-wider">
-              Subscribed Spatial Products & Access Tokens
+              {isAr ? 'المنتجات المكانية المشترك بها ورموز الوصول' : 'Subscribed Spatial Products & Access Tokens'}
             </h3>
-            <span className="text-[11px] text-text-muted">Showing 3 licensed products</span>
+            <span className="text-[11px] text-text-muted">
+              {isAr ? 'عرض 3 منتجات مرخصة' : 'Showing 3 licensed products'}
+            </span>
           </div>
 
           <div className="overflow-x-auto">
-            <table className="w-full text-left text-xs">
+            <table className="w-full text-left rtl:text-right text-xs">
               <thead className="bg-canvas border-b border-border text-[11px] uppercase tracking-wider text-text-secondary">
                 <tr>
-                  <th className="p-3.5">Product & Provider</th>
-                  <th className="p-3.5">Plan Type</th>
-                  <th className="p-3.5">Status</th>
-                  <th className="p-3.5">API Key Credential</th>
-                  <th className="p-3.5">Usage this Month</th>
-                  <th className="p-3.5">Renews / Validity</th>
-                  <th className="p-3.5 text-right">Actions</th>
+                  <th className="p-3.5">{isAr ? 'المنتج والمزود' : 'Product & Provider'}</th>
+                  <th className="p-3.5">{isAr ? 'نوع الباقة' : 'Plan Type'}</th>
+                  <th className="p-3.5">{isAr ? 'الحالة' : 'Status'}</th>
+                  <th className="p-3.5">{isAr ? 'بيانات اعتماد مفتاح API' : 'API Key Credential'}</th>
+                  <th className="p-3.5">{isAr ? 'الاستخدام هذا الشهر' : 'Usage this Month'}</th>
+                  <th className="p-3.5">{isAr ? 'التجديد / الصلاحية' : 'Renews / Validity'}</th>
+                  <th className="p-3.5 text-right rtl:text-left">{isAr ? 'الإجراءات' : 'Actions'}</th>
                 </tr>
               </thead>
               <tbody className="divide-y divide-border">
@@ -141,18 +145,18 @@ export const S09b_Entitlements: React.FC = () => {
                             ? 'bg-amber-50 text-amber-700 border border-amber-200'
                             : 'bg-red-50 text-red-700 border border-red-200'
                         }`}>
-                          {item.status}
+                          {isAr ? (item.status === 'Active' ? 'نشط' : item.status === 'Pending' ? 'معلق' : 'منتهي') : item.status}
                         </span>
                       </td>
 
                       <td className="p-3.5">
-                        <div className="flex items-center gap-1.5 font-mono text-[11px] text-navy-900 bg-canvas px-2 py-1 rounded border border-border w-fit">
+                        <div className="flex items-center gap-1.5 font-mono text-[11px] text-navy-900 bg-canvas px-2 py-1 rounded border border-border w-fit" dir="ltr">
                           <Key className="w-3.5 h-3.5 text-text-secondary" />
                           <span>{item.apiKey}</span>
                           <button
                             type="button"
                             onClick={() => handleCopyKey(item.apiKey, item.id)}
-                            title="Copy API Token"
+                            title={isAr ? 'نسخ رمز API' : 'Copy API Token'}
                             className="p-1 hover:text-blue-600 transition-colors"
                           >
                             {copiedKey === item.id ? <Check className="w-3 h-3 text-emerald-600" /> : <Copy className="w-3 h-3" />}
@@ -160,7 +164,7 @@ export const S09b_Entitlements: React.FC = () => {
                           <button
                             type="button"
                             onClick={() => handleRotateKey(item.id)}
-                            title="Rotate Key"
+                            title={isAr ? 'تدوير المفتاح' : 'Rotate Key'}
                             className="p-1 hover:text-amber-600 transition-colors"
                           >
                             <ArrowsClockwise className="w-3 h-3" />
@@ -187,13 +191,13 @@ export const S09b_Entitlements: React.FC = () => {
                         {item.renewsOn}
                       </td>
 
-                      <td className="p-3.5 text-right">
+                      <td className="p-3.5 text-right rtl:text-left">
                         <Link
                           to={`/catalogue/land-parcels`}
                           className="text-teal-700 hover:text-navy-900 font-semibold text-xs inline-flex items-center gap-1"
                         >
-                          <span>Endpoints</span>
-                          <ArrowRight className="w-3 h-3" />
+                          <span>{isAr ? 'نقاط الاتصال' : 'Endpoints'}</span>
+                          <ArrowRight className="w-3.5 h-3.5 rtl:rotate-180" />
                         </Link>
                       </td>
                     </tr>
@@ -208,33 +212,39 @@ export const S09b_Entitlements: React.FC = () => {
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
           <div className="p-5 rounded-2xl bg-white border border-border shadow-xs">
             <div className="text-[10px] font-bold uppercase tracking-wider text-text-muted">
-              Aggregate Monthly API Calls
+              {isAr ? 'إجمالي استدعاءات API الشهرية' : 'Aggregate Monthly API Calls'}
             </div>
             <div className="text-2xl font-extrabold text-navy-900 font-mono mt-1">
               42,650
             </div>
-            <div className="text-xs text-text-secondary mt-1">Across all subscribed OGC and REST endpoints</div>
+            <div className="text-xs text-text-secondary mt-1">
+              {isAr ? 'عبر جميع نقاط اتصال OGC و REST المشترك بها' : 'Across all subscribed OGC and REST endpoints'}
+            </div>
           </div>
 
           <div className="p-5 rounded-2xl bg-white border border-border shadow-xs">
             <div className="text-[10px] font-bold uppercase tracking-wider text-text-muted">
-              Average Latency (p95)
+              {isAr ? 'متوسط زمن الاستجابة (p95)' : 'Average Latency (p95)'}
             </div>
             <div className="text-2xl font-extrabold text-emerald-600 font-mono mt-1">
               64 ms
             </div>
-            <div className="text-xs text-text-secondary mt-1">Protected by Abu Dhabi Government SLA</div>
+            <div className="text-xs text-text-secondary mt-1">
+              {isAr ? 'محمي باتفاقية مستوى الخدمة لحكومة أبوظبي' : 'Protected by Abu Dhabi Government SLA'}
+            </div>
           </div>
 
           <div className="p-5 rounded-2xl bg-white border border-border shadow-xs">
             <div className="text-[10px] font-bold uppercase tracking-wider text-text-muted">
-              Security Protocol
+              {isAr ? 'بروتوكول الأمان' : 'Security Protocol'}
             </div>
             <div className="text-2xl font-extrabold text-navy-900 mt-1 flex items-center gap-1.5 text-base">
               <ShieldCheck className="w-5 h-5 text-blue-600" />
               <span>mTLS & OAuth 2.0</span>
             </div>
-            <div className="text-xs text-text-secondary mt-1">Encrypted in transit & at rest</div>
+            <div className="text-xs text-text-secondary mt-1">
+              {isAr ? 'مشفر أثناء النقل وفي حالة السكون' : 'Encrypted in transit & at rest'}
+            </div>
           </div>
         </div>
       </div>

@@ -277,14 +277,20 @@ export const S08_Marketplace: React.FC = () => {
 
                     <div className="mt-4 pt-3 border-t border-border flex items-center justify-between text-xs">
                       <span className="text-[11px] font-medium text-text-muted">
-                        {prod.updateFrequency}
+                        {isAr ? (
+                          prod.updateFrequency === 'Monthly' ? 'شهرياً' :
+                          prod.updateFrequency === 'Quarterly' ? 'ربع سنوي' :
+                          prod.updateFrequency === 'Annually' ? 'سنوياً' :
+                          prod.updateFrequency === 'Near real-time (Weekly)' ? 'شبه فوري (أسبوعياً)' :
+                          prod.updateFrequency
+                        ) : prod.updateFrequency}
                       </span>
                       <button
                         type="button"
                         className="text-teal-700 hover:text-navy-900 font-semibold flex items-center gap-1"
                       >
-                        <span>View details</span>
-                        <ArrowRight className="w-3.5 h-3.5" />
+                        <span>{isAr ? 'عرض التفاصيل' : 'View details'}</span>
+                        <ArrowRight className="w-3.5 h-3.5 rtl:rotate-180" />
                       </button>
                     </div>
                   </div>
@@ -301,7 +307,7 @@ export const S08_Marketplace: React.FC = () => {
               <div className="flex items-center justify-between border-b border-border pb-3 mb-4">
                 <div>
                   <span className="text-[10px] font-bold uppercase tracking-wider text-teal-700">
-                    Product Specification
+                    {isAr ? 'مواصفات المنتج' : 'Product Specification'}
                   </span>
                   <h3 className="text-base font-bold text-navy-900 mt-0.5">
                     {selectedProduct.title}
@@ -319,7 +325,7 @@ export const S08_Marketplace: React.FC = () => {
               <div
                 onClick={() => setShowPreviewModal(true)}
                 className="h-44 rounded-xl relative overflow-hidden mb-4 border border-border bg-slate-900 group shadow-md cursor-pointer"
-                title="Click to open interactive sample geometry preview"
+                title={isAr ? 'انقر لمعاينة عينة الهندسة المكانية التفاعلية' : 'Click to open interactive sample geometry preview'}
               >
                 <img
                   src={selectedProduct.image || '/products/land_parcels.jpg'}
@@ -330,7 +336,12 @@ export const S08_Marketplace: React.FC = () => {
                 <div className="absolute inset-0 bg-gradient-to-t from-slate-950/90 via-slate-950/20 to-slate-950/40 p-3 flex flex-col justify-between">
                   <div className="flex justify-between items-center text-[10px]">
                     <span className="px-2 py-0.5 rounded-full bg-teal-900/80 backdrop-blur-md text-teal-300 font-mono border border-teal-500/40 shadow-xs">
-                      {selectedProduct.category}
+                      {isAr ? (
+                        selectedProduct.category === 'Datasets' ? 'حزم البيانات' :
+                        selectedProduct.category === 'Services & APIs' ? 'الخدمات والواجهات' :
+                        selectedProduct.category === 'AI outputs' ? 'مخرجات الذكاء الاصطناعي' :
+                        selectedProduct.category
+                      ) : selectedProduct.category}
                     </span>
                     <span className="text-slate-200 text-[10px] font-medium drop-shadow-sm bg-slate-900/70 px-2 py-0.5 rounded-full backdrop-blur-xs">
                       {selectedProduct.coverage.split('(')[0]}
@@ -339,14 +350,16 @@ export const S08_Marketplace: React.FC = () => {
 
                   <div className="flex justify-between items-end">
                     <div>
-                      <span className="text-[10px] text-teal-300 font-mono block">Spatial Product Asset</span>
+                      <span className="text-[10px] text-teal-300 font-mono block">
+                        {isAr ? 'أصل منتج مكاني' : 'Spatial Product Asset'}
+                      </span>
                       <span className="text-xs font-bold text-white drop-shadow-md">
                         {selectedProduct.title}
                       </span>
                     </div>
                     <span className="text-[10px] text-teal-200 font-semibold bg-teal-600/80 hover:bg-teal-500 px-2.5 py-1 rounded-md flex items-center gap-1 transition-colors shadow-xs">
                       <Eye className="w-3.5 h-3.5" />
-                      <span>Inspect</span>
+                      <span>{isAr ? 'معاينة' : 'Inspect'}</span>
                     </span>
                   </div>
                 </div>
@@ -356,19 +369,19 @@ export const S08_Marketplace: React.FC = () => {
               <div className="space-y-3 text-xs">
                 <div className="p-3 rounded-xl bg-canvas border border-border space-y-2">
                   <div className="flex justify-between">
-                    <span className="text-text-muted">Provider</span>
+                    <span className="text-text-muted">{isAr ? 'المزود' : 'Provider'}</span>
                     <span className="font-semibold text-navy-900 text-right">{selectedProduct.provider}</span>
                   </div>
                   <div className="flex justify-between">
-                    <span className="text-text-muted">Licence Model</span>
-                    <span className="font-semibold text-teal-700">{selectedProduct.license}</span>
+                    <span className="text-text-muted">{isAr ? 'نموذج الترخيص' : 'Licence Model'}</span>
+                    <span className="font-semibold text-teal-700">{isAr ? (selectedProduct.license === 'Commercial' ? 'تجاري' : selectedProduct.license) : selectedProduct.license}</span>
                   </div>
                   <div className="flex justify-between">
-                    <span className="text-text-muted">Coverage</span>
+                    <span className="text-text-muted">{isAr ? 'نطاق التغطية' : 'Coverage'}</span>
                     <span className="font-medium text-navy-900 text-right text-[11px]">{selectedProduct.coverage}</span>
                   </div>
                   <div className="flex justify-between">
-                    <span className="text-text-muted">SLA Commitment</span>
+                    <span className="text-text-muted">{isAr ? 'التزام مستوى الخدمة SLA' : 'SLA Commitment'}</span>
                     <span className="font-mono text-emerald-700 text-[11px]">{selectedProduct.sla}</span>
                   </div>
                 </div>
@@ -376,7 +389,7 @@ export const S08_Marketplace: React.FC = () => {
                 {/* Available Access Plans */}
                 <div>
                   <h4 className="text-[11px] font-bold text-navy-900 uppercase tracking-wider mb-2">
-                    Available Access Plans
+                    {isAr ? 'باقات الوصول المتاحة' : 'Available Access Plans'}
                   </h4>
                   <div className="space-y-2">
                     {selectedProduct.plans.map((p) => (
@@ -403,7 +416,7 @@ export const S08_Marketplace: React.FC = () => {
                 className="w-full py-2.5 px-4 rounded-xl bg-teal-600 hover:bg-teal-700 text-white font-semibold text-xs flex items-center justify-center gap-1.5 shadow-xs transition-colors"
               >
                 <LockKeyOpen className="w-4 h-4" />
-                <span>Request Access License</span>
+                <span>{isAr ? 'طلب ترخيص الوصول' : 'Request Access License'}</span>
               </button>
 
               <button
@@ -412,11 +425,11 @@ export const S08_Marketplace: React.FC = () => {
                 className="w-full py-2.5 px-4 rounded-xl border-2 border-teal-600/40 bg-teal-50/80 hover:bg-teal-100 text-teal-900 font-bold text-xs flex items-center justify-center gap-1.5 transition-colors shadow-2xs"
               >
                 <Eye className="w-4 h-4 text-teal-700" />
-                <span>Preview Sample Geometry</span>
+                <span>{isAr ? 'معاينة عينة الهندسة المكانية' : 'Preview Sample Geometry'}</span>
               </button>
 
               <div className="text-[10px] text-text-muted text-center pt-1">
-                Zero fees or currency. Access governed by official DSA authorization.
+                {isAr ? 'بدون رسوم مالية. الوصول محكوم باتفاقية مشاركة البيانات الرسمية DSA.' : 'Zero fees or currency. Access governed by official DSA authorization.'}
               </div>
             </div>
           </div>
@@ -432,7 +445,7 @@ export const S08_Marketplace: React.FC = () => {
               <div>
                 <div className="flex items-center gap-2">
                   <span className="text-[10px] font-bold uppercase tracking-wider text-teal-800 bg-teal-100 px-2.5 py-0.5 rounded-full border border-teal-300">
-                    OGC Sample Inspection
+                    {isAr ? 'معاينة عينة OGC القياسية' : 'OGC Sample Inspection'}
                   </span>
                   <span className="text-xs font-mono text-text-muted">
                     EPSG:32640 (UTM Zone 40N)
@@ -440,14 +453,14 @@ export const S08_Marketplace: React.FC = () => {
                 </div>
                 <h3 className="text-lg font-bold text-navy-900 mt-1 flex items-center gap-2">
                   <span>{selectedProduct.title}</span>
-                  <span className="text-xs font-normal text-text-secondary">— Sample Geometry Preview</span>
+                  <span className="text-xs font-normal text-text-secondary">— {isAr ? 'معاينة عينة الهندسة المكانية' : 'Sample Geometry Preview'}</span>
                 </h3>
               </div>
               <button
                 type="button"
                 onClick={() => setShowPreviewModal(false)}
                 className="p-2 rounded-lg hover:bg-canvas text-text-muted hover:text-navy-900 transition-colors"
-                title="Close (Esc)"
+                title={isAr ? 'إغلاق' : 'Close (Esc)'}
               >
                 <X className="w-5 h-5" />
               </button>
@@ -466,7 +479,7 @@ export const S08_Marketplace: React.FC = () => {
                   }`}
                 >
                   <Eye className="w-4 h-4" />
-                  <span>Interactive Map View</span>
+                  <span>{isAr ? 'عرض الخريطة التفاعلية' : 'Interactive Map View'}</span>
                 </button>
                 <button
                   type="button"
@@ -478,7 +491,7 @@ export const S08_Marketplace: React.FC = () => {
                   }`}
                 >
                   <Code className="w-4 h-4" />
-                  <span>OGC GeoJSON Payload</span>
+                  <span>{isAr ? 'حمولة OGC GeoJSON' : 'OGC GeoJSON Payload'}</span>
                 </button>
                 <button
                   type="button"
@@ -490,7 +503,7 @@ export const S08_Marketplace: React.FC = () => {
                   }`}
                 >
                   <Table className="w-4 h-4" />
-                  <span>Attributes & Schema</span>
+                  <span>{isAr ? 'السمات والمخطط الهيكلي' : 'Attributes & Schema'}</span>
                 </button>
               </div>
 
@@ -502,7 +515,7 @@ export const S08_Marketplace: React.FC = () => {
                     className="px-2.5 py-1 text-xs rounded-lg border border-border bg-white hover:bg-canvas text-navy-900 font-medium flex items-center gap-1"
                   >
                     {copiedJson ? <Check className="w-3.5 h-3.5 text-emerald-600" /> : <Copy className="w-3.5 h-3.5" />}
-                    <span>{copiedJson ? 'Copied!' : 'Copy JSON'}</span>
+                    <span>{copiedJson ? (isAr ? 'تم النسخ!' : 'Copied!') : (isAr ? 'نسخ JSON' : 'Copy JSON')}</span>
                   </button>
                 )}
                 <button
@@ -511,7 +524,7 @@ export const S08_Marketplace: React.FC = () => {
                   className="px-2.5 py-1 text-xs rounded-lg border border-border bg-white hover:bg-canvas text-navy-900 font-medium flex items-center gap-1"
                 >
                   <DownloadSimple className="w-3.5 h-3.5" />
-                  <span>Download .geojson</span>
+                  <span>{isAr ? 'تحميل .geojson' : 'Download .geojson'}</span>
                 </button>
               </div>
             </div>
@@ -529,14 +542,14 @@ export const S08_Marketplace: React.FC = () => {
                       onFeatureClick={(props) => setInspectedFeature(props)}
                       height="100%"
                     />
-                    <div className="absolute bottom-3 left-3 z-[1000] bg-white/90 backdrop-blur-xs px-2.5 py-1 rounded-md text-[11px] font-medium text-navy-900 border border-border shadow-xs pointer-events-none">
-                      Click any polygon to inspect spatial attributes
+                    <div className="absolute bottom-3 left-3 rtl:left-auto rtl:right-3 z-[1000] bg-white/90 backdrop-blur-xs px-2.5 py-1 rounded-md text-[11px] font-medium text-navy-900 border border-border shadow-xs pointer-events-none">
+                      {isAr ? 'انقر على أي مضلع لمعاينة السمات المكانية' : 'Click any polygon to inspect spatial attributes'}
                     </div>
                   </div>
                 )}
 
                 {previewTab === 'json' && (
-                  <div className="flex-1 p-4 overflow-auto font-mono text-xs bg-slate-950 text-emerald-400 leading-relaxed selection:bg-teal-700 selection:text-white">
+                  <div className="flex-1 p-4 overflow-auto font-mono text-xs bg-slate-950 text-emerald-400 leading-relaxed selection:bg-teal-700 selection:text-white" dir="ltr">
                     <pre>{JSON.stringify(sampleData.geoJson, null, 2)}</pre>
                   </div>
                 )}
@@ -544,24 +557,24 @@ export const S08_Marketplace: React.FC = () => {
                 {previewTab === 'schema' && (
                   <div className="flex-1 p-6 overflow-auto bg-white">
                     <h4 className="text-xs font-bold text-navy-900 uppercase tracking-wider mb-3">
-                      Feature Schema & Attribute Definitions
+                      {isAr ? 'مخطط المعلم وتعريفات السمات' : 'Feature Schema & Attribute Definitions'}
                     </h4>
                     <div className="border border-border rounded-xl overflow-hidden text-xs">
-                      <table className="w-full text-left">
+                      <table className="w-full text-left rtl:text-right">
                         <thead className="bg-canvas border-b border-border text-[11px] font-bold text-text-secondary">
                           <tr>
-                            <th className="p-3">Attribute Name</th>
-                            <th className="p-3">Data Type</th>
-                            <th className="p-3">FGDS Directives</th>
-                            <th className="p-3">Sample Value</th>
+                            <th className="p-3">{isAr ? 'اسم السمة' : 'Attribute Name'}</th>
+                            <th className="p-3">{isAr ? 'نوع البيانات' : 'Data Type'}</th>
+                            <th className="p-3">{isAr ? 'توجيهات FGDS' : 'FGDS Directives'}</th>
+                            <th className="p-3">{isAr ? 'القيمة النموذجية' : 'Sample Value'}</th>
                           </tr>
                         </thead>
                         <tbody className="divide-y divide-border">
                           {inspectedFeature && Object.entries(inspectedFeature).map(([key, val]) => (
                             <tr key={key} className="hover:bg-canvas-subtle">
                               <td className="p-3 font-mono font-semibold text-navy-900">{key}</td>
-                              <td className="p-3 text-text-secondary font-mono">{typeof val === 'number' ? 'Float / Integer' : 'String / Text'}</td>
-                              <td className="p-3 text-emerald-700 font-medium">Authoritative FGDS Standard</td>
+                              <td className="p-3 text-text-secondary font-mono">{typeof val === 'number' ? (isAr ? 'رقم عشري / صحيح' : 'Float / Integer') : (isAr ? 'نص / سلسلة' : 'String / Text')}</td>
+                              <td className="p-3 text-emerald-700 font-medium">{isAr ? 'معيار FGDS المعتمد' : 'Authoritative FGDS Standard'}</td>
                               <td className="p-3 font-mono text-text-primary">{String(val)}</td>
                             </tr>
                           ))}
@@ -573,11 +586,11 @@ export const S08_Marketplace: React.FC = () => {
               </div>
 
               {/* Right: Inspected Feature Details Panel */}
-              <div className="w-full md:w-80 border-t md:border-t-0 md:border-l border-border bg-white p-5 flex flex-col justify-between overflow-y-auto max-h-[460px]">
+              <div className="w-full md:w-80 border-t md:border-t-0 md:border-l rtl:md:border-l-0 rtl:md:border-r border-border bg-white p-5 flex flex-col justify-between overflow-y-auto max-h-[460px]">
                 <div>
                   <div className="flex items-center justify-between pb-2 mb-3 border-b border-border">
                     <span className="text-[11px] font-bold text-navy-900 uppercase tracking-wider">
-                      Selected Feature
+                      {isAr ? 'المعلم المحدد' : 'Selected Feature'}
                     </span>
                     <span className="text-[10px] px-2 py-0.5 rounded bg-teal-50 text-teal-800 font-mono font-semibold">
                       {sampleData.featureTypeName}
@@ -599,7 +612,7 @@ export const S08_Marketplace: React.FC = () => {
                     </div>
                   ) : (
                     <div className="text-center py-10 text-xs text-text-muted">
-                      Click any polygon on the map to inspect its attributes.
+                      {isAr ? 'انقر على أي مضلع على الخريطة لمعاينة سماته.' : 'Click any polygon on the map to inspect its attributes.'}
                     </div>
                   )}
                 </div>
@@ -614,10 +627,10 @@ export const S08_Marketplace: React.FC = () => {
                     className="w-full py-2.5 px-4 rounded-xl bg-teal-600 hover:bg-teal-700 text-white font-semibold text-xs flex items-center justify-center gap-1.5 shadow-xs transition-colors"
                   >
                     <LockKeyOpen className="w-4 h-4" />
-                    <span>Proceed to Access Request</span>
+                    <span>{isAr ? 'المتابعة إلى طلب الوصول' : 'Proceed to Access Request'}</span>
                   </button>
                   <div className="text-[10px] text-text-muted text-center">
-                    Sample clip adheres to FGDS Spec v2027.09
+                    {isAr ? 'تلتزم عينة البيانات بمواصفات FGDS الإصدار v2027.09' : 'Sample clip adheres to FGDS Spec v2027.09'}
                   </div>
                 </div>
               </div>

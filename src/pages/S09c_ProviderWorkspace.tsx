@@ -216,20 +216,20 @@ export const S09c_ProviderWorkspace: React.FC = () => {
             <table className="w-full text-left rtl:text-right text-xs">
               <thead className="bg-canvas border-b border-border text-[11px] uppercase tracking-wider text-text-secondary">
                 <tr>
-                  <th className="p-3.5">Product Title</th>
-                  <th className="p-3.5">Version</th>
-                  <th className="p-3.5">Publishing Stage</th>
-                  <th className="p-3.5">Subscribers</th>
-                  <th className="p-3.5">Usage in 30 Days</th>
-                  <th className="p-3.5 text-right">Actions</th>
+                  <th className="p-3.5">{isAr ? 'عنوان المنتج' : 'Product Title'}</th>
+                  <th className="p-3.5">{isAr ? 'الإصدار' : 'Version'}</th>
+                  <th className="p-3.5">{isAr ? 'مرحلة النشر' : 'Publishing Stage'}</th>
+                  <th className="p-3.5">{isAr ? 'المشتركون' : 'Subscribers'}</th>
+                  <th className="p-3.5">{isAr ? 'الاستخدام في 30 يوماً' : 'Usage in 30 Days'}</th>
+                  <th className="p-3.5 text-right rtl:text-left">{isAr ? 'الإجراءات' : 'Actions'}</th>
                 </tr>
               </thead>
               <tbody className="divide-y divide-border">
                 {myProviderProducts.map((p) => (
                   <tr key={p.id} className="hover:bg-canvas transition-colors">
                     <td className="p-3.5">
-                      <div className="font-bold text-navy-900">{p.title}</div>
-                      <div className="text-[10px] text-text-secondary">Cadastre & Urban Infrastructure</div>
+                      <div className="font-bold text-navy-900">{isAr ? (p.id === 'p-1' ? 'المجسمات ثلاثية الأبعاد للمباني' : p.id === 'p-2' ? 'واجهة برمجة قطع الأراضي' : p.id === 'p-3' ? 'مؤشر سرعة وتدفق شبكة الطرق' : 'مناطق تهدئة عبور المشاة') : p.title}</div>
+                      <div className="text-[10px] text-text-secondary">{isAr ? 'السجل العقاري والبنية التحتية الحضرية' : 'Cadastre & Urban Infrastructure'}</div>
                     </td>
                     <td className="p-3.5 font-mono text-text-secondary">{p.version}</td>
                     <td className="p-3.5">
@@ -240,31 +240,31 @@ export const S09c_ProviderWorkspace: React.FC = () => {
                           ? 'bg-blue-50 text-blue-700 border border-blue-200'
                           : 'bg-amber-50 text-amber-700 border border-amber-200'
                       }`}>
-                        {p.stage}
+                        {isAr ? (p.stage === 'Published' ? 'منشور' : p.stage === 'Approval' ? 'الاعتمادات' : 'فحص الجودة') : p.stage}
                       </span>
                     </td>
                     <td className="p-3.5 font-mono font-bold text-navy-900">
-                      {p.subscribers > 0 ? `${p.subscribers} entities` : '—'}
+                      {p.subscribers > 0 ? `${p.subscribers} ${isAr ? 'جهات' : 'entities'}` : '—'}
                     </td>
                     <td className="p-3.5">
-                      <span className="font-mono text-navy-900 font-semibold">{p.usage30d}</span>
+                      <span className="font-mono text-navy-900 font-semibold">{isAr ? p.usage30d.replace('calls', 'طلب').replace('In Review', 'قيد المراجعة').replace('Testing', 'قيد الاختبار') : p.usage30d}</span>
                       {p.growth !== 'New' && (
                         <span className="text-emerald-600 text-[10px] font-semibold ml-1.5">{p.growth}</span>
                       )}
                     </td>
-                    <td className="p-3.5 text-right">
-                      <div className="flex items-center justify-end gap-2">
+                    <td className="p-3.5 text-right rtl:text-left">
+                      <div className="flex items-center justify-end rtl:justify-start gap-2">
                         <Link
                           to={`/catalogue/land-parcels`}
                           className="px-2.5 py-1 rounded-md bg-canvas hover:bg-canvas-subtle border border-border text-navy-900 text-[11px] font-medium"
                         >
-                          View
+                          {isAr ? 'عرض' : 'View'}
                         </Link>
                         <Link
                           to={`/workspace/publishing`}
                           className="px-2.5 py-1 rounded-md bg-white hover:bg-canvas border border-border text-blue-600 text-[11px] font-medium"
                         >
-                          Pipeline
+                          {isAr ? 'المسار' : 'Pipeline'}
                         </Link>
                       </div>
                     </td>
@@ -282,15 +282,15 @@ export const S09c_ProviderWorkspace: React.FC = () => {
             <div>
               <div className="flex flex-wrap items-center gap-2.5">
                 <h3 className="text-base font-bold text-navy-900">
-                  Usage & Revenue-Share Governance Report
+                  {isAr ? 'تقرير حوكمة الاستخدام وتقاسم الإيرادات' : 'Usage & Revenue-Share Governance Report'}
                 </h3>
                 <span className="inline-flex items-center gap-1.5 text-[11px] font-mono text-emerald-800 bg-emerald-50 px-3 py-1 rounded-full border border-emerald-200 font-semibold shadow-2xs">
                   <ShieldCheck className="w-3.5 h-3.5 text-emerald-600" />
-                  Per approved revenue-sharing model
+                  {isAr ? 'وفق نموذج تقاسم الإيرادات المعتمد' : 'Per approved revenue-sharing model'}
                 </span>
               </div>
               <p className="text-xs text-text-secondary mt-1">
-                Audited monthly distribution index under DMT inter-governmental framework (H1–H2 2027)
+                {isAr ? 'مؤشر التوزيع الشهري المدقق وفق إطار العمل الحكومي المشترك لـ DMT (النصف الأول والثاني 2027)' : 'Audited monthly distribution index under DMT inter-governmental framework (H1–H2 2027)'}
               </p>
             </div>
 
@@ -306,7 +306,7 @@ export const S09c_ProviderWorkspace: React.FC = () => {
                       : 'text-text-secondary hover:text-navy-900'
                   }`}
                 >
-                  Combined View
+                  {isAr ? 'عرض مدمج' : 'Combined View'}
                 </button>
                 <button
                   type="button"
@@ -317,7 +317,7 @@ export const S09c_ProviderWorkspace: React.FC = () => {
                       : 'text-text-secondary hover:text-navy-900'
                   }`}
                 >
-                  API Volume
+                  {isAr ? 'حجم API' : 'API Volume'}
                 </button>
                 <button
                   type="button"
@@ -328,17 +328,17 @@ export const S09c_ProviderWorkspace: React.FC = () => {
                       : 'text-text-secondary hover:text-navy-900'
                   }`}
                 >
-                  Governance Index
+                  {isAr ? 'مؤشر الحوكمة' : 'Governance Index'}
                 </button>
               </div>
 
               <button
                 type="button"
-                onClick={() => alert('Exporting DMT Governance & Revenue Settlement Audit Statement (PDF)...')}
+                onClick={() => alert(isAr ? 'جاري تصدير بيان حوكمة وتسوية إيرادات DMT (PDF)...' : 'Exporting DMT Governance & Revenue Settlement Audit Statement (PDF)...')}
                 className="px-3.5 py-1.5 rounded-xl border border-border bg-white hover:bg-canvas text-navy-900 text-xs font-semibold flex items-center gap-1.5 shadow-xs transition-colors"
               >
                 <DownloadSimple className="w-3.5 h-3.5 text-text-secondary" />
-                <span>Export Statement</span>
+                <span>{isAr ? 'تصدير البيان' : 'Export Statement'}</span>
               </button>
             </div>
           </div>
@@ -347,46 +347,46 @@ export const S09c_ProviderWorkspace: React.FC = () => {
           <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
             <div className="p-3.5 rounded-xl bg-canvas border border-border">
               <div className="flex items-center justify-between text-[11px] text-text-secondary">
-                <span>Total YTD Consumed</span>
+                <span>{isAr ? 'إجمالي الاستهلاك حتى تاريخه' : 'Total YTD Consumed'}</span>
                 <span className="text-emerald-700 font-semibold bg-emerald-50 px-1.5 py-0.5 rounded text-[10px] flex items-center gap-0.5">
                   <TrendUp className="w-3 h-3" /> +28.4%
                 </span>
               </div>
-              <div className="text-lg font-bold text-navy-900 mt-1 font-mono">5.38M Requests</div>
-              <div className="text-[10px] text-text-muted mt-0.5">Across 4 published DMT products</div>
+              <div className="text-lg font-bold text-navy-900 mt-1 font-mono">{isAr ? '5.38 مليون طلب' : '5.38M Requests'}</div>
+              <div className="text-[10px] text-text-muted mt-0.5">{isAr ? 'عبر 4 منتجات منشورة لـ DMT' : 'Across 4 published DMT products'}</div>
             </div>
 
             <div className="p-3.5 rounded-xl bg-canvas border border-border">
               <div className="flex items-center justify-between text-[11px] text-text-secondary">
-                <span>DMT Governance Score</span>
+                <span>{isAr ? 'درجة حوكمة DMT' : 'DMT Governance Score'}</span>
                 <span className="text-blue-700 font-semibold bg-blue-50 px-1.5 py-0.5 rounded text-[10px]">
-                  Tier 1
+                  {isAr ? 'المستوى 1' : 'Tier 1'}
                 </span>
               </div>
               <div className="text-lg font-bold text-navy-900 mt-1 font-mono">94.8 / 100</div>
-              <div className="text-[10px] text-text-muted mt-0.5">Max revenue allocation index</div>
+              <div className="text-[10px] text-text-muted mt-0.5">{isAr ? 'الحد الأقصى لمؤشر توزيع الإيرادات' : 'Max revenue allocation index'}</div>
             </div>
 
             <div className="p-3.5 rounded-xl bg-canvas border border-border">
               <div className="flex items-center justify-between text-[11px] text-text-secondary">
-                <span>Data Egress Bandwidth</span>
+                <span>{isAr ? 'حجم البيانات الصادرة' : 'Data Egress Bandwidth'}</span>
                 <span className="text-teal-700 font-semibold bg-teal-50 px-1.5 py-0.5 rounded text-[10px]">
-                  Peak Sep
+                  {isAr ? 'ذروة سبتمبر' : 'Peak Sep'}
                 </span>
               </div>
               <div className="text-lg font-bold text-navy-900 mt-1 font-mono">68.5 TB</div>
-              <div className="text-[10px] text-text-muted mt-0.5">High-speed OGC 3D Tile stream</div>
+              <div className="text-[10px] text-text-muted mt-0.5">{isAr ? 'بث سريع لبلاطات OGC ثلاثية الأبعاد' : 'High-speed OGC 3D Tile stream'}</div>
             </div>
 
             <div className="p-3.5 rounded-xl bg-canvas border border-border">
               <div className="flex items-center justify-between text-[11px] text-text-secondary">
-                <span>Treasury Settlement</span>
+                <span>{isAr ? 'التسوية المالية' : 'Treasury Settlement'}</span>
                 <span className="text-emerald-700 font-semibold bg-emerald-50 px-1.5 py-0.5 rounded text-[10px]">
-                  Audited
+                  {isAr ? 'مدقق ومراجع' : 'Audited'}
                 </span>
               </div>
-              <div className="text-lg font-bold text-navy-900 mt-1 font-mono">100% Cleared</div>
-              <div className="text-[10px] text-text-muted mt-0.5">Circular No. 4/2026 Compliant</div>
+              <div className="text-lg font-bold text-navy-900 mt-1 font-mono">{isAr ? '100% تمت التسوية' : '100% Cleared'}</div>
+              <div className="text-[10px] text-text-muted mt-0.5">{isAr ? 'مطابق للتعميم رقم 4/2026' : 'Circular No. 4/2026 Compliant'}</div>
             </div>
           </div>
 
@@ -398,24 +398,24 @@ export const S09c_ProviderWorkspace: React.FC = () => {
                 {(selectedMetric === 'combined' || selectedMetric === 'volume') && (
                   <div className="flex items-center gap-2">
                     <span className="w-3.5 h-3.5 rounded bg-gradient-to-t from-teal-600 to-teal-400 inline-block shadow-xs"></span>
-                    <span className="text-navy-900 font-medium">Monthly API Volume (Requests)</span>
+                    <span className="text-navy-900 font-medium">{isAr ? 'حجم استدعاءات API الشهري (طلبات)' : 'Monthly API Volume (Requests)'}</span>
                   </div>
                 )}
                 {(selectedMetric === 'combined' || selectedMetric === 'index') && (
                   <div className="flex items-center gap-2">
                     <span className="w-4 h-1 rounded-full bg-blue-600 inline-block"></span>
-                    <span className="text-navy-900 font-medium">Distribution Governance Score</span>
+                    <span className="text-navy-900 font-medium">{isAr ? 'مؤشر حوكمة التوزيع' : 'Distribution Governance Score'}</span>
                   </div>
                 )}
                 <div className="flex items-center gap-2">
                   <span className="w-4 h-0.5 border-t-2 border-dashed border-amber-500 inline-block"></span>
-                  <span className="text-text-secondary font-mono text-[11px]">SLA Baseline: 750k</span>
+                  <span className="text-text-secondary font-mono text-[11px]">{isAr ? 'الحد الأساسي لاتفاقية الخدمة: 750 ألف' : 'SLA Baseline: 750k'}</span>
                 </div>
               </div>
 
               <div className="text-[11px] text-text-muted font-mono flex items-center gap-1.5">
                 <CalendarBlank className="w-3.5 h-3.5 text-text-secondary" />
-                <span>Audited DMT Billing Cycle (6 Months)</span>
+                <span>{isAr ? 'دورة فوترة DMT المدققة (6 أشهر)' : 'Audited DMT Billing Cycle (6 Months)'}</span>
               </div>
             </div>
 
@@ -446,7 +446,7 @@ export const S09c_ProviderWorkspace: React.FC = () => {
                   style={{ top: '42%' }}
                 >
                   <span className="bg-amber-50 border border-amber-300 text-amber-800 text-[9px] font-mono font-semibold px-2 py-0.5 rounded shadow-2xs">
-                    750k Target Threshold
+                    {isAr ? 'الحد المستهدف 750 ألف' : '750k Target Threshold'}
                   </span>
                 </div>
               )}
@@ -600,48 +600,55 @@ export const S09c_ProviderWorkspace: React.FC = () => {
                   <div className="flex items-center gap-2">
                     <span className="w-2.5 h-2.5 rounded-full bg-teal-500 inline-block animate-ping"></span>
                     <span className="text-xs font-bold text-navy-900">
-                      Audit Snapshot: {monthlyGovernanceData[hoveredIdx].month}
+                      {isAr ? 'ملخص التدقيق: ' : 'Audit Snapshot: '}{monthlyGovernanceData[hoveredIdx].month}
                     </span>
                     <span className="text-[10px] text-emerald-700 font-semibold bg-emerald-50 px-2 py-0.5 rounded border border-emerald-200">
-                      Settled & Verified
+                      {isAr ? 'تمت التسوية والتحقق' : 'Settled & Verified'}
                     </span>
                   </div>
                   <span className="text-[11px] font-mono text-text-muted">
-                    Inter-Governmental Settlement Clearing ID: #DMT-2027-0{hoveredIdx + 4}
+                    {isAr ? 'معرف مقاصة التسوية بين الجهات: ' : 'Inter-Governmental Settlement Clearing ID: '}#DMT-2027-0{hoveredIdx + 4}
                   </span>
                 </div>
 
                 <div className="grid grid-cols-2 md:grid-cols-4 gap-4 pt-3 text-xs">
                   <div>
-                    <div className="text-text-secondary text-[11px]">Audited API Volume</div>
+                    <div className="text-text-secondary text-[11px]">{isAr ? 'حجم استدعاءات API المدقق' : 'Audited API Volume'}</div>
                     <div className="font-bold text-navy-900 font-mono text-sm mt-0.5">
-                      {monthlyGovernanceData[hoveredIdx].calls.toLocaleString()} calls
+                      {monthlyGovernanceData[hoveredIdx].calls.toLocaleString()} {isAr ? 'طلب' : 'calls'}
                     </div>
                     <div className="text-[10px] text-emerald-600 font-semibold">
-                      MoM Growth: {monthlyGovernanceData[hoveredIdx].growth}
+                      {isAr ? 'النمو الشهري: ' : 'MoM Growth: '}{monthlyGovernanceData[hoveredIdx].growth}
                     </div>
                   </div>
 
                   <div>
-                    <div className="text-text-secondary text-[11px]">DMT Revenue Share Index</div>
+                    <div className="text-text-secondary text-[11px]">{isAr ? 'مؤشر تقاسم إيرادات DMT' : 'DMT Revenue Share Index'}</div>
                     <div className="font-bold text-navy-900 font-mono text-sm mt-0.5">
-                      {monthlyGovernanceData[hoveredIdx].revenueScore} / 100 pts
+                      {monthlyGovernanceData[hoveredIdx].revenueScore} / 100 {isAr ? 'نقطة' : 'pts'}
                     </div>
-                    <div className="text-[10px] text-blue-600 font-semibold">Tier-1 Revenue Multiplier</div>
+                    <div className="text-[10px] text-blue-600 font-semibold">{isAr ? 'مضاعف إيرادات المستوى الأول' : 'Tier-1 Revenue Multiplier'}</div>
                   </div>
 
                   <div>
-                    <div className="text-text-secondary text-[11px]">Network Egress Volume</div>
+                    <div className="text-text-secondary text-[11px]">{isAr ? 'حجم البيانات الصادرة عبر الشبكة' : 'Network Egress Volume'}</div>
                     <div className="font-bold text-navy-900 font-mono text-sm mt-0.5">
                       {monthlyGovernanceData[hoveredIdx].egressTB}
                     </div>
-                    <div className="text-[10px] text-text-muted">OGC 3D Tile streaming</div>
+                    <div className="text-[10px] text-text-muted">{isAr ? 'بث بلاطات OGC 3D' : 'OGC 3D Tile streaming'}</div>
                   </div>
 
                   <div>
-                    <div className="text-text-secondary text-[11px]">Top Subscribed Entity</div>
+                    <div className="text-text-secondary text-[11px]">{isAr ? 'أعلى الجهات اشتراكاً' : 'Top Subscribed Entity'}</div>
                     <div className="font-bold text-navy-900 text-sm mt-0.5 truncate">
-                      {monthlyGovernanceData[hoveredIdx].topAgency}
+                      {isAr ? (
+                        monthlyGovernanceData[hoveredIdx].topAgency === 'Abu Dhabi Police (GHQ)' ? 'القيادة العامة لشرطة أبوظبي' :
+                        monthlyGovernanceData[hoveredIdx].topAgency === 'Dept of Energy (DoE)' ? 'دائرة الطاقة (DoE)' :
+                        monthlyGovernanceData[hoveredIdx].topAgency === 'DoH Healthcare GIS' ? 'نظم معلومات صحة أبوظبي (DoH)' :
+                        monthlyGovernanceData[hoveredIdx].topAgency === 'Environment Agency (EAD)' ? 'هيئة البيئة — أبوظبي (EAD)' :
+                        monthlyGovernanceData[hoveredIdx].topAgency === 'Integrated Transport (ITC)' ? 'مركز النقل المتكامل (ITC)' :
+                        'هيئة أبوظبي للدفاع المدني'
+                      ) : monthlyGovernanceData[hoveredIdx].topAgency}
                     </div>
                     <div className="text-[10px] text-emerald-600 font-semibold">
                       {monthlyGovernanceData[hoveredIdx].compliance}
@@ -655,10 +662,10 @@ export const S09c_ProviderWorkspace: React.FC = () => {
             <div className="flex flex-col sm:flex-row sm:items-center justify-between text-[11px] text-text-muted border-t border-border/80 pt-3 gap-2">
               <div className="flex items-center gap-1.5">
                 <ShieldCheck className="w-4 h-4 text-emerald-600 shrink-0" />
-                <span>Audited under Abu Dhabi Government Financial Circular No. 4/2026</span>
+                <span>{isAr ? 'مدقق ومراجع وفق التعميم المالي لحكومة أبوظبي رقم 4/2026' : 'Audited under Abu Dhabi Government Financial Circular No. 4/2026'}</span>
               </div>
               <span className="font-semibold text-navy-900 font-mono">
-                Total YTD Consumed Volume: 5.38M Requests
+                {isAr ? 'إجمالي الحجم المستهلك حتى تاريخه: 5.38 مليون طلب' : 'Total YTD Consumed Volume: 5.38M Requests'}
               </span>
             </div>
           </div>

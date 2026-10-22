@@ -137,10 +137,10 @@ export const Header: React.FC = () => {
                   <div className="absolute right-0 rtl:left-0 rtl:right-auto mt-2 w-72 bg-white rounded-xl shadow-2xl border border-border py-2 z-[10000] animate-in fade-in zoom-in-95 duration-150">
                     <div className="px-4 py-2 border-b border-border bg-canvas/50">
                       <div className="text-[11px] font-semibold text-text-secondary uppercase tracking-wider">
-                        Demonstration Personas
+                        {language === 'ar' ? 'المستخدمون للتجربة' : 'Demonstration Personas'}
                       </div>
                       <div className="text-xs text-text-primary mt-1 font-medium">
-                        Current: <span className="text-blue-600 font-bold">{currentUser.name}</span>
+                        {language === 'ar' ? 'الحالي: ' : 'Current: '}<span className="text-blue-600 font-bold">{currentUser.name}</span>
                       </div>
                       <div className="text-[10px] text-text-secondary">{currentUser.entity}</div>
                     </div>
@@ -154,8 +154,8 @@ export const Header: React.FC = () => {
                       >
                         <span className="w-6 h-6 rounded-full bg-blue-600 text-white font-bold text-[10px] flex items-center justify-center shrink-0">KM</span>
                         <div>
-                          <div>Khalid M. (DMT Data Steward)</div>
-                          <div className="text-[10px] text-text-secondary font-normal">Full Governance & Publishing Access</div>
+                          <div>{language === 'ar' ? 'خالد م. (مشرف بيانات DMT)' : 'Khalid M. (DMT Data Steward)'}</div>
+                          <div className="text-[10px] text-text-secondary font-normal">{language === 'ar' ? 'صلاحيات كاملة للحوكمة والنشر' : 'Full Governance & Publishing Access'}</div>
                         </div>
                       </button>
 
@@ -167,8 +167,8 @@ export const Header: React.FC = () => {
                       >
                         <span className="w-6 h-6 rounded-full bg-emerald-600 text-white font-bold text-[10px] flex items-center justify-center shrink-0">FA</span>
                         <div>
-                          <div>Fatima A. (Spatial Quality Officer)</div>
-                          <div className="text-[10px] text-text-secondary font-normal">Quality Gateway & Validation</div>
+                          <div>{language === 'ar' ? 'فاطمة أ. (مسؤول جودة البيانات المكانية)' : 'Fatima A. (Spatial Quality Officer)'}</div>
+                          <div className="text-[10px] text-text-secondary font-normal">{language === 'ar' ? 'بوابة الجودة والتحقق والاعتماد' : 'Quality Gateway & Validation'}</div>
                         </div>
                       </button>
 
@@ -180,8 +180,8 @@ export const Header: React.FC = () => {
                       >
                         <span className="w-6 h-6 rounded-full bg-teal-600 text-white font-bold text-[10px] flex items-center justify-center shrink-0">OR</span>
                         <div>
-                          <div>Omar R. (Approved Partner)</div>
-                          <div className="text-[10px] text-text-secondary font-normal">Marketplace Buyer & Entitlements</div>
+                          <div>{language === 'ar' ? 'عمر ر. (شريك تجاري معتمد)' : 'Omar R. (Approved Partner)'}</div>
+                          <div className="text-[10px] text-text-secondary font-normal">{language === 'ar' ? 'مشتري في سوق البيانات والتراخيص' : 'Marketplace Buyer & Entitlements'}</div>
                         </div>
                       </button>
 
@@ -193,8 +193,8 @@ export const Header: React.FC = () => {
                       >
                         <span className="w-6 h-6 rounded-full bg-slate-500 text-white font-bold text-[10px] flex items-center justify-center shrink-0">PV</span>
                         <div>
-                          <div>Public Visitor</div>
-                          <div className="text-[10px] text-text-secondary font-normal">Open Data & Public Catalogue</div>
+                          <div>{language === 'ar' ? 'زائر عام' : 'Public Visitor'}</div>
+                          <div className="text-[10px] text-text-secondary font-normal">{language === 'ar' ? 'البيانات المفتوحة والفهرس العام' : 'Open Data & Public Catalogue'}</div>
                         </div>
                       </button>
                     </div>

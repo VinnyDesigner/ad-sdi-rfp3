@@ -122,32 +122,34 @@ export const S09a_MarketplaceRequest: React.FC = () => {
                 {currentStep === 1 && (
                   <div className="space-y-4">
                     <h2 className="text-sm font-bold text-navy-900 uppercase tracking-wider">
-                      Step 1: Select Applicable Access Model
+                      {isAr ? 'الخطوة 1: تحديد نموذج الوصول المعمول به' : 'Step 1: Select Applicable Access Model'}
                     </h2>
                     <p className="text-xs text-text-secondary">
-                      Select your operational tier. No currency or subscription fees are processed directly online.
+                      {isAr ? 'حدد مستوى التشغيل المطلوب. لا يتم فرض أو معالجة رسوم مالية مباشرة عبر الإنترنت.' : 'Select your operational tier. No currency or subscription fees are processed directly online.'}
                     </p>
 
                     <div className="space-y-3 pt-2">
                       {[
                         {
-                          title: 'Commercial — subscription',
-                          badge: 'Approved Partner Tier',
-                          desc: 'For vetted enterprise contractors, urban planning firms, and academic research institutions.',
-                          volume: 'Up to 50,000 API requests / month with 99.9% uptime SLA.',
+                          id: 'Commercial — subscription',
+                          title: isAr ? 'تجاري — اشتراك' : 'Commercial — subscription',
+                          badge: isAr ? 'فئة الشريك المعتمد' : 'Approved Partner Tier',
+                          desc: isAr ? 'للشركات المعتمدة، ومكاتب التخطيط العمراني، ومراكز الأبحاث الأكاديمية.' : 'For vetted enterprise contractors, urban planning firms, and academic research institutions.',
+                          volume: isAr ? 'حتى 50,000 استدعاء API / شهر مع اتفاقية مستوى خدمة 99.9%.' : 'Up to 50,000 API requests / month with 99.9% uptime SLA.',
                         },
                         {
-                          title: 'Government Entity — included',
-                          badge: 'Inter-Agency Protocol',
-                          desc: 'Full internal access under Dubai/Abu Dhabi Government Inter-Agency Data Sharing Protocol.',
-                          volume: 'Unlimited requests for official government mandates.',
+                          id: 'Government Entity — included',
+                          title: isAr ? 'جهة حكومية — مشمول' : 'Government Entity — included',
+                          badge: isAr ? 'بروتوكول بين الجهات' : 'Inter-Agency Protocol',
+                          desc: isAr ? 'وصول داخلي كامل بموجب بروتوكول مشاركة البيانات بين الجهات الحكومية في أبوظبي.' : 'Full internal access under Dubai/Abu Dhabi Government Inter-Agency Data Sharing Protocol.',
+                          volume: isAr ? 'طلبات غير محدودة للمهام والتكليفات الحكومية الرسمية.' : 'Unlimited requests for official government mandates.',
                         },
                       ].map((plan) => (
                         <div
-                          key={plan.title}
-                          onClick={() => setSelectedPlan(plan.title)}
+                          key={plan.id}
+                          onClick={() => setSelectedPlan(plan.id)}
                           className={`p-4 rounded-xl border transition-all cursor-pointer ${
-                            selectedPlan === plan.title
+                            selectedPlan === plan.id
                               ? 'border-teal-600 bg-teal-50/40 ring-2 ring-teal-600/20'
                               : 'border-border bg-white hover:border-slate-300'
                           }`}
@@ -170,43 +172,43 @@ export const S09a_MarketplaceRequest: React.FC = () => {
                 {currentStep === 2 && (
                   <div className="space-y-4 text-xs">
                     <h2 className="text-sm font-bold text-navy-900 uppercase tracking-wider">
-                      Step 2: Intended Use & Legal Agreements
+                      {isAr ? 'الخطوة 2: الاستخدام المستهدف والاتفاقيات القانونية' : 'Step 2: Intended Use & Legal Agreements'}
                     </h2>
 
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                       <div>
-                        <label className="block text-text-muted font-bold mb-1">Applying Organization</label>
+                        <label className="block text-text-muted font-bold mb-1">{isAr ? 'الجهة المتقدمة بالطلب' : 'Applying Organization'}</label>
                         <div className="flex items-center gap-2 p-2.5 rounded-lg bg-canvas border border-border">
                           <Buildings className="w-4 h-4 text-text-secondary" />
-                          <span className="font-semibold text-navy-900">{organization}</span>
+                          <span className="font-semibold text-navy-900">{isAr ? 'شركة الدار للشركاء الجيومكانيين' : organization}</span>
                         </div>
                       </div>
 
                       <div>
-                        <label className="block text-text-muted font-bold mb-1">Verification Status</label>
+                        <label className="block text-text-muted font-bold mb-1">{isAr ? 'حالة التحقق' : 'Verification Status'}</label>
                         <div className="flex items-center gap-1.5 p-2.5 rounded-lg bg-emerald-50 border border-emerald-200 text-emerald-800 font-semibold">
                           <ShieldCheck className="w-4 h-4 text-emerald-600" />
-                          <span>Verified Commercial Contractor (AD-SDI Registry)</span>
+                          <span>{isAr ? 'مقاول تجاري معتمد (سجل AD-SDI)' : 'Verified Commercial Contractor (AD-SDI Registry)'}</span>
                         </div>
                       </div>
                     </div>
 
                     <div>
-                      <label className="block text-navy-900 font-semibold mb-1">Intended Use Classification</label>
+                      <label className="block text-navy-900 font-semibold mb-1">{isAr ? 'تصنيف الاستخدام المستهدف' : 'Intended Use Classification'}</label>
                       <select
                         value={intendedUse}
                         onChange={(e) => setIntendedUse(e.target.value)}
                         className="w-full p-2 bg-canvas border border-border rounded-lg text-navy-900 font-medium"
                       >
-                        <option value="Urban planning">Urban planning & spatial simulation</option>
-                        <option value="Environmental impact">Environmental impact & resilience study</option>
-                        <option value="Infrastructure engineering">Infrastructure engineering & utilities</option>
-                        <option value="Academic research">Academic research & non-profit analysis</option>
+                        <option value="Urban planning">{isAr ? 'التخطيط العمراني والمحاكاة المكانية' : 'Urban planning & spatial simulation'}</option>
+                        <option value="Environmental impact">{isAr ? 'تقييم الأثر البيئي ودراسة الاستدامة' : 'Environmental impact & resilience study'}</option>
+                        <option value="Infrastructure engineering">{isAr ? 'هندسة البنية التحتية والمرافق' : 'Infrastructure engineering & utilities'}</option>
+                        <option value="Academic research">{isAr ? 'البحث الأكاديمي والتحليل غير الربحي' : 'Academic research & non-profit analysis'}</option>
                       </select>
                     </div>
 
                     <div>
-                      <label className="block text-navy-900 font-semibold mb-1">Project Description & Scope</label>
+                      <label className="block text-navy-900 font-semibold mb-1">{isAr ? 'وصف المشروع ونطاق العمل' : 'Project Description & Scope'}</label>
                       <textarea
                         rows={3}
                         value={projectDescription}
@@ -216,7 +218,7 @@ export const S09a_MarketplaceRequest: React.FC = () => {
                     </div>
 
                     <div>
-                      <label className="block text-navy-900 font-semibold mb-1">Expected Monthly Volume</label>
+                      <label className="block text-navy-900 font-semibold mb-1">{isAr ? 'الحجم الشهري المتوقع' : 'Expected Monthly Volume'}</label>
                       <input
                         type="text"
                         value={apiVolume}
@@ -235,7 +237,9 @@ export const S09a_MarketplaceRequest: React.FC = () => {
                           className="mt-0.5 rounded border-border text-teal-600 focus:ring-teal-600"
                         />
                         <span className="text-text-secondary leading-relaxed">
-                          I accept the <strong>Standard AD-SDI Commercial Spatial Data Licence</strong> and agree not to redistribute raw feature geometries.
+                          {isAr
+                            ? 'أوافق على ترخيص البيانات المكانية التجارية المعتمد لبوابة AD-SDI وأتعهد بعدم إعادة توزيع هندسة المعالم الخام.'
+                            : 'I accept the Standard AD-SDI Commercial Spatial Data Licence and agree not to redistribute raw feature geometries.'}
                         </span>
                       </label>
 
@@ -247,7 +251,9 @@ export const S09a_MarketplaceRequest: React.FC = () => {
                           className="mt-0.5 rounded border-border text-teal-600 focus:ring-teal-600"
                         />
                         <span className="text-text-secondary leading-relaxed">
-                          I acknowledge adherence to <strong>Data Sharing Agreement DSA-2027-014</strong> and UAE sovereign data residency provisions.
+                          {isAr
+                            ? 'أقر بالالتزام باتفاقية مشاركة البيانات DSA-2027-014 وبنود الإقامة السيادية للبيانات في دولة الإمارات.'
+                            : 'I acknowledge adherence to Data Sharing Agreement DSA-2027-014 and UAE sovereign data residency provisions.'}
                         </span>
                       </label>
                     </div>
@@ -258,31 +264,33 @@ export const S09a_MarketplaceRequest: React.FC = () => {
                 {currentStep === 3 && (
                   <div className="space-y-4 text-xs">
                     <h2 className="text-sm font-bold text-navy-900 uppercase tracking-wider">
-                      Step 3: Verification & Billing Clearance Stage
+                      {isAr ? 'الخطوة 3: مرحلة التحقق وتصفية الحساب' : 'Step 3: Verification & Billing Clearance Stage'}
                     </h2>
                     
                     <div className="p-4 rounded-xl bg-blue-50 border border-blue-200 text-blue-900 space-y-2">
                       <div className="flex items-center gap-2 font-bold text-sm">
                         <Info className="w-5 h-5 text-blue-600" />
-                        <span>Workflow Stage: Government Account Settlement</span>
+                        <span>{isAr ? 'مرحلة سير العمل: تسوية الحسابات الحكومية' : 'Workflow Stage: Government Account Settlement'}</span>
                       </div>
                       <p className="text-[11px] leading-relaxed">
-                        Under the Abu Dhabi Government partner framework, accounts are cleared via inter-agency invoicing and accredited partner frameworks. No credit card or live online transaction is required.
+                        {isAr
+                          ? 'ضمن إطار عمل شركاء حكومة أبوظبي، تتم تسوية الحسابات من خلال الفواتير الرسمية بين الجهات والشركاء المعتمدين. لا يُطلب بطاقة ائتمان أو معاملات مصرفية مباشرة عبر الإنترنت.'
+                          : 'Under the Abu Dhabi Government partner framework, accounts are cleared via inter-agency invoicing and accredited partner frameworks. No credit card or live online transaction is required.'}
                       </p>
                     </div>
 
                     <div className="p-4 rounded-xl bg-canvas border border-border space-y-2">
                       <div className="flex justify-between">
-                        <span className="text-text-muted">Account Ref</span>
+                        <span className="text-text-muted">{isAr ? 'مرجع الحساب' : 'Account Ref'}</span>
                         <span className="font-mono font-bold text-navy-900">ACC-ALDAR-2027</span>
                       </div>
                       <div className="flex justify-between">
-                        <span className="text-text-muted">Billing Cycle</span>
-                        <span className="font-semibold text-navy-900">Per approved revenue-sharing model</span>
+                        <span className="text-text-muted">{isAr ? 'دورة الفوترة' : 'Billing Cycle'}</span>
+                        <span className="font-semibold text-navy-900">{isAr ? 'وفق نموذج تقاسم الإيرادات المعتمد' : 'Per approved revenue-sharing model'}</span>
                       </div>
                       <div className="flex justify-between">
-                        <span className="text-text-muted">Payment Currency</span>
-                        <span className="font-mono text-emerald-700 font-bold">Standard Institutional Account</span>
+                        <span className="text-text-muted">{isAr ? 'طريقة التسوية' : 'Payment Currency'}</span>
+                        <span className="font-mono text-emerald-700 font-bold">{isAr ? 'حساب مؤسسي معتمد' : 'Standard Institutional Account'}</span>
                       </div>
                     </div>
                   </div>
@@ -292,33 +300,35 @@ export const S09a_MarketplaceRequest: React.FC = () => {
                 {currentStep === 4 && (
                   <div className="space-y-4 text-xs">
                     <h2 className="text-sm font-bold text-navy-900 uppercase tracking-wider">
-                      Step 4: Custodian Approval Review
+                      {isAr ? 'الخطوة 4: مراجعة واعتماد مشرف البيانات' : 'Step 4: Custodian Approval Review'}
                     </h2>
 
                     <div className="p-4 rounded-xl bg-canvas border border-border space-y-2.5">
                       <div className="font-bold text-navy-900 text-sm border-b border-border pb-1">
-                        Application Summary
+                        {isAr ? 'ملخص طلب الوصول' : 'Application Summary'}
                       </div>
                       <div className="flex justify-between">
-                        <span className="text-text-muted">Product</span>
-                        <span className="font-bold text-navy-900">Building Footprints 3D</span>
+                        <span className="text-text-muted">{isAr ? 'المنتج' : 'Product'}</span>
+                        <span className="font-bold text-navy-900">{isAr ? 'المجسمات ثلاثية الأبعاد للمباني' : 'Building Footprints 3D'}</span>
                       </div>
                       <div className="flex justify-between">
-                        <span className="text-text-muted">Target Plan</span>
+                        <span className="text-text-muted">{isAr ? 'الباقة المستهدفة' : 'Target Plan'}</span>
                         <span className="font-semibold text-teal-700">{selectedPlan}</span>
                       </div>
                       <div className="flex justify-between">
-                        <span className="text-text-muted">Designated Approver</span>
-                        <span className="font-semibold text-navy-900">Khalid M. (DMT Data Custodian)</span>
+                        <span className="text-text-muted">{isAr ? 'المشرف المسؤول عن الاعتماد' : 'Designated Approver'}</span>
+                        <span className="font-semibold text-navy-900">{isAr ? 'خالد م. (مشرف بيانات DMT)' : 'Khalid M. (DMT Data Custodian)'}</span>
                       </div>
                       <div className="flex justify-between">
-                        <span className="text-text-muted">Intended Use</span>
+                        <span className="text-text-muted">{isAr ? 'الاستخدام المستهدف' : 'Intended Use'}</span>
                         <span className="font-medium text-navy-900">{intendedUse}</span>
                       </div>
                     </div>
 
                     <div className="p-3.5 rounded-xl bg-amber-50 border border-amber-200 text-amber-900 text-[11px] leading-relaxed">
-                      Your application will be routed to Khalid M. (DMT Data Steward) for identity and project clearance. You can track progress in <strong>My Entitlements</strong>.
+                      {isAr
+                        ? 'سيتم إرسال طلبك إلى خالد م. (مشرف بيانات DMT) للتحقق من الهوية والموافقة على المشروع. يمكنك متابعة حالة الطلب في صفحة اشتراكاتي وصلاحياتي.'
+                        : 'Your application will be routed to Khalid M. (DMT Data Steward) for identity and project clearance. You can track progress in My Entitlements.'}
                     </div>
                   </div>
                 )}
@@ -331,8 +341,8 @@ export const S09a_MarketplaceRequest: React.FC = () => {
                     disabled={currentStep === 1}
                     className="px-4 py-2 rounded-lg border border-border text-xs font-semibold text-text-secondary hover:bg-canvas disabled:opacity-30 flex items-center gap-1.5"
                   >
-                    <ArrowLeft className="w-3.5 h-3.5" />
-                    <span>Back</span>
+                    <ArrowLeft className="w-3.5 h-3.5 rtl:rotate-180" />
+                    <span>{isAr ? 'السابق' : 'Back'}</span>
                   </button>
 
                   {currentStep < 4 ? (
@@ -341,8 +351,8 @@ export const S09a_MarketplaceRequest: React.FC = () => {
                       onClick={handleNext}
                       className="px-5 py-2.5 rounded-lg bg-teal-600 hover:bg-teal-700 text-white font-semibold text-xs flex items-center gap-1.5 shadow-xs transition-colors"
                     >
-                      <span>Continue</span>
-                      <ArrowRight className="w-3.5 h-3.5" />
+                      <span>{isAr ? 'المتابعة' : 'Continue'}</span>
+                      <ArrowRight className="w-3.5 h-3.5 rtl:rotate-180" />
                     </button>
                   ) : (
                     <button
@@ -351,7 +361,7 @@ export const S09a_MarketplaceRequest: React.FC = () => {
                       disabled={isSubmitting}
                       className="px-6 py-2.5 rounded-lg bg-emerald-600 hover:bg-emerald-700 text-white font-semibold text-xs flex items-center gap-1.5 shadow-xs transition-colors"
                     >
-                      <span>{isSubmitting ? 'Submitting Application...' : 'Submit Request to DMT Steward'}</span>
+                      <span>{isSubmitting ? (isAr ? 'جاري إرسال الطلب...' : 'Submitting Application...') : (isAr ? 'إرسال الطلب إلى مشرف DMT' : 'Submit Request to DMT Steward')}</span>
                       <Check className="w-4 h-4" />
                     </button>
                   )}
@@ -364,10 +374,14 @@ export const S09a_MarketplaceRequest: React.FC = () => {
                   <CheckCircle className="w-8 h-8" />
                 </div>
                 <h2 className="text-xl font-bold text-navy-900">
-                  Access Request Submitted Successfully
+                  {isAr ? 'تم إرسال طلب الصلاحية بنجاح' : 'Access Request Submitted Successfully'}
                 </h2>
                 <p className="text-xs text-text-secondary max-w-md mx-auto leading-relaxed">
-                  Your request for <strong>Building Footprints 3D</strong> has been logged under reference <strong>REQ-2027-0842</strong> and dispatched to Khalid M. (DMT Data Steward).
+                  {isAr ? (
+                    <>تم تسجيل طلبك للحصول على <strong>المجسمات ثلاثية الأبعاد للمباني</strong> برقم المرجع <strong>REQ-2027-0842</strong> وإحالته إلى خالد م. (مشرف بيانات DMT).</>
+                  ) : (
+                    <>Your request for <strong>Building Footprints 3D</strong> has been logged under reference <strong>REQ-2027-0842</strong> and dispatched to Khalid M. (DMT Data Steward).</>
+                  )}
                 </p>
 
                 <div className="pt-4 flex items-center justify-center gap-3">
@@ -375,14 +389,14 @@ export const S09a_MarketplaceRequest: React.FC = () => {
                     onClick={() => navigate('/marketplace/entitlements')}
                     className="px-5 py-2.5 rounded-xl bg-teal-600 hover:bg-teal-700 text-white font-semibold text-xs flex items-center gap-2 shadow-xs transition-colors"
                   >
-                    <span>View My Entitlements</span>
-                    <ArrowRight className="w-4 h-4" />
+                    <span>{isAr ? 'عرض اشتراكاتي وصلاحياتي' : 'View My Entitlements'}</span>
+                    <ArrowRight className="w-4 h-4 rtl:rotate-180" />
                   </button>
                   <button
                     onClick={() => navigate('/marketplace')}
                     className="px-5 py-2.5 rounded-xl border border-border bg-white hover:bg-canvas text-navy-900 font-semibold text-xs transition-colors"
                   >
-                    Return to Marketplace
+                    {isAr ? 'العودة إلى سوق البيانات' : 'Return to Marketplace'}
                   </button>
                 </div>
               </div>

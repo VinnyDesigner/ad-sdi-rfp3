@@ -282,8 +282,8 @@ export const WorkspaceLayout: React.FC<WorkspaceLayoutProps> = ({ children, dark
                   >
                     <span className="w-5 h-5 rounded-full bg-blue-600 text-white font-bold text-[9px] flex items-center justify-center shrink-0">KM</span>
                     <div>
-                      <div>Khalid M. (DMT Data Steward)</div>
-                      <div className="text-[10px] text-text-secondary font-normal">Full Publishing & Approvals</div>
+                      <div>{isAr ? 'خالد م. (مشرف بيانات DMT)' : 'Khalid M. (DMT Data Steward)'}</div>
+                      <div className="text-[10px] text-text-secondary font-normal">{isAr ? 'صلاحيات النشر والاعتماد' : 'Full Publishing & Approvals'}</div>
                     </div>
                   </button>
 
@@ -295,8 +295,8 @@ export const WorkspaceLayout: React.FC<WorkspaceLayoutProps> = ({ children, dark
                   >
                     <span className="w-5 h-5 rounded-full bg-emerald-600 text-white font-bold text-[9px] flex items-center justify-center shrink-0">FA</span>
                     <div>
-                      <div>Fatima A. (Quality Officer)</div>
-                      <div className="text-[10px] text-text-secondary font-normal">Quality & SLA Dashboard</div>
+                      <div>{isAr ? 'فاطمة أ. (مسؤول جودة البيانات)' : 'Fatima A. (Quality Officer)'}</div>
+                      <div className="text-[10px] text-text-secondary font-normal">{isAr ? 'لوحة الجودة ومستوى الخدمة SLA' : 'Quality & SLA Dashboard'}</div>
                     </div>
                   </button>
 
@@ -308,8 +308,8 @@ export const WorkspaceLayout: React.FC<WorkspaceLayoutProps> = ({ children, dark
                   >
                     <span className="w-5 h-5 rounded-full bg-teal-600 text-white font-bold text-[9px] flex items-center justify-center shrink-0">OR</span>
                     <div>
-                      <div>Omar R. (Approved Partner)</div>
-                      <div className="text-[10px] text-text-secondary font-normal">Marketplace & Entitlements</div>
+                      <div>{isAr ? 'عمر ر. (شريك معتمد)' : 'Omar R. (Approved Partner)'}</div>
+                      <div className="text-[10px] text-text-secondary font-normal">{isAr ? 'سوق البيانات والاشتراكات' : 'Marketplace & Entitlements'}</div>
                     </div>
                   </button>
                 </div>

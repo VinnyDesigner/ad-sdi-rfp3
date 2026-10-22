@@ -148,12 +148,14 @@ export const S05_QualityDashboard: React.FC = () => {
             <div className="flex items-center justify-between border-b border-border pb-3">
               <div>
                 <h3 className="text-sm font-bold text-navy-900">
-                  Quality Gateway — Last 24 Hours
+                  {isAr ? 'بوابة الجودة — آخر 24 ساعة' : 'Quality Gateway — Last 24 Hours'}
                 </h3>
-                <p className="text-[11px] text-text-secondary">Automated schema, geometry & CRS gateway checks</p>
+                <p className="text-[11px] text-text-secondary">
+                  {isAr ? 'فحوصات البوابة الآلية للمخططات والهندسة ونظام الإحداثيات' : 'Automated schema, geometry & CRS gateway checks'}
+                </p>
               </div>
               <span className="font-mono text-xs font-bold px-2 py-0.5 rounded bg-blue-50 text-blue-800 border border-blue-200">
-                186 Total
+                {isAr ? '186 إجمالي' : '186 Total'}
               </span>
             </div>
 
@@ -162,7 +164,7 @@ export const S05_QualityDashboard: React.FC = () => {
               <div>
                 <div className="flex justify-between text-xs mb-1">
                   <span className="font-semibold text-emerald-700 flex items-center gap-1">
-                    <CheckCircle className="w-4 h-4" /> Passed Validations
+                    <CheckCircle className="w-4 h-4" /> {isAr ? 'الفحوصات الناجحة' : 'Passed Validations'}
                   </span>
                   <span className="font-mono font-bold text-navy-900">171 (91.9%)</span>
                 </div>
@@ -174,7 +176,7 @@ export const S05_QualityDashboard: React.FC = () => {
               <div>
                 <div className="flex justify-between text-xs mb-1">
                   <span className="font-semibold text-amber-700 flex items-center gap-1">
-                    <WarningCircle className="w-4 h-4" /> Returned for Remediation
+                    <WarningCircle className="w-4 h-4" /> {isAr ? 'المعادة للمعالجة والتصحيح' : 'Returned for Remediation'}
                   </span>
                   <span className="font-mono font-bold text-amber-900">15 (8.1%)</span>
                 </div>
@@ -187,20 +189,20 @@ export const S05_QualityDashboard: React.FC = () => {
             {/* Document Specified Return Reasons */}
             <div className="pt-2">
               <h4 className="text-[11px] font-bold text-navy-900 uppercase tracking-wider mb-2">
-                Documented Return Reasons
+                {isAr ? 'أسباب الإعادة الموثقة' : 'Documented Return Reasons'}
               </h4>
               <div className="space-y-2 text-xs">
                 <div className="p-2.5 rounded-xl bg-canvas border border-border flex items-center justify-between">
-                  <span className="text-text-primary">Spatial reference mismatch (non-EPSG:32640)</span>
-                  <span className="font-mono font-bold text-navy-900 bg-white px-2 py-0.5 rounded border border-border">6 cases</span>
+                  <span className="text-text-primary">{isAr ? 'عدم تطابق المرجع المكاني (غير EPSG:32640)' : 'Spatial reference mismatch (non-EPSG:32640)'}</span>
+                  <span className="font-mono font-bold text-navy-900 bg-white px-2 py-0.5 rounded border border-border">{isAr ? '6 حالات' : '6 cases'}</span>
                 </div>
                 <div className="p-2.5 rounded-xl bg-canvas border border-border flex items-center justify-between">
-                  <span className="text-text-primary">Metadata profile incomplete (ISO 19115 gaps)</span>
-                  <span className="font-mono font-bold text-navy-900 bg-white px-2 py-0.5 rounded border border-border">5 cases</span>
+                  <span className="text-text-primary">{isAr ? 'ملف البيانات الوصفية غير مكتمل (نقص في معيار ISO 19115)' : 'Metadata profile incomplete (ISO 19115 gaps)'}</span>
+                  <span className="font-mono font-bold text-navy-900 bg-white px-2 py-0.5 rounded border border-border">{isAr ? '5 حالات' : '5 cases'}</span>
                 </div>
                 <div className="p-2.5 rounded-xl bg-canvas border border-border flex items-center justify-between">
-                  <span className="text-text-primary">Topology errors (self-intersections & slivers)</span>
-                  <span className="font-mono font-bold text-navy-900 bg-white px-2 py-0.5 rounded border border-border">4 cases</span>
+                  <span className="text-text-primary">{isAr ? 'أخطاء طوبولوجية (تقاطعات ذاتية وتداخلات)' : 'Topology errors (self-intersections & slivers)'}</span>
+                  <span className="font-mono font-bold text-navy-900 bg-white px-2 py-0.5 rounded border border-border">{isAr ? '4 حالات' : '4 cases'}</span>
                 </div>
               </div>
             </div>
@@ -212,12 +214,16 @@ export const S05_QualityDashboard: React.FC = () => {
               <div className="flex items-center justify-between border-b border-border pb-3 mb-4">
                 <div>
                   <h3 className="text-sm font-bold text-navy-900">
-                    SLA & Availability Trend ({timePeriod === '90d' ? 'Last 90 Days' : timePeriod === '30d' ? 'Last 30 Days' : 'Last 7 Days'})
+                    {isAr
+                      ? `اتجاه مستوى الخدمة والجاهزية (${timePeriod === '90d' ? 'آخر 90 يوماً' : timePeriod === '30d' ? 'آخر 30 يوماً' : 'آخر 7 أيام'})`
+                      : `SLA & Availability Trend (${timePeriod === '90d' ? 'Last 90 Days' : timePeriod === '30d' ? 'Last 30 Days' : 'Last 7 Days'})`}
                   </h3>
-                  <p className="text-[11px] text-text-secondary">Uptime and p95 latency for OGC Feature and Tile Services</p>
+                  <p className="text-[11px] text-text-secondary">
+                    {isAr ? 'الجاهزية وزمن استجابة p95 لخدمات معالم وبلاطات OGC' : 'Uptime and p95 latency for OGC Feature and Tile Services'}
+                  </p>
                 </div>
                 <span className="text-[11px] font-bold text-emerald-600 bg-emerald-50 px-2.5 py-0.5 rounded-full border border-emerald-200">
-                  99.95% Target Met
+                  {isAr ? 'تم تحقيق المستهدف 99.95%' : '99.95% Target Met'}
                 </span>
               </div>
 
@@ -241,8 +247,8 @@ export const S05_QualityDashboard: React.FC = () => {
                 </div>
 
                 <div className="flex items-center justify-between text-[11px] text-text-muted border-t border-border/60 pt-2">
-                  <span>99.90% SLA Threshold (Red line)</span>
-                  <span className="text-navy-900 font-semibold">Average Response: 64 ms</span>
+                  <span>{isAr ? 'حد مستوى الخدمة 99.90% (الخط الأحمر)' : '99.90% SLA Threshold (Red line)'}</span>
+                  <span className="text-navy-900 font-semibold">{isAr ? 'متوسط الاستجابة: 64 مللي ثانية' : 'Average Response: 64 ms'}</span>
                 </div>
               </div>
             </div>
@@ -250,23 +256,23 @@ export const S05_QualityDashboard: React.FC = () => {
             {/* Themes x Quality Checks Matrix Sample */}
             <div className="mt-4 pt-4 border-t border-border">
               <div className="text-[11px] font-bold text-navy-900 uppercase tracking-wider mb-2">
-                Themes × Quality Checks Compliance
+                {isAr ? 'امتثال المجالات × فحوصات الجودة' : 'Themes × Quality Checks Compliance'}
               </div>
               <div className="grid grid-cols-4 gap-2 text-center text-[10px]">
                 <div className="p-2 rounded bg-canvas border border-border">
-                  <div className="text-text-secondary font-medium">Cadastre</div>
+                  <div className="text-text-secondary font-medium">{isAr ? 'الأراضي والعقارات' : 'Cadastre'}</div>
                   <div className="font-bold text-emerald-600 mt-0.5">99.1%</div>
                 </div>
                 <div className="p-2 rounded bg-canvas border border-border">
-                  <div className="text-text-secondary font-medium">Environment</div>
+                  <div className="text-text-secondary font-medium">{isAr ? 'البيئة' : 'Environment'}</div>
                   <div className="font-bold text-emerald-600 mt-0.5">97.4%</div>
                 </div>
                 <div className="p-2 rounded bg-canvas border border-border">
-                  <div className="text-text-secondary font-medium">Transport</div>
+                  <div className="text-text-secondary font-medium">{isAr ? 'النقل' : 'Transport'}</div>
                   <div className="font-bold text-emerald-600 mt-0.5">98.2%</div>
                 </div>
                 <div className="p-2 rounded bg-canvas border border-border">
-                  <div className="text-text-secondary font-medium">Utilities</div>
+                  <div className="text-text-secondary font-medium">{isAr ? 'المرافق' : 'Utilities'}</div>
                   <div className="font-bold text-amber-600 mt-0.5">92.8%</div>
                 </div>
               </div>
@@ -279,45 +285,56 @@ export const S05_QualityDashboard: React.FC = () => {
           <div className="p-4 border-b border-border flex flex-col sm:flex-row sm:items-center justify-between gap-3">
             <div>
               <h3 className="text-sm font-bold text-navy-900">
-                Contributing Entity Compliance Roster
+                {isAr ? 'سجل امتثال الجهات المساهمة' : 'Contributing Entity Compliance Roster'}
               </h3>
-              <p className="text-[11px] text-text-secondary">Tracking 64 entities against AD-SDI SLA standards</p>
+              <p className="text-[11px] text-text-secondary">
+                {isAr ? 'متابعة 64 جهة وفق معايير اتفاقيات مستوى الخدمة في AD-SDI' : 'Tracking 64 entities against AD-SDI SLA standards'}
+              </p>
             </div>
 
             {/* Filter by Entity */}
             <div className="flex items-center gap-2 text-xs">
-              <span className="text-text-muted">Filter entity:</span>
+              <span className="text-text-muted">{isAr ? 'تصفية حسب الجهة:' : 'Filter entity:'}</span>
               <select
                 value={selectedEntity}
                 onChange={(e) => setSelectedEntity(e.target.value)}
                 className="p-1.5 bg-canvas border border-border rounded text-text-primary text-xs"
               >
-                <option value="all">All Entities (6)</option>
-                <option value="DMT">DMT (Municipalities & Transport)</option>
-                <option value="EAD">EAD (Environment)</option>
-                <option value="SCAD">SCAD (Statistics)</option>
-                <option value="DoH">DoH (Health)</option>
-                <option value="ADEK">ADEK (Education)</option>
-                <option value="ADPHC">ADPHC (Public Health)</option>
+                <option value="all">{isAr ? 'جميع الجهات (6)' : 'All Entities (6)'}</option>
+                <option value="DMT">{isAr ? 'دائرة البلديات والنقل (DMT)' : 'DMT (Municipalities & Transport)'}</option>
+                <option value="EAD">{isAr ? 'هيئة البيئة (EAD)' : 'EAD (Environment)'}</option>
+                <option value="SCAD">{isAr ? 'مركز الإحصاء (SCAD)' : 'SCAD (Statistics)'}</option>
+                <option value="DoH">{isAr ? 'دائرة الصحة (DoH)' : 'DoH (Health)'}</option>
+                <option value="ADEK">{isAr ? 'دائرة التعليم والمعرفة (ADEK)' : 'ADEK (Education)'}</option>
+                <option value="ADPHC">{isAr ? 'مركز أبوظبي للصحة العامة (ADPHC)' : 'ADPHC (Public Health)'}</option>
               </select>
             </div>
           </div>
 
           <div className="overflow-x-auto">
-            <table className="w-full text-left text-xs">
+            <table className="w-full text-left rtl:text-right text-xs">
               <thead className="bg-canvas border-b border-border text-[11px] uppercase tracking-wider text-text-secondary">
                 <tr>
-                  <th className="p-3">Contributing Entity</th>
-                  <th className="p-3">Acronym</th>
-                  <th className="p-3">Published Datasets</th>
-                  <th className="p-3">Compliance Score</th>
-                  <th className="p-3">SLA Status</th>
+                  <th className="p-3">{isAr ? 'الجهة المساهمة' : 'Contributing Entity'}</th>
+                  <th className="p-3">{isAr ? 'الرمز' : 'Acronym'}</th>
+                  <th className="p-3">{isAr ? 'مجموعات البيانات المنشورة' : 'Published Datasets'}</th>
+                  <th className="p-3">{isAr ? 'درجة الامتثال' : 'Compliance Score'}</th>
+                  <th className="p-3">{isAr ? 'حالة مستوى الخدمة' : 'SLA Status'}</th>
                 </tr>
               </thead>
               <tbody className="divide-y divide-border">
                 {filteredEntities.map((ent) => (
                   <tr key={ent.code} className="hover:bg-canvas transition-colors">
-                    <td className="p-3 font-semibold text-navy-900">{ent.entity}</td>
+                    <td className="p-3 font-semibold text-navy-900">
+                      {isAr ? (
+                        ent.code === 'DMT' ? 'دائرة البلديات والنقل (DMT)' :
+                        ent.code === 'EAD' ? 'هيئة البيئة – أبوظبي (EAD)' :
+                        ent.code === 'SCAD' ? 'مركز الإحصاء – أبوظبي (SCAD)' :
+                        ent.code === 'DoH' ? 'دائرة الصحة (DoH)' :
+                        ent.code === 'ADEK' ? 'دائرة التعليم والمعرفة (ADEK)' :
+                        'مركز أبوظبي للصحة العامة (ADPHC)'
+                      ) : ent.entity}
+                    </td>
                     <td className="p-3 font-mono font-bold text-blue-700">{ent.code}</td>
                     <td className="p-3 font-mono">{ent.datasets}</td>
                     <td className="p-3">
@@ -337,7 +354,7 @@ export const S05_QualityDashboard: React.FC = () => {
                           ? 'bg-emerald-50 text-emerald-700 border border-emerald-200'
                           : 'bg-amber-50 text-amber-700 border border-amber-200'
                       }`}>
-                        {ent.status}
+                        {isAr ? (ent.status === 'Compliant' ? 'ملتزم' : 'يتطلب إجراء') : ent.status}
                       </span>
                     </td>
                   </tr>

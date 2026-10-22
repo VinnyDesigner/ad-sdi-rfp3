@@ -1,120 +1,31 @@
 import React, { createContext, useContext, useState, useEffect } from 'react';
+import {
+  Language,
+  STANDARD_TRANSLATIONS,
+  translateToAr,
+  hasArabic,
+  hasLatinWords,
+} from './translationsData';
 
-type Language = 'en' | 'ar';
-
-interface LanguageContextType {
+export interface LanguageContextType {
   language: Language;
   direction: 'ltr' | 'rtl';
   toggleLanguage: () => void;
   setLanguage: (lang: Language) => void;
-  t: (key: string) => string;
+  t: (keyOrText: string) => string;
 }
 
-const translations: Record<string, Record<Language, string>> = {
-  // Navigation & Branding
-  'dge.title': {
-    en: 'Department of Government Enablement',
-    ar: 'دائرة التمكين الحكومي',
-  },
-  'portal.title': {
-    en: 'AD-SDI Portal',
-    ar: 'بوابة البنية التحتية للبيانات المكانية',
-  },
-  'nav.data': { en: 'Data', ar: 'البيانات' },
-  'nav.maps': { en: 'Maps', ar: 'الخرائط' },
-  'nav.services': { en: 'Services', ar: 'الخدمات' },
-  'nav.marketplace': { en: 'Marketplace', ar: 'سوق البيانات' },
-  'nav.opendata': { en: 'Open Data', ar: 'البيانات المفتوحة' },
-  'nav.developers': { en: 'Developers', ar: 'المطورون' },
-  'nav.signin': { en: 'Sign in', ar: 'تسجيل الدخول' },
-  'nav.workspace': { en: 'Workspace', ar: 'مساحة العمل' },
-  'nav.signout': { en: 'Sign out', ar: 'تسجيل الخروج' },
-
-  // Home Screen
-  'home.hero.title': {
-    en: "Abu Dhabi’s spatial data, in one place",
-    ar: 'البيانات المكانية لإمارة أبوظبي في منصة واحدة',
-  },
-  'home.hero.subtitle': {
-    en: 'Discover, access and share trusted geospatial data and services across government.',
-    ar: 'اكتشف واستخدم وشارك البيانات والخدمات الجيومكانية الموثوقة والمعتمدة عبر الجهات الحكومية.',
-  },
-  'home.search.placeholder': {
-    en: 'Search 2,480 datasets, services and maps…',
-    ar: 'ابحث في 2,480 مجموعة بيانات وخدمة وخريطة…',
-  },
-  'home.stats.datasets': { en: 'Datasets', ar: 'مجموعة بيانات' },
-  'home.stats.entities': { en: 'Contributing Entities', ar: 'جهة مساهمة' },
-  'home.stats.services': { en: 'OGC Services', ar: 'خدمة OGC مكانية' },
-  'home.stats.operational': { en: 'All services operational', ar: 'جميع الخدمات تعمل بكفاءة' },
-
-  // Modules
-  'module.a.title': { en: 'Clearinghouse & Catalogue', ar: 'المستودع الرقمي والفهرس' },
-  'module.a.desc': {
-    en: 'Search authoritative government spatial metadata, inspect schemas, and connect to OGC services.',
-    ar: 'فهرس البيانات المكانية المعتمدة للمؤسسات الحكومية ومخططات البيانات وخدمات OGC.',
-  },
-  'module.b.title': { en: 'GeoAI Studio', ar: 'مختبر الذكاء الاصطناعي الجغرافي' },
-  'module.b.desc': {
-    en: 'Automated satellite change detection, deep-learning feature extraction, and AI spatial assistance.',
-    ar: 'كشف التغيرات الفضائية الآلي ونماذج التعلم العميق والمساعد الجيومكاني الذكي.',
-  },
-  'module.c.title': { en: 'Data Marketplace', ar: 'سوق البيانات المكانية' },
-  'module.c.desc': {
-    en: 'Enterprise marketplace for high-value data products, commercial licensing, and API access.',
-    ar: 'منصة تبادل البيانات المتميزة ونماذج الترخيص للجهات الحكومية والشركاء المعتمدين.',
-  },
-  'module.d.title': { en: 'Capacity Building & GeoMaturity', ar: 'بناء القدرات والنضج المكاني' },
-  'module.d.desc': {
-    en: 'Assess institutional geospatial maturity, enroll in 8 learning pathways, and track competencies.',
-    ar: 'تقييم النضج المكاني للمؤسسات ومسارات التدريب التخصصية وبناء الكوادر الوطنية.',
-  },
-  'module.e.title': { en: 'Digital Twin 3D', ar: 'التوأم الرقمي ثلاثي الأبعاد' },
-  'module.e.desc': {
-    en: 'Interactive 3D urban environment connecting BIM models, IoT environmental sensors, and 4D planning.',
-    ar: 'بيئة حضرية تفاعلية ثلاثية الأبعاد تربط نماذج المباني وأجهزة الاستشعار البيئية والجدول الزمني 4D.',
-  },
-  'module.f.title': { en: 'Open Data Portal', ar: 'بوابة البيانات المفتوحة' },
-  'module.f.desc': {
-    en: 'Over 640 curated public geospatial datasets freely available for developers, researchers, and citizens.',
-    ar: 'أكثر من 640 مجموعة بيانات مكانية مفتوحة ومتاحة للمطورين والباحثين والمجتمع.',
-  },
-
-  // Open Data Portal
-  'open.hero.title': { en: 'Abu Dhabi Open Geospatial Data', ar: 'البيانات الجيومكانية المفتوحة لإمارة أبوظبي' },
-  'open.hero.subtitle': { en: 'Free to use, reuse and build on.', ar: 'متاحة مجاناً للاستخدام وإعادة الاستخدام والتطوير.' },
-  'open.trust': {
-    en: 'Every dataset is classified, checked, quality-reviewed and approved before release.',
-    ar: 'تخضع جميع مجموعات البيانات للمراجعة والتدقيق والاعتماد المؤسسي قبل نشرها.',
-  },
-
-  // Login
-  'login.headline': {
-    en: 'Abu Dhabi’s spatial data. Trusted. Connected.',
-    ar: 'البيانات المكانية لإمارة أبوظبي. موثوقة. متصلة.',
-  },
-  'login.subtext': {
-    en: 'One secure platform to discover, share and use authoritative geospatial data across government.',
-    ar: 'منصة رقمية موحدة وآمنة لاكتشاف وتبادل واستخدام البيانات المكانية المعتمدة عبر منظومة العمل الحكومي.',
-  },
-
-  // Disclaimer
-  'footer.disclaimer': {
-    en: 'Illustrative data — conceptual design for AD-SDI Portal. Not production government authority.',
-    ar: 'بيانات استرشادية — تصميم مقترح تجريبي لبوابة البنية التحتية للبيانات المكانية AD-SDI.',
-  },
-  'footer.copyright': {
-    en: '© 2027 Department of Government Enablement. All rights reserved.',
-    ar: '© 2027 دائرة التمكين الحكومي. جميع الحقوق محفوظة.',
-  },
-};
-
 const LanguageContext = createContext<LanguageContextType | undefined>(undefined);
+
+// Keep WeakMaps to store original text so we can cleanly revert when switching to 'en'
+const originalTextMap = new WeakMap<Node, string>();
+const originalPlaceholderMap = new WeakMap<Element, string>();
+const originalTitleMap = new WeakMap<Element, string>();
 
 export const LanguageProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const [language, setLanguageState] = useState<Language>(() => {
     const saved = localStorage.getItem('adsdi_lang');
-    return (saved === 'ar' || saved === 'en') ? saved : 'en';
+    return saved === 'ar' || saved === 'en' ? saved : 'en';
   });
 
   const direction = language === 'ar' ? 'rtl' : 'ltr';
@@ -126,19 +37,176 @@ export const LanguageProvider: React.FC<{ children: React.ReactNode }> = ({ chil
   }, [language, direction]);
 
   const toggleLanguage = () => {
-    setLanguageState(prev => (prev === 'en' ? 'ar' : 'en'));
+    setLanguageState((prev) => (prev === 'en' ? 'ar' : 'en'));
   };
 
   const setLanguage = (lang: Language) => {
     setLanguageState(lang);
   };
 
-  const t = (key: string): string => {
-    if (translations[key] && translations[key][language]) {
-      return translations[key][language];
+  const t = (keyOrText: string): string => {
+    if (!keyOrText) return '';
+    if (STANDARD_TRANSLATIONS[keyOrText] && STANDARD_TRANSLATIONS[keyOrText][language]) {
+      return STANDARD_TRANSLATIONS[keyOrText][language];
     }
-    return key;
+    if (language === 'ar') {
+      return translateToAr(keyOrText);
+    }
+    return keyOrText;
   };
+
+  // Automated DOM translation engine for complete website Arabic localization
+  useEffect(() => {
+    let isTranslating = false;
+
+    const shouldSkipNode = (node: Node): boolean => {
+      const parent = node.parentElement;
+      if (!parent) return false;
+      const tagName = parent.tagName;
+      if (
+        tagName === 'SCRIPT' ||
+        tagName === 'STYLE' ||
+        tagName === 'CODE' ||
+        tagName === 'PRE'
+      ) {
+        return true;
+      }
+      if (
+        parent.closest('.leaflet-tile-container') ||
+        parent.closest('.leaflet-control') ||
+        parent.closest('.no-translate')
+      ) {
+        return true;
+      }
+      return false;
+    };
+
+    const translateNode = (node: Node) => {
+      if (node.nodeType === Node.TEXT_NODE) {
+        if (shouldSkipNode(node)) return;
+        const currentVal = node.nodeValue || '';
+        if (!currentVal.trim()) return;
+
+        if (language === 'ar') {
+          // If already Arabic and has no untranslated Latin words, skip
+          if (!hasLatinWords(currentVal) && hasArabic(currentVal)) return;
+
+          // If currentVal contains Latin words and no Arabic, it is newly rendered English text from React
+          if (hasLatinWords(currentVal) && !hasArabic(currentVal)) {
+            originalTextMap.set(node, currentVal);
+          } else if (!originalTextMap.has(node)) {
+            originalTextMap.set(node, currentVal);
+          }
+
+          const original = originalTextMap.get(node) || currentVal;
+          const translated = translateToAr(original);
+          if (translated !== currentVal) {
+            node.nodeValue = translated;
+          }
+        } else {
+          // Revert to English
+          if (originalTextMap.has(node)) {
+            const original = originalTextMap.get(node)!;
+            if (node.nodeValue !== original) {
+              node.nodeValue = original;
+            }
+          }
+        }
+      } else if (node.nodeType === Node.ELEMENT_NODE) {
+        const el = node as HTMLElement;
+        // Translate placeholders
+        if (el.hasAttribute('placeholder')) {
+          const currentPh = el.getAttribute('placeholder') || '';
+          if (language === 'ar') {
+            if (hasLatinWords(currentPh) && !hasArabic(currentPh)) {
+              originalPlaceholderMap.set(el, currentPh);
+            } else if (!originalPlaceholderMap.has(el)) {
+              originalPlaceholderMap.set(el, currentPh);
+            }
+            const orig = originalPlaceholderMap.get(el) || currentPh;
+            const trans = translateToAr(orig);
+            if (trans !== currentPh) {
+              el.setAttribute('placeholder', trans);
+            }
+          } else if (originalPlaceholderMap.has(el)) {
+            el.setAttribute('placeholder', originalPlaceholderMap.get(el)!);
+          }
+        }
+
+        // Translate titles / tooltips
+        if (el.hasAttribute('title')) {
+          const currentTitle = el.getAttribute('title') || '';
+          if (language === 'ar') {
+            if (hasLatinWords(currentTitle) && !hasArabic(currentTitle)) {
+              originalTitleMap.set(el, currentTitle);
+            } else if (!originalTitleMap.has(el)) {
+              originalTitleMap.set(el, currentTitle);
+            }
+            const orig = originalTitleMap.get(el) || currentTitle;
+            const trans = translateToAr(orig);
+            if (trans !== currentTitle) {
+              el.setAttribute('title', trans);
+            }
+          } else if (originalTitleMap.has(el)) {
+            el.setAttribute('title', originalTitleMap.get(el)!);
+          }
+        }
+
+        // Traverse children
+        node.childNodes.forEach(translateNode);
+      }
+    };
+
+    const processRoot = () => {
+      if (isTranslating) return;
+      isTranslating = true;
+      try {
+        const root = document.getElementById('root') || document.body;
+        translateNode(root);
+      } finally {
+        isTranslating = false;
+      }
+    };
+
+    // Initial pass
+    processRoot();
+
+    // Observer for dynamically added nodes / route transitions
+    let animationFrameId: number | null = null;
+    const observer = new MutationObserver(() => {
+      if (isTranslating) return;
+      if (animationFrameId !== null) {
+        cancelAnimationFrame(animationFrameId);
+      }
+      animationFrameId = requestAnimationFrame(() => {
+        processRoot();
+        animationFrameId = null;
+      });
+    });
+
+    observer.observe(document.body, {
+      childList: true,
+      subtree: true,
+      characterData: true,
+      attributes: true,
+      attributeFilter: ['placeholder', 'title'],
+    });
+
+    // Periodic sweep ensuring dynamically rendered tabs and async components are translated in Arabic mode
+    const intervalId = setInterval(() => {
+      if (language === 'ar') {
+        processRoot();
+      }
+    }, 500);
+
+    return () => {
+      observer.disconnect();
+      clearInterval(intervalId);
+      if (animationFrameId !== null) {
+        cancelAnimationFrame(animationFrameId);
+      }
+    };
+  }, [language]);
 
   return (
     <LanguageContext.Provider value={{ language, direction, toggleLanguage, setLanguage, t }}>

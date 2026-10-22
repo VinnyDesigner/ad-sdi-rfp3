@@ -2,6 +2,7 @@ import React, { useEffect, useRef, useState } from 'react';
 import L from 'leaflet';
 import 'leaflet/dist/leaflet.css';
 import { ABU_DHABI_CENTER } from '../../data/geoData';
+import { useLanguage } from '../../context/LanguageContext';
 
 interface InteractiveMapProps {
   center?: [number, number];
@@ -40,6 +41,8 @@ export const InteractiveMap: React.FC<InteractiveMapProps> = ({
   className = '',
   selectedFeatureId,
 }) => {
+  const { language } = useLanguage();
+  const isAr = language === 'ar';
   const mapContainerRef = useRef<HTMLDivElement>(null);
   const mapInstanceRef = useRef<L.Map | null>(null);
   const geoJsonLayerRef = useRef<L.GeoJSON | null>(null);
@@ -358,7 +361,7 @@ export const InteractiveMap: React.FC<InteractiveMapProps> = ({
       <div className="absolute top-3 left-3 z-[1000] flex items-center space-x-2 bg-white/95 backdrop-blur-md px-3 py-1.5 rounded-lg shadow-md border border-border text-xs">
         <span className="font-semibold text-navy-900 tracking-wide flex items-center gap-1.5">
           <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
-          AD-SDI Spatial
+          {isAr ? 'نظام AD-SDI المكاني' : 'AD-SDI Spatial'}
         </span>
         <span className="text-border">|</span>
         
@@ -371,7 +374,7 @@ export const InteractiveMap: React.FC<InteractiveMapProps> = ({
               currentBasemap === 'light' ? 'bg-white shadow text-navy-900' : 'text-text-secondary hover:text-navy-900'
             }`}
           >
-            Light
+            {isAr ? 'فاتح' : 'Light'}
           </button>
           <button
             type="button"
@@ -380,7 +383,7 @@ export const InteractiveMap: React.FC<InteractiveMapProps> = ({
               currentBasemap === 'dark' ? 'bg-navy-900 shadow text-white' : 'text-text-secondary hover:text-navy-900'
             }`}
           >
-            Dark
+            {isAr ? 'داكن' : 'Dark'}
           </button>
           <button
             type="button"
@@ -389,7 +392,7 @@ export const InteractiveMap: React.FC<InteractiveMapProps> = ({
               currentBasemap === 'satellite' ? 'bg-blue-600 shadow text-white' : 'text-text-secondary hover:text-navy-900'
             }`}
           >
-            Satellite
+            {isAr ? 'قمر صناعي' : 'Satellite'}
           </button>
         </div>
 
@@ -407,7 +410,9 @@ export const InteractiveMap: React.FC<InteractiveMapProps> = ({
               }`}
             >
               <span>📐</span>
-              {isDrawing ? 'Clear Spatial Filter' : 'Draw Area Filter'}
+              {isDrawing
+                ? (isAr ? 'إلغاء تصفية النطاق' : 'Clear Spatial Filter')
+                : (isAr ? 'تصفية بنطاق الخريطة' : 'Draw Area Filter')}
             </button>
           </>
         )}
@@ -415,10 +420,10 @@ export const InteractiveMap: React.FC<InteractiveMapProps> = ({
         <button
           type="button"
           onClick={handleResetExtent}
-          title="Reset Abu Dhabi Extent"
+          title={isAr ? 'إعادة ضبط نطاق أبوظبي' : 'Reset Abu Dhabi Extent'}
           className="p-1 hover:bg-canvas rounded text-text-secondary hover:text-navy-900 transition-colors ml-1"
         >
-          ⟲ Reset
+          {isAr ? '⟲ إعادة تعيين' : '⟲ Reset'}
         </button>
       </div>
 

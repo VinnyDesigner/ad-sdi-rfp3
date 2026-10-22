@@ -185,20 +185,20 @@ export const S04_Publishing: React.FC = () => {
           <div className="lg:col-span-7 bg-white rounded-2xl border border-border shadow-xs overflow-hidden">
             <div className="p-4 border-b border-border flex items-center justify-between">
               <span className="text-xs font-bold text-navy-900 uppercase tracking-wider">
-                Pending Submissions Queue
+                {isAr ? 'قائمة الطلبات بانتظار الاعتماد' : 'Pending Submissions Queue'}
               </span>
-              <span className="text-[11px] text-text-muted">Select row to open review panel</span>
+              <span className="text-[11px] text-text-muted">{isAr ? 'اختر صفاً لفتح لوحة المراجعة' : 'Select row to open review panel'}</span>
             </div>
 
             <div className="overflow-x-auto">
-              <table className="w-full text-left text-xs">
+              <table className="w-full text-left rtl:text-right text-xs">
                 <thead className="bg-canvas border-b border-border text-[11px] uppercase tracking-wider text-text-secondary">
                   <tr>
-                    <th className="p-3">Item & Version</th>
-                    <th className="p-3">Entity</th>
-                    <th className="p-3">Stage</th>
-                    <th className="p-3">Quality</th>
-                    <th className="p-3">Waiting</th>
+                    <th className="p-3">{isAr ? 'العنصر والإصدار' : 'Item & Version'}</th>
+                    <th className="p-3">{isAr ? 'الجهة' : 'Entity'}</th>
+                    <th className="p-3">{isAr ? 'المرحلة' : 'Stage'}</th>
+                    <th className="p-3">{isAr ? 'الجودة' : 'Quality'}</th>
+                    <th className="p-3">{isAr ? 'الانتظار' : 'Waiting'}</th>
                   </tr>
                 </thead>
                 <tbody className="divide-y divide-border">
@@ -221,7 +221,12 @@ export const S04_Publishing: React.FC = () => {
                         </td>
                         <td className="p-3">
                           <span className="px-2 py-0.5 rounded text-[10px] font-semibold bg-blue-100 text-blue-800">
-                            {sub.stage}
+                            {isAr ? (
+                              sub.stage === 'Custodian approval' ? 'اعتماد المشرف' :
+                              sub.stage === 'Quality gateway' ? 'بوابة الجودة' :
+                              sub.stage === 'Classification & audience' ? 'التصنيف والجمهور' :
+                              sub.stage === 'Submitted' ? 'تم الإرسال' : 'منشور'
+                            ) : sub.stage}
                           </span>
                         </td>
                         <td className="p-3">
@@ -230,11 +235,11 @@ export const S04_Publishing: React.FC = () => {
                               ? 'bg-emerald-50 text-emerald-700'
                               : 'bg-amber-50 text-amber-700'
                           }`}>
-                            {sub.qualityResult}
+                            {isAr ? sub.qualityResult.replace('Passed', 'اجتاز').replace('Warnings', 'تنبيهات').replace('Pending Checks', 'بانتظار الفحص') : sub.qualityResult}
                           </span>
                         </td>
                         <td className="p-3 font-mono text-[11px] text-text-muted">
-                          {sub.waitingDays}d
+                          {sub.waitingDays}{isAr ? ' يوم' : 'd'}
                         </td>
                       </tr>
                     );
@@ -250,7 +255,7 @@ export const S04_Publishing: React.FC = () => {
               <div className="flex items-center justify-between border-b border-border pb-3 mb-4">
                 <div>
                   <span className="text-[10px] font-bold uppercase tracking-wider text-blue-600">
-                    Review & Approval Console
+                    {isAr ? 'لوحة المراجعة والاعتماد' : 'Review & Approval Console'}
                   </span>
                   <h3 className="text-base font-bold text-navy-900 mt-0.5">
                     {selectedSubmission.item}
@@ -265,7 +270,7 @@ export const S04_Publishing: React.FC = () => {
               <div className="space-y-3 text-xs">
                 <div className="p-3 rounded-xl bg-canvas border border-border">
                   <div className="flex items-center justify-between text-[11px] mb-1">
-                    <span className="text-text-muted">Submitted by: <strong className="text-navy-900">{selectedSubmission.submittedBy}</strong></span>
+                    <span className="text-text-muted">{isAr ? 'مُقدَم من: ' : 'Submitted by: '}<strong className="text-navy-900">{isAr ? 'فاطمة أ.' : selectedSubmission.submittedBy}</strong></span>
                     <span className="text-text-muted">{selectedSubmission.submittedDate}</span>
                   </div>
                   <p className="text-text-secondary leading-relaxed text-[11px]">
@@ -276,7 +281,7 @@ export const S04_Publishing: React.FC = () => {
                 {/* Quality Gateway Checks Accordion/List */}
                 <div>
                   <h4 className="text-[11px] font-bold text-navy-900 uppercase tracking-wider mb-2">
-                    Automated Quality Gateway Results
+                    {isAr ? 'نتائج بوابة الجودة المؤتمتة' : 'Automated Quality Gateway Results'}
                   </h4>
                   <div className="space-y-1.5">
                     {selectedSubmission.validationChecks.map((chk) => (
@@ -298,12 +303,12 @@ export const S04_Publishing: React.FC = () => {
                 {/* Classification and Target Audience */}
                 <div className="grid grid-cols-2 gap-2 text-xs">
                   <div className="p-2.5 rounded-lg border border-border bg-canvas">
-                    <div className="text-[10px] text-text-muted uppercase font-bold">Target Audience</div>
-                    <div className="font-semibold text-navy-900 mt-0.5">{selectedSubmission.targetAudience}</div>
+                    <div className="text-[10px] text-text-muted uppercase font-bold">{isAr ? 'الجمهور المستهدف' : 'Target Audience'}</div>
+                    <div className="font-semibold text-navy-900 mt-0.5">{isAr ? (selectedSubmission.targetAudience === 'Public' ? 'عام' : selectedSubmission.targetAudience === 'Government Only' ? 'جهات حكومية فقط' : selectedSubmission.targetAudience === 'Internal' ? 'داخلي' : 'شركاء معتمدون') : selectedSubmission.targetAudience}</div>
                   </div>
                   <div className="p-2.5 rounded-lg border border-border bg-canvas">
-                    <div className="text-[10px] text-text-muted uppercase font-bold">Legal Eligibility</div>
-                    <div className="font-semibold text-emerald-700 mt-0.5">DSA Verified</div>
+                    <div className="text-[10px] text-text-muted uppercase font-bold">{isAr ? 'الأهلية القانونية' : 'Legal Eligibility'}</div>
+                    <div className="font-semibold text-emerald-700 mt-0.5">{isAr ? 'معتمد بموجب DSA' : 'DSA Verified'}</div>
                   </div>
                 </div>
               </div>
@@ -317,7 +322,7 @@ export const S04_Publishing: React.FC = () => {
                 className="flex-1 py-2.5 px-3 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white font-semibold text-xs flex items-center justify-center gap-1.5 shadow-xs transition-colors"
               >
                 <Check className="w-4 h-4" />
-                <span>Approve for Publication</span>
+                <span>{isAr ? 'اعتماد للنشر' : 'Approve for Publication'}</span>
               </button>
 
               <button
@@ -326,7 +331,7 @@ export const S04_Publishing: React.FC = () => {
                 className="py-2.5 px-3 rounded-xl border border-amber-300 bg-amber-50 hover:bg-amber-100 text-amber-800 font-semibold text-xs flex items-center gap-1 transition-colors"
               >
                 <ArrowCounterClockwise className="w-4 h-4" />
-                <span>Return</span>
+                <span>{isAr ? 'إرجاع' : 'Return'}</span>
               </button>
 
               <button
@@ -335,7 +340,7 @@ export const S04_Publishing: React.FC = () => {
                 className="py-2.5 px-3 rounded-xl border border-red-200 bg-red-50 hover:bg-red-100 text-red-700 font-semibold text-xs flex items-center gap-1 transition-colors"
               >
                 <X className="w-4 h-4" />
-                <span>Reject</span>
+                <span>{isAr ? 'رفض' : 'Reject'}</span>
               </button>
             </div>
           </div>
@@ -347,7 +352,10 @@ export const S04_Publishing: React.FC = () => {
             <div className="bg-white rounded-2xl max-w-lg w-full p-6 shadow-2xl border border-border space-y-4">
               <div className="flex items-center justify-between border-b border-border pb-3">
                 <h3 className="text-base font-bold text-navy-900">
-                  {actionModal.title}
+                  {isAr ? (
+                    actionModal.type === 'approve' ? 'اعتماد نشر مجموعة البيانات' :
+                    actionModal.type === 'return' ? 'إرجاع الطلب مع ملاحظات التعديل' : 'رفض طلب النشر'
+                  ) : actionModal.title}
                 </h3>
                 <button
                   onClick={() => setActionModal({ open: false, type: 'approve', title: '' })}
@@ -358,30 +366,32 @@ export const S04_Publishing: React.FC = () => {
               </div>
 
               <div className="text-xs text-text-secondary leading-relaxed">
-                You are performing an action on dataset: <strong className="text-navy-900">{selectedSubmission.item}</strong>.
+                {isAr ? 'أنت تقوم بإجراء على مجموعة البيانات: ' : 'You are performing an action on dataset: '}<strong className="text-navy-900">{selectedSubmission.item}</strong>.
               </div>
 
               {(actionModal.type === 'return' || actionModal.type === 'reject') && (
                 <div>
                   <label className="block text-xs font-semibold text-navy-900 mb-1">
-                    Steward Feedback & Modification Notes <span className="text-red-500">*</span>
+                    {isAr ? 'ملاحظات وتعديلات المشرف' : 'Steward Feedback & Modification Notes'} <span className="text-red-500">*</span>
                   </label>
                   <textarea
                     rows={3}
                     value={modalComment}
                     onChange={(e) => setModalComment(e.target.value)}
-                    placeholder="Provide specific notes regarding vertex snapping, schema alignment, or justification..."
+                    placeholder={isAr ? 'قدم ملاحظات محددة حول محاذاة النقاط أو مطابقة المخطط أو التبرير...' : 'Provide specific notes regarding vertex snapping, schema alignment, or justification...'}
                     className="w-full p-2.5 text-xs border border-border rounded-lg focus:outline-none focus:ring-1 focus:ring-blue-600"
                   />
                   {commentError && (
-                    <div className="text-[11px] text-red-600 mt-1">{commentError}</div>
+                    <div className="text-[11px] text-red-600 mt-1">{isAr ? 'يجب إدخال تعليق أو تبرير إلزامي.' : commentError}</div>
                   )}
                 </div>
               )}
 
               {actionModal.type === 'approve' && (
                 <div className="p-3 rounded-xl bg-blue-50 border border-blue-200 text-xs text-blue-900 leading-relaxed">
-                  Upon confirmation, this dataset will be registered into the AD-SDI Clearinghouse with WMS/WFS/OGC endpoints activated for authorized entities.
+                  {isAr
+                    ? 'عند التأكيد، سيتم تسجيل مجموعة البيانات في مستودع AD-SDI وتفعيل نقاط WMS/WFS/OGC للجهات المصرح لها.'
+                    : 'Upon confirmation, this dataset will be registered into the AD-SDI Clearinghouse with WMS/WFS/OGC endpoints activated for authorized entities.'}
                 </div>
               )}
 
@@ -391,7 +401,7 @@ export const S04_Publishing: React.FC = () => {
                   onClick={() => setActionModal({ open: false, type: 'approve', title: '' })}
                   className="px-4 py-2 rounded-lg border border-border text-xs font-medium text-text-secondary hover:bg-canvas"
                 >
-                  Cancel
+                  {isAr ? 'إلغاء' : 'Cancel'}
                 </button>
                 <button
                   type="button"
@@ -404,7 +414,7 @@ export const S04_Publishing: React.FC = () => {
                       : 'bg-red-600 hover:bg-red-700'
                   }`}
                 >
-                  Confirm Action
+                  {isAr ? 'تأكيد الإجراء' : 'Confirm Action'}
                 </button>
               </div>
             </div>

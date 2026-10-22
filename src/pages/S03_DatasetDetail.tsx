@@ -189,10 +189,10 @@ export const S03_DatasetDetail: React.FC = () => {
                   <div className="flex items-center gap-2">
                     <span className="w-2.5 h-2.5 rounded-full bg-blue-600"></span>
                     <h3 className="text-xs font-bold text-navy-900 uppercase tracking-wider">
-                      Geographic Footprint & Interactive Parcel Inspection (Khalifa City)
+                      {isAr ? 'النطاق الجغرافي والمعاينة التفاعلية للقطع العقارية (مدينة خليفة)' : 'Geographic Footprint & Interactive Parcel Inspection (Khalifa City)'}
                     </h3>
                   </div>
-                  <span className="text-[11px] text-text-secondary">Click parcel polygon to inspect</span>
+                  <span className="text-[11px] text-text-secondary">{isAr ? 'انقر على مضلع القطعة العقارية للمعاينة' : 'Click parcel polygon to inspect'}</span>
                 </div>
 
                 <div className="w-full h-96 rounded-xl overflow-hidden border border-border relative">
@@ -210,21 +210,21 @@ export const S03_DatasetDetail: React.FC = () => {
                 {selectedParcel && (
                   <div className="mt-4 p-3.5 rounded-xl bg-canvas border border-border flex flex-col sm:flex-row sm:items-center justify-between gap-3 text-xs">
                     <div>
-                      <div className="text-[10px] uppercase font-bold text-blue-600">Selected Parcel Feature</div>
+                      <div className="text-[10px] uppercase font-bold text-blue-600">{isAr ? 'المعلم العقاري المحدد' : 'Selected Parcel Feature'}</div>
                       <div className="font-bold text-navy-900 text-sm">{selectedParcel.parcelId}</div>
                       <div className="text-text-secondary mt-0.5">{selectedParcel.sector} • {selectedParcel.zoning}</div>
                     </div>
                     <div className="flex items-center gap-4 text-[11px]">
                       <div>
-                        <span className="text-text-muted">Area: </span>
-                        <span className="font-mono font-bold text-navy-900">{selectedParcel.areaSqm?.toLocaleString()} m²</span>
+                        <span className="text-text-muted">{isAr ? 'المساحة: ' : 'Area: '}</span>
+                        <span className="font-mono font-bold text-navy-900">{selectedParcel.areaSqm?.toLocaleString()} {isAr ? 'م²' : 'm²'}</span>
                       </div>
                       <div>
-                        <span className="text-text-muted">Steward: </span>
-                        <span className="font-semibold text-navy-900">{selectedParcel.steward}</span>
+                        <span className="text-text-muted">{isAr ? 'المشرف: ' : 'Steward: '}</span>
+                        <span className="font-semibold text-navy-900">{isAr ? 'خالد م. (DMT)' : selectedParcel.steward}</span>
                       </div>
                       <div>
-                        <span className="text-text-muted">Surveyed: </span>
+                        <span className="text-text-muted">{isAr ? 'تاريخ المسح: ' : 'Surveyed: '}</span>
                         <span className="font-medium text-navy-900">{selectedParcel.lastSurvey}</span>
                       </div>
                     </div>
@@ -235,27 +235,27 @@ export const S03_DatasetDetail: React.FC = () => {
               {/* Data Lineage Summary */}
               <div className="bg-white rounded-2xl border border-border p-6 shadow-xs">
                 <h3 className="text-sm font-bold text-navy-900 mb-4">
-                  Automated Publishing Pipeline & Lineage
+                  {isAr ? 'خط النشر المؤتمت والمصدر (Lineage)' : 'Automated Publishing Pipeline & Lineage'}
                 </h3>
                 <div className="flex flex-col sm:flex-row items-center justify-between gap-3 text-center text-xs">
                   <div className="p-3 rounded-xl bg-canvas border border-border w-full sm:w-auto">
-                    <div className="font-bold text-navy-900">DMT Source Cadastre</div>
-                    <div className="text-[10px] text-text-secondary">Enterprise GIS DB</div>
+                    <div className="font-bold text-navy-900">{isAr ? 'المسح العقاري المصدر (DMT)' : 'DMT Source Cadastre'}</div>
+                    <div className="text-[10px] text-text-secondary">{isAr ? 'قاعدة بيانات GIS المؤسسية' : 'Enterprise GIS DB'}</div>
                   </div>
-                  <ArrowRight className="w-4 h-4 text-blue-600 rotate-90 sm:rotate-0" />
+                  <ArrowRight className="w-4 h-4 text-blue-600 rotate-90 sm:rotate-0 rtl:rotate-180" />
                   <div className="p-3 rounded-xl bg-emerald-50 border border-emerald-200 text-emerald-800 w-full sm:w-auto">
-                    <div className="font-bold">Quality Gateway</div>
-                    <div className="text-[10px]">Topology & CRS Verified</div>
+                    <div className="font-bold">{isAr ? 'بوابة الجودة' : 'Quality Gateway'}</div>
+                    <div className="text-[10px]">{isAr ? 'تم التحقق من الطوبولوجيا ونظام الإسناد' : 'Topology & CRS Verified'}</div>
                   </div>
-                  <ArrowRight className="w-4 h-4 text-blue-600 rotate-90 sm:rotate-0" />
+                  <ArrowRight className="w-4 h-4 text-blue-600 rotate-90 sm:rotate-0 rtl:rotate-180" />
                   <div className="p-3 rounded-xl bg-canvas border border-border w-full sm:w-auto">
-                    <div className="font-bold text-navy-900">Custodian Approval</div>
-                    <div className="text-[10px] text-text-secondary">Khalid M. (DMT)</div>
+                    <div className="font-bold text-navy-900">{isAr ? 'اعتماد المشرف' : 'Custodian Approval'}</div>
+                    <div className="text-[10px] text-text-secondary">{isAr ? 'خالد م. (DMT)' : 'Khalid M. (DMT)'}</div>
                   </div>
-                  <ArrowRight className="w-4 h-4 text-blue-600 rotate-90 sm:rotate-0" />
+                  <ArrowRight className="w-4 h-4 text-blue-600 rotate-90 sm:rotate-0 rtl:rotate-180" />
                   <div className="p-3 rounded-xl bg-blue-50 border border-blue-200 text-blue-800 w-full sm:w-auto">
-                    <div className="font-bold">AD-SDI Clearinghouse</div>
-                    <div className="text-[10px]">23 Downstream Services</div>
+                    <div className="font-bold">{isAr ? 'مستودع AD-SDI الرقمي' : 'AD-SDI Clearinghouse'}</div>
+                    <div className="text-[10px]">{isAr ? '23 خدمة تابعة' : '23 Downstream Services'}</div>
                   </div>
                 </div>
               </div>
@@ -266,41 +266,41 @@ export const S03_DatasetDetail: React.FC = () => {
               {/* Key Facts Card */}
               <div className="bg-white rounded-2xl border border-border p-6 shadow-xs">
                 <h3 className="text-sm font-bold text-navy-900 uppercase tracking-wider mb-4 border-b border-border pb-2">
-                  Key Technical Facts
+                  {isAr ? 'الحقائق الفنية الرئيسية' : 'Key Technical Facts'}
                 </h3>
 
                 <dl className="space-y-3 text-xs">
                   <div className="flex justify-between py-1 border-b border-border/60">
-                    <dt className="text-text-muted">Coordinate Reference System</dt>
+                    <dt className="text-text-muted">{isAr ? 'نظام الإسناد الإحداثي' : 'Coordinate Reference System'}</dt>
                     <dd className="font-mono font-bold text-navy-900">EPSG:32640 (UTM 40N)</dd>
                   </div>
                   <div className="flex justify-between py-1 border-b border-border/60">
-                    <dt className="text-text-muted">Geographic Extent</dt>
-                    <dd className="font-medium text-navy-900">Abu Dhabi Emirate</dd>
+                    <dt className="text-text-muted">{isAr ? 'النطاق الجغرافي' : 'Geographic Extent'}</dt>
+                    <dd className="font-medium text-navy-900">{isAr ? 'إمارة أبوظبي' : 'Abu Dhabi Emirate'}</dd>
                   </div>
                   <div className="flex justify-between py-1 border-b border-border/60">
-                    <dt className="text-text-muted">Total Features</dt>
-                    <dd className="font-mono font-bold text-blue-600">412,380 parcels</dd>
+                    <dt className="text-text-muted">{isAr ? 'إجمالي المعالم' : 'Total Features'}</dt>
+                    <dd className="font-mono font-bold text-blue-600">{isAr ? '412,380 قطعة عقارية' : '412,380 parcels'}</dd>
                   </div>
                   <div className="flex justify-between py-1 border-b border-border/60">
-                    <dt className="text-text-muted">Update Frequency</dt>
-                    <dd className="font-medium text-navy-900">Monthly</dd>
+                    <dt className="text-text-muted">{isAr ? 'دورية التحديث' : 'Update Frequency'}</dt>
+                    <dd className="font-medium text-navy-900">{isAr ? 'شهرياً' : 'Monthly'}</dd>
                   </div>
                   <div className="flex justify-between py-1 border-b border-border/60">
-                    <dt className="text-text-muted">Last Updated</dt>
-                    <dd className="font-medium text-navy-900">1 Sep 2027</dd>
+                    <dt className="text-text-muted">{isAr ? 'آخر تحديث' : 'Last Updated'}</dt>
+                    <dd className="font-medium text-navy-900">{isAr ? '1 سبتمبر 2027' : '1 Sep 2027'}</dd>
                   </div>
                   <div className="flex justify-between py-1 border-b border-border/60">
-                    <dt className="text-text-muted">Next Scheduled Sync</dt>
-                    <dd className="font-medium text-navy-900">1 Oct 2027</dd>
+                    <dt className="text-text-muted">{isAr ? 'المزامنة القادمة المجدولة' : 'Next Scheduled Sync'}</dt>
+                    <dd className="font-medium text-navy-900">{isAr ? '1 أكتوبر 2027' : '1 Oct 2027'}</dd>
                   </div>
                   <div className="flex justify-between py-1 border-b border-border/60">
-                    <dt className="text-text-muted">Lifecycle State</dt>
-                    <dd className="font-semibold text-emerald-600">Active Production</dd>
+                    <dt className="text-text-muted">{isAr ? 'حالة دورة الحياة' : 'Lifecycle State'}</dt>
+                    <dd className="font-semibold text-emerald-600">{isAr ? 'بيئة إنتاج نشطة' : 'Active Production'}</dd>
                   </div>
                   <div className="flex justify-between py-1">
-                    <dt className="text-text-muted">ISO 19115 Metadata</dt>
-                    <dd className="font-semibold text-blue-600">100% Complete</dd>
+                    <dt className="text-text-muted">{isAr ? 'بيانات وصفية ISO 19115' : 'ISO 19115 Metadata'}</dt>
+                    <dd className="font-semibold text-blue-600">{isAr ? 'مكتمل بنسبة 100%' : '100% Complete'}</dd>
                   </div>
                 </dl>
               </div>
@@ -309,21 +309,21 @@ export const S03_DatasetDetail: React.FC = () => {
               <div className="bg-white rounded-2xl border border-border p-6 shadow-xs">
                 <div className="flex items-center justify-between mb-3 border-b border-border pb-2">
                   <h3 className="text-sm font-bold text-navy-900 uppercase tracking-wider">
-                    Quality Validation Checks
+                    {isAr ? 'فحوصات التحقق من الجودة' : 'Quality Validation Checks'}
                   </h3>
                   <span className="text-[10px] font-bold text-emerald-700 bg-emerald-50 px-2 py-0.5 rounded border border-emerald-200">
-                    Passed (100%)
+                    {isAr ? 'اجتاز بنجاح (100%)' : 'Passed (100%)'}
                   </span>
                 </div>
 
                 <div className="space-y-2.5 text-xs">
                   {[
-                    { name: 'Schema Validation', detail: 'FGDS Cadastre Standard v2.4' },
-                    { name: 'Geometry Integrity', detail: 'Zero slivers, zero self-intersections' },
-                    { name: 'Topology Rules', detail: 'Must Not Overlap, Must Not Have Gaps' },
-                    { name: 'Attribute Domains', detail: 'Valid sector & zoning codes' },
-                    { name: 'Spatial Reference', detail: 'Strict EPSG:32640 alignment' },
-                    { name: 'Metadata Completeness', detail: 'All mandatory elements present' },
+                    { name: isAr ? 'التحقق من المخطط' : 'Schema Validation', detail: isAr ? 'معيار المسح العقاري FGDS v2.4' : 'FGDS Cadastre Standard v2.4' },
+                    { name: isAr ? 'سلامة المعالم الهندسية' : 'Geometry Integrity', detail: isAr ? 'خالٍ من المضلعات الضئيلة والتقاطعات الذاتية' : 'Zero slivers, zero self-intersections' },
+                    { name: isAr ? 'قواعد الطوبولوجيا' : 'Topology Rules', detail: isAr ? 'عدم التداخل وعدم وجود فجوات' : 'Must Not Overlap, Must Not Have Gaps' },
+                    { name: isAr ? 'نطاقات السمات' : 'Attribute Domains', detail: isAr ? 'رموز قطاعات ومناطق صالحة' : 'Valid sector & zoning codes' },
+                    { name: isAr ? 'الإسناد المكاني' : 'Spatial Reference', detail: isAr ? 'مطابقة صارمة لنظام EPSG:32640' : 'Strict EPSG:32640 alignment' },
+                    { name: isAr ? 'اكتمال البيانات الوصفية' : 'Metadata Completeness', detail: isAr ? 'جميع العناصر الإلزامية متوفرة' : 'All mandatory elements present' },
                   ].map((chk) => (
                     <div key={chk.name} className="flex items-center justify-between p-2 rounded-lg bg-canvas-subtle">
                       <div className="flex items-center gap-2">
@@ -342,9 +342,11 @@ export const S03_DatasetDetail: React.FC = () => {
         {activeTab === 'services' && (
           <div className="bg-white rounded-2xl border border-border p-6 shadow-xs space-y-6">
             <div>
-              <h3 className="text-base font-bold text-navy-900">Available Spatial Services & APIs</h3>
+              <h3 className="text-base font-bold text-navy-900">{isAr ? 'الخدمات والواجهات المكانية المتاحة' : 'Available Spatial Services & APIs'}</h3>
               <p className="text-xs text-text-secondary mt-1">
-                Direct endpoints configured with rate limits and authentication according to your government credentials.
+                {isAr
+                  ? 'نقاط اتصال مباشرة مهيأة بحدود الاستخدام والمصادقة وفقاً لصلاحياتك الحكومية.'
+                  : 'Direct endpoints configured with rate limits and authentication according to your government credentials.'}
               </p>
             </div>
 
@@ -358,10 +360,10 @@ export const S03_DatasetDetail: React.FC = () => {
                         {svc.type}
                       </span>
                       <span className="text-[10px] font-mono text-emerald-700 bg-emerald-50 px-1.5 py-0.2 rounded border border-emerald-200">
-                        {svc.status}
+                        {isAr ? 'يعمل بكفاءة' : svc.status}
                       </span>
                     </div>
-                    <div className="font-mono text-[11px] text-text-secondary mt-1 break-all select-all">
+                    <div className="font-mono text-[11px] text-text-secondary mt-1 break-all select-all text-left" dir="ltr">
                       {svc.url}
                     </div>
                   </div>
@@ -374,7 +376,7 @@ export const S03_DatasetDetail: React.FC = () => {
                       className="px-3 py-1.5 rounded-lg border border-border hover:bg-canvas font-medium flex items-center gap-1.5 transition-colors"
                     >
                       {copiedUrl === `svc-${i}` ? <Check className="w-3.5 h-3.5 text-emerald-600" /> : <Copy className="w-3.5 h-3.5" />}
-                      <span>{copiedUrl === `svc-${i}` ? 'Copied' : 'Copy URL'}</span>
+                      <span>{copiedUrl === `svc-${i}` ? (isAr ? 'تم النسخ' : 'Copied') : (isAr ? 'نسخ الرابط' : 'Copy URL')}</span>
                     </button>
                   </div>
                 </div>
@@ -385,24 +387,46 @@ export const S03_DatasetDetail: React.FC = () => {
 
         {activeTab === 'metadata' && (
           <div className="bg-white rounded-2xl border border-border p-6 shadow-xs space-y-4 text-xs">
-            <h3 className="text-base font-bold text-navy-900">ISO 19115 Geospatial Metadata Profile</h3>
+            <h3 className="text-base font-bold text-navy-900">{isAr ? 'الملف التعريفي للبيانات الوصفية المكانية ISO 19115' : 'ISO 19115 Geospatial Metadata Profile'}</h3>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               <div className="p-4 rounded-xl bg-canvas border border-border">
-                <div className="font-bold text-navy-900 mb-2">Identification Information</div>
+                <div className="font-bold text-navy-900 mb-2">{isAr ? 'معلومات التعريف' : 'Identification Information'}</div>
                 <p className="text-text-secondary leading-relaxed">
-                  Official Title: Abu Dhabi Emirate Cadastral Parcel Fabric v2027.09<br />
-                  Abstract: Authoritative survey parcels under DMT municipal jurisdiction.<br />
-                  Status: Completed / On-going monthly revision.<br />
-                  Topic Category: PlanningCadastre, Boundaries.
+                  {isAr ? (
+                    <>
+                      المسمى الرسمي: نسيج القطع العقارية لإمارة أبوظبي v2027.09<br />
+                      الملخص: مسح القطع العقارية المعتمدة تحت الاختصاص البلدي لـ DMT.<br />
+                      الحالة: مكتمل / مراجعة دورية شهرية مستمرة.<br />
+                      فئة الموضوع: التخطيط والمسح العقاري، الحدود الإدارية.
+                    </>
+                  ) : (
+                    <>
+                      Official Title: Abu Dhabi Emirate Cadastral Parcel Fabric v2027.09<br />
+                      Abstract: Authoritative survey parcels under DMT municipal jurisdiction.<br />
+                      Status: Completed / On-going monthly revision.<br />
+                      Topic Category: PlanningCadastre, Boundaries.
+                    </>
+                  )}
                 </p>
               </div>
               <div className="p-4 rounded-xl bg-canvas border border-border">
-                <div className="font-bold text-navy-900 mb-2">Spatial Representation</div>
+                <div className="font-bold text-navy-900 mb-2">{isAr ? 'التمثيل المكاني' : 'Spatial Representation'}</div>
                 <p className="text-text-secondary leading-relaxed">
-                  Representation Type: Vector Polygon<br />
-                  Geometric Object Count: 412,380<br />
-                  Topological Consistency: Verified by Automated FME Ruleset.<br />
-                  Positional Accuracy: Absolute horizontal accuracy ± 0.05m.
+                  {isAr ? (
+                    <>
+                      نوع التمثيل: مضلع شعاعي (Vector Polygon)<br />
+                      عدد المعالم الهندسية: 412,380<br />
+                      التناسق الطوبولوجي: تم التحقق عبر قواعد FME المؤتمتة.<br />
+                      الدقة الموضعية: دقة أفقية مطلقة ± 0.05 متر.
+                    </>
+                  ) : (
+                    <>
+                      Representation Type: Vector Polygon<br />
+                      Geometric Object Count: 412,380<br />
+                      Topological Consistency: Verified by Automated FME Ruleset.<br />
+                      Positional Accuracy: Absolute horizontal accuracy ± 0.05m.
+                    </>
+                  )}
                 </p>
               </div>
             </div>
@@ -411,22 +435,24 @@ export const S03_DatasetDetail: React.FC = () => {
 
         {activeTab === 'lineage' && (
           <div className="bg-white rounded-2xl border border-border p-6 shadow-xs space-y-4 text-xs">
-            <h3 className="text-base font-bold text-navy-900">Data Lineage & Provenance History</h3>
+            <h3 className="text-base font-bold text-navy-900">{isAr ? 'المصدر وتاريخ تدفق البيانات (Lineage)' : 'Data Lineage & Provenance History'}</h3>
             <div className="p-4 rounded-xl bg-canvas border border-border leading-relaxed text-text-secondary">
-              <p className="mb-2"><strong>Epoch 2027.09:</strong> Incremental update reflecting 1,480 new residential plot subdivisions in Khalifa City (Sector 14-B) and Yas North Zone 4.</p>
-              <p className="mb-2"><strong>Source Capture:</strong> DMT Registered Surveyor submittals validated through the electronic municipal permitting workflow.</p>
-              <p><strong>Transformations:</strong> Projected from local cadastral grid to UTM Zone 40N (WGS 84) using official survey control datum shifts.</p>
+              <p className="mb-2"><strong>{isAr ? 'الإصدار 2027.09:' : 'Epoch 2027.09:'}</strong> {isAr ? 'تحديث مرحلي يعكس 1,480 تقسيماً سكنياً جديداً في مدينة خليفة (القطاع 14-B) وياس شمال المنطقة 4.' : 'Incremental update reflecting 1,480 new residential plot subdivisions in Khalifa City (Sector 14-B) and Yas North Zone 4.'}</p>
+              <p className="mb-2"><strong>{isAr ? 'جمع البيانات المصدرية:' : 'Source Capture:'}</strong> {isAr ? 'تقديمات المساحين المعتمدين لدى دائرة البلديات والنقل المصدقة عبر نظام التراخيص الإلكتروني.' : 'DMT Registered Surveyor submittals validated through the electronic municipal permitting workflow.'}</p>
+              <p><strong>{isAr ? 'التحويلات الإحداثية:' : 'Transformations:'}</strong> {isAr ? 'إسقاط من شبكة المساحة المحلية إلى UTM Zone 40N (WGS 84) باستخدام نقاط الضبط المساحية الرسمية.' : 'Projected from local cadastral grid to UTM Zone 40N (WGS 84) using official survey control datum shifts.'}</p>
             </div>
           </div>
         )}
 
         {activeTab === 'access' && (
           <div className="bg-white rounded-2xl border border-border p-6 shadow-xs space-y-4 text-xs">
-            <h3 className="text-base font-bold text-navy-900">Data Sharing & Access Terms</h3>
+            <h3 className="text-base font-bold text-navy-900">{isAr ? 'شروط تبادل واستخدام البيانات' : 'Data Sharing & Access Terms'}</h3>
             <div className="p-4 rounded-xl bg-blue-50/60 border border-blue-200">
-              <div className="font-bold text-navy-900 mb-1">Governing Agreement: Data Sharing Agreement DSA-2027-014</div>
+              <div className="font-bold text-navy-900 mb-1">{isAr ? 'الاتفاقية الحاكمة: اتفاقية مشاركة البيانات DSA-2027-014' : 'Governing Agreement: Data Sharing Agreement DSA-2027-014'}</div>
               <p className="text-text-secondary leading-relaxed">
-                Authorized for official government operations across all 64 contributing Abu Dhabi entities. Approved commercial partners may request subscription access via the AD-SDI Marketplace subject to project verification.
+                {isAr
+                  ? 'مصرح للاستخدام في العمليات الحكومية الرسمية لجميع الجهات الـ 64 المساهمة في أبوظبي. يمكن للشركاء التجاريين المعتمدين طلب اشتراك عبر سوق البيانات AD-SDI Marketplace بعد التحقق من طبيعة المشروع.'
+                  : 'Authorized for official government operations across all 64 contributing Abu Dhabi entities. Approved commercial partners may request subscription access via the AD-SDI Marketplace subject to project verification.'}
               </p>
             </div>
           </div>
@@ -434,19 +460,19 @@ export const S03_DatasetDetail: React.FC = () => {
 
         {activeTab === 'versions' && (
           <div className="bg-white rounded-2xl border border-border p-6 shadow-xs text-xs space-y-3">
-            <h3 className="text-base font-bold text-navy-900">Version History</h3>
+            <h3 className="text-base font-bold text-navy-900">{isAr ? 'سجل الإصدارات' : 'Version History'}</h3>
             <div className="divide-y divide-border">
               <div className="py-2.5 flex justify-between items-center">
-                <div><span className="font-bold text-navy-900">v2027.09 (Current)</span> — Monthly cadastral synchronization</div>
-                <span className="text-text-muted">1 Sep 2027</span>
+                <div><span className="font-bold text-navy-900">{isAr ? 'v2027.09 (الحالي)' : 'v2027.09 (Current)'}</span> — {isAr ? 'مزامنة شهرية للمسح العقاري' : 'Monthly cadastral synchronization'}</div>
+                <span className="text-text-muted">{isAr ? '1 سبتمبر 2027' : '1 Sep 2027'}</span>
               </div>
               <div className="py-2.5 flex justify-between items-center">
-                <div><span className="font-medium text-text-secondary">v2027.08</span> — Reem Island parcel boundary adjustment</div>
-                <span className="text-text-muted">1 Aug 2027</span>
+                <div><span className="font-medium text-text-secondary">v2027.08</span> — {isAr ? 'تعديل حدود قطع جزيرة الريم' : 'Reem Island parcel boundary adjustment'}</div>
+                <span className="text-text-muted">{isAr ? '1 أغسطس 2027' : '1 Aug 2027'}</span>
               </div>
               <div className="py-2.5 flex justify-between items-center">
-                <div><span className="font-medium text-text-secondary">v2027.07</span> — Semi-annual emirate-wide boundary reconciliation</div>
-                <span className="text-text-muted">1 Jul 2027</span>
+                <div><span className="font-medium text-text-secondary">v2027.07</span> — {isAr ? 'مطابقة نصف سنوية لحدود الإمارة' : 'Semi-annual emirate-wide boundary reconciliation'}</div>
+                <span className="text-text-muted">{isAr ? '1 يوليو 2027' : '1 Jul 2027'}</span>
               </div>
             </div>
           </div>
@@ -454,19 +480,19 @@ export const S03_DatasetDetail: React.FC = () => {
 
         {activeTab === 'audit' && (
           <div className="bg-white rounded-2xl border border-border p-6 shadow-xs text-xs space-y-3">
-            <h3 className="text-base font-bold text-navy-900">Immutable Audit Trail</h3>
+            <h3 className="text-base font-bold text-navy-900">{isAr ? 'سجل تدقيق غير قابل للتعديل' : 'Immutable Audit Trail'}</h3>
             <div className="space-y-2">
               <div className="p-3 rounded-lg bg-canvas border border-border flex items-center justify-between">
                 <div>
-                  <span className="font-semibold text-navy-900">Publication Approved</span> by Khalid M. (DMT Data Steward)
+                  <span className="font-semibold text-navy-900">{isAr ? 'تم اعتماد النشر' : 'Publication Approved'}</span> {isAr ? 'بواسطة خالد م. (مشرف بيانات DMT)' : 'by Khalid M. (DMT Data Steward)'}
                 </div>
-                <span className="text-text-muted font-mono">01 Sep 2027 10:14 GST</span>
+                <span className="text-text-muted font-mono">{isAr ? '01 سبتمبر 2027 10:14 توقيت الإمارات' : '01 Sep 2027 10:14 GST'}</span>
               </div>
               <div className="p-3 rounded-lg bg-canvas border border-border flex items-center justify-between">
                 <div>
-                  <span className="font-semibold text-emerald-700">Automated Quality Gateway Passed (100%)</span>
+                  <span className="font-semibold text-emerald-700">{isAr ? 'اجتاز بوابة الجودة الآلية (100%)' : 'Automated Quality Gateway Passed (100%)'}</span>
                 </div>
-                <span className="text-text-muted font-mono">01 Sep 2027 09:48 GST</span>
+                <span className="text-text-muted font-mono">{isAr ? '01 سبتمبر 2027 09:48 توقيت الإمارات' : '01 Sep 2027 09:48 GST'}</span>
               </div>
             </div>
           </div>
