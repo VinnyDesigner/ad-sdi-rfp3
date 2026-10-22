@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { WorkspaceLayout } from '../components/common/WorkspaceLayout';
 import { InteractiveMap } from '../components/map/InteractiveMap';
+import { useLanguage } from '../context/LanguageContext';
 import { CHANGE_DETECTION_GEOJSON, KHALIFA_CITY_CENTER } from '../data/geoData';
 import {
   Brain,
@@ -19,6 +20,8 @@ import {
 } from '@phosphor-icons/react';
 
 export const S06_ChangeDetection: React.FC = () => {
+  const { language } = useLanguage();
+  const isAr = language === 'ar';
   const [activeTab, setActiveTab] = useState<'change' | 'feature' | 'models' | 'usecases'>('change');
   const [selectedFeature, setSelectedFeature] = useState<any>(CHANGE_DETECTION_GEOJSON.features[0].properties);
   const [isAnalyzing, setIsAnalyzing] = useState<boolean>(false);
@@ -53,20 +56,22 @@ export const S06_ChangeDetection: React.FC = () => {
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
           <div>
             <div className="flex items-center gap-2 text-xs text-text-secondary mb-1">
-              <span>BUILD</span>
+              <span>{isAr ? 'بناء' : 'BUILD'}</span>
               <span>/</span>
-              <span>GeoAI Studio</span>
+              <span>{isAr ? 'مختبر الذكاء الجغرافي' : 'GeoAI Studio'}</span>
               <span>/</span>
-              <span className="font-semibold text-navy-900">Change Detection</span>
+              <span className="font-semibold text-navy-900">{isAr ? 'كشف التغيرات الفضائية' : 'Change Detection'}</span>
             </div>
             <h1 className="text-2xl font-bold text-navy-900 tracking-tight flex items-center gap-2.5">
-              <span>Automated Satellite & Aerial Change Detection</span>
+              <span>{isAr ? 'الكشف الآلي عن التغيرات بالصور الفضائية والجوية' : 'Automated Satellite & Aerial Change Detection'}</span>
               <span className="text-[10px] font-mono uppercase bg-purple-100 text-purple-800 px-2 py-0.5 rounded border border-purple-200">
-                Module B
+                {isAr ? 'الوحدة B' : 'Module B'}
               </span>
             </h1>
             <p className="text-xs text-text-secondary mt-0.5">
-              Deep-learning feature change inference across multi-temporal high-resolution imagery.
+              {isAr
+                ? 'استنتاج وتحديد التغيرات المكانية بالتعلم العميق عبر الصور الجوية والفضائية المتعددة زمنياً.'
+                : 'Deep-learning feature change inference across multi-temporal high-resolution imagery.'}
             </p>
           </div>
 
@@ -76,7 +81,7 @@ export const S06_ChangeDetection: React.FC = () => {
               className="px-3.5 py-1.5 rounded-lg border border-border bg-white hover:bg-canvas text-navy-900 font-semibold text-xs flex items-center gap-1.5 shadow-xs transition-colors"
             >
               <FileText className="w-4 h-4 text-purple-600" />
-              <span>Model Card (MR-B-007)</span>
+              <span>{isAr ? 'بطاقة النموذج (MR-B-007)' : 'Model Card (MR-B-007)'}</span>
             </button>
           </div>
         </div>

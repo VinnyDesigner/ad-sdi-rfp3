@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { WorkspaceLayout } from '../components/common/WorkspaceLayout';
 import { InteractiveMap } from '../components/map/InteractiveMap';
+import { useLanguage } from '../context/LanguageContext';
 import { MANGROVE_GEOJSON, KHALIFA_CITY_PARCELS_GEOJSON, ABU_DHABI_CENTER } from '../data/geoData';
 import {
   MapTrifold,
@@ -18,6 +19,8 @@ import {
 } from '@phosphor-icons/react';
 
 export const StandaloneMapViewer: React.FC = () => {
+  const { language } = useLanguage();
+  const isAr = language === 'ar';
   const navigate = useNavigate();
 
   const [activeLayers, setActiveLayers] = useState({
@@ -47,11 +50,11 @@ export const StandaloneMapViewer: React.FC = () => {
               className="p-1.5 rounded-lg border border-border hover:bg-canvas text-navy-900 font-medium flex items-center gap-1.5"
             >
               <Stack className="w-4 h-4 text-blue-600" />
-              <span>{sidebarOpen ? 'Hide Layer Panel' : 'Show Layer Panel'}</span>
+              <span>{sidebarOpen ? (isAr ? 'إخفاء لوحة الطبقات' : 'Hide Layer Panel') : (isAr ? 'إظهار لوحة الطبقات' : 'Show Layer Panel')}</span>
             </button>
 
             <div className="flex items-center gap-2 text-text-secondary">
-              <span className="font-semibold text-navy-900">Abu Dhabi Enterprise Map Viewer</span>
+              <span className="font-semibold text-navy-900">{isAr ? 'مستعرض الخرائط الجيومكانية المؤسسي لإمارة أبوظبي' : 'Abu Dhabi Enterprise Map Viewer'}</span>
               <span>•</span>
               <span className="text-[11px] font-mono text-emerald-600">CRS: EPSG:32640 (UTM 40N)</span>
             </div>
@@ -62,8 +65,8 @@ export const StandaloneMapViewer: React.FC = () => {
               to="/catalogue/land-parcels"
               className="px-3 py-1 rounded-md bg-canvas hover:bg-canvas-subtle border border-border text-navy-900 font-semibold text-xs flex items-center gap-1"
             >
-              <span>Back to Dataset Detail</span>
-              <ArrowSquareOut className="w-3.5 h-3.5" />
+              <span>{isAr ? 'العودة إلى تفاصيل البيانات' : 'Back to Dataset Detail'}</span>
+              <ArrowSquareOut className="w-3.5 h-3.5 rtl:rotate-180" />
             </Link>
           </div>
         </div>
@@ -72,7 +75,7 @@ export const StandaloneMapViewer: React.FC = () => {
         <div className="flex-1 relative flex overflow-hidden">
           {/* Collapsible Layer & Legend Panel */}
           {sidebarOpen && (
-            <div className="w-72 lg:w-80 bg-white border-r border-border p-4 flex flex-col justify-between overflow-y-auto space-y-4 shrink-0 z-10 shadow-md">
+            <div className="w-72 lg:w-80 bg-white border-r rtl:border-r-0 rtl:border-l border-border p-4 flex flex-col justify-between overflow-y-auto space-y-4 shrink-0 z-10 shadow-md">
               <div className="space-y-4">
                 <div className="flex items-center justify-between border-b border-border pb-2">
                   <span className="text-xs font-bold text-navy-900 uppercase tracking-wider">

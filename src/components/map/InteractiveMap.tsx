@@ -343,13 +343,15 @@ export const InteractiveMap: React.FC<InteractiveMapProps> = ({
   return (
     <div
       className={`relative overflow-hidden w-full select-none ${className}`}
-      style={{ height: height || '100%', width: '100%' }}
+      style={{ height: height || '100%', width: '100%', direction: 'ltr' }}
+      dir="ltr"
     >
       {/* Map Canvas */}
       <div
         ref={mapContainerRef}
         className="w-full h-full z-0 relative"
-        style={{ width: '100%', height: '100%' }}
+        style={{ width: '100%', height: '100%', direction: 'ltr' }}
+        dir="ltr"
       />
 
       {/* Floating Control Bar (Top Left) */}

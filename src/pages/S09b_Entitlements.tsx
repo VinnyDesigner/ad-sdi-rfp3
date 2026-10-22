@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { Header } from '../components/common/Header';
 import { Footer } from '../components/common/Footer';
+import { useLanguage } from '../context/LanguageContext';
 import { MY_ENTITLEMENTS } from '../data/mockData';
 import { EntitlementItem } from '../types';
 import {
@@ -19,6 +20,8 @@ import {
 } from '@phosphor-icons/react';
 
 export const S09b_Entitlements: React.FC = () => {
+  const { language } = useLanguage();
+  const isAr = language === 'ar';
   const navigate = useNavigate();
   const [entitlements, setEntitlements] = useState<EntitlementItem[]>(MY_ENTITLEMENTS);
   const [copiedKey, setCopiedKey] = useState<string | null>(null);
@@ -36,7 +39,7 @@ export const S09b_Entitlements: React.FC = () => {
         e.id === id ? { ...e, apiKey: `adsdi_••••••${Math.random().toString(16).substring(2, 6)}` } : e
       )
     );
-    setToastMsg('API Key successfully rotated. New masked credential generated.');
+    setToastMsg(isAr ? 'تم تدوير مفتاح API بنجاح وإنشاء رمز اعتماد جديد.' : 'API Key successfully rotated. New masked credential generated.');
     setTimeout(() => setToastMsg(null), 3000);
   };
 
@@ -49,15 +52,15 @@ export const S09b_Entitlements: React.FC = () => {
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
           <div>
             <div className="flex items-center gap-2 text-xs text-text-secondary mb-1">
-              <Link to="/marketplace" className="hover:text-blue-600">Marketplace</Link>
+              <Link to="/marketplace" className="hover:text-blue-600">{isAr ? 'سوق البيانات' : 'Marketplace'}</Link>
               <span>/</span>
-              <span className="font-semibold text-navy-900">My Entitlements</span>
+              <span className="font-semibold text-navy-900">{isAr ? 'اشتراكاتي وصلاحياتي' : 'My Entitlements'}</span>
             </div>
             <h1 className="text-2xl font-bold text-navy-900 tracking-tight">
-              My Entitlements & API Credentials
+              {isAr ? 'اشتراكاتي وصلاحيات الوصول ومفاتيح API' : 'My Entitlements & API Credentials'}
             </h1>
             <p className="text-xs text-text-secondary mt-0.5">
-              Manage your active product subscriptions, quotas, and security tokens.
+              {isAr ? 'إدارة اشتراكات المنتجات النشطة وحصص الاستخدام ورموز الأمان.' : 'Manage your active product subscriptions, quotas, and security tokens.'}
             </p>
           </div>
 
@@ -67,7 +70,7 @@ export const S09b_Entitlements: React.FC = () => {
               className="px-3.5 py-2 rounded-lg bg-teal-600 hover:bg-teal-700 text-white font-semibold text-xs flex items-center gap-1.5 shadow-xs transition-colors"
             >
               <Plus className="w-4 h-4" />
-              <span>Browse Marketplace</span>
+              <span>{isAr ? 'استعراض سوق البيانات' : 'Browse Marketplace'}</span>
             </Link>
           </div>
         </div>

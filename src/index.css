@@ -49,6 +49,8 @@
   font-family: inherit;
   z-index: 10;
   background: #eef2f6 !important;
+  direction: ltr !important;
+  text-align: left !important;
 }
 
 /* Critical Leaflet CSS resets against Tailwind preflight img max-width */

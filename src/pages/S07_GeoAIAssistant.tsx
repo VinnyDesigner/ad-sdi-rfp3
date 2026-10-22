@@ -1,6 +1,7 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { WorkspaceLayout } from '../components/common/WorkspaceLayout';
 import { InteractiveMap } from '../components/map/InteractiveMap';
+import { useLanguage } from '../context/LanguageContext';
 import { AL_AIN_ANALYSIS_DATA, AL_AIN_CENTER } from '../data/geoData';
 import {
   Sparkle,
@@ -262,6 +263,8 @@ const generateGeoAIResponse = (query: string): ChatMessage => {
 };
 
 export const S07_GeoAIAssistant: React.FC = () => {
+  const { language } = useLanguage();
+  const isAr = language === 'ar';
   const [messages, setMessages] = useState<ChatMessage[]>(INITIAL_MESSAGES);
   const [queryInput, setQueryInput] = useState('');
   const [isThinking, setIsThinking] = useState(false);
@@ -359,17 +362,17 @@ export const S07_GeoAIAssistant: React.FC = () => {
         {/* Top Mini Breadcrumb */}
         <div className="bg-white border-b border-border px-6 py-2.5 flex items-center justify-between text-xs shrink-0">
           <div className="flex items-center gap-2 text-text-secondary">
-            <span>BUILD</span>
+            <span>{isAr ? 'بناء' : 'BUILD'}</span>
             <span>/</span>
-            <span>GeoAI Studio</span>
+            <span>{isAr ? 'مختبر الذكاء الجغرافي' : 'GeoAI Studio'}</span>
             <span>/</span>
-            <span className="font-semibold text-navy-900">Conversational Spatial Assistant</span>
+            <span className="font-semibold text-navy-900">{isAr ? 'المساعد الجيومكاني التحليلي' : 'Conversational Spatial Assistant'}</span>
           </div>
 
           <div className="flex items-center gap-2">
             <span className="text-[10px] font-mono bg-purple-50 text-purple-700 px-2.5 py-0.5 rounded-full border border-purple-200 flex items-center gap-1.5 shadow-2xs">
               <span className="w-1.5 h-1.5 rounded-full bg-purple-600 animate-pulse"></span>
-              GeoAI v3.2 Engine • Active
+              {isAr ? 'محرك GeoAI v3.2 • نشط' : 'GeoAI v3.2 Engine • Active'}
             </span>
           </div>
         </div>
@@ -377,14 +380,14 @@ export const S07_GeoAIAssistant: React.FC = () => {
         {/* Split Screen Container */}
         <div className="flex-1 flex flex-col lg:flex-row overflow-hidden">
           {/* Left Column: Conversational Assistant Panel (480px width) */}
-          <div className="w-full lg:w-[480px] xl:w-[520px] bg-white border-r border-border flex flex-col justify-between shrink-0 shadow-xs z-10">
+          <div className="w-full lg:w-[480px] xl:w-[520px] bg-white border-r rtl:border-r-0 rtl:border-l border-border flex flex-col justify-between shrink-0 shadow-xs z-10">
             {/* Conversation Messages Scroll Area */}
             <div className="flex-1 overflow-y-auto p-5 space-y-4">
               {/* Sample Question Chips */}
               <div className="space-y-1.5 pb-2 border-b border-border/80">
                 <span className="text-[10px] font-bold uppercase tracking-wider text-text-muted flex items-center gap-1">
                   <Sparkle className="w-3 h-3 text-purple-600" />
-                  Suggested Geospatial Inquiries
+                  {isAr ? 'استفسارات جيومكانية مقترحة' : 'Suggested Geospatial Inquiries'}
                 </span>
                 <div className="flex flex-col gap-1.5">
                   {sampleQuestions.map((q, idx) => (

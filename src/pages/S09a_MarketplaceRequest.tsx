@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import { Header } from '../components/common/Header';
 import { Footer } from '../components/common/Footer';
+import { useLanguage } from '../context/LanguageContext';
 import {
   CheckCircle,
   ShieldCheck,
@@ -14,6 +15,8 @@ import {
 } from '@phosphor-icons/react';
 
 export const S09a_MarketplaceRequest: React.FC = () => {
+  const { language } = useLanguage();
+  const isAr = language === 'ar';
   const navigate = useNavigate();
   const [currentStep, setCurrentStep] = useState<number>(1);
 
@@ -29,10 +32,10 @@ export const S09a_MarketplaceRequest: React.FC = () => {
   const [submitted, setSubmitted] = useState(false);
 
   const steps = [
-    { number: 1, title: 'Choose Plan' },
-    { number: 2, title: 'Purpose & Licence' },
-    { number: 3, title: 'Payment' },
-    { number: 4, title: 'Approval' },
+    { number: 1, title: isAr ? 'اختيار الباقة' : 'Choose Plan' },
+    { number: 2, title: isAr ? 'الغرض والترخيص' : 'Purpose & Licence' },
+    { number: 3, title: isAr ? 'طريقة الدفع' : 'Payment' },
+    { number: 4, title: isAr ? 'المراجعة والاعتماد' : 'Approval' },
   ];
 
   const handleNext = () => {
@@ -72,18 +75,18 @@ export const S09a_MarketplaceRequest: React.FC = () => {
       <div className="max-w-4xl mx-auto w-full px-4 sm:px-6 lg:px-8 py-10 flex-1">
         {/* Breadcrumb */}
         <div className="flex items-center gap-2 text-xs text-text-secondary mb-6">
-          <Link to="/marketplace" className="hover:text-blue-600">Marketplace</Link>
+          <Link to="/marketplace" className="hover:text-blue-600">{isAr ? 'سوق البيانات' : 'Marketplace'}</Link>
           <span>/</span>
-          <span className="font-semibold text-navy-900">Request Product Access</span>
+          <span className="font-semibold text-navy-900">{isAr ? 'طلب صلاحية منتج' : 'Request Product Access'}</span>
         </div>
 
         {/* Wizard Container */}
         <div className="bg-white rounded-2xl border border-border shadow-md overflow-hidden">
           {/* Header */}
           <div className="p-6 bg-navy-900 text-white border-b border-navy-700">
-            <h1 className="text-xl font-bold">Access Request Application</h1>
+            <h1 className="text-xl font-bold">{isAr ? 'طلب الحصول على صلاحية المنتج' : 'Access Request Application'}</h1>
             <p className="text-xs text-slate-300 mt-1">
-              Building Footprints 3D • Custodian: Department of Municipalities and Transport (DMT)
+              {isAr ? 'المجسمات ثلاثية الأبعاد للمباني • الجهة المسؤولة: دائرة البلديات والنقل (DMT)' : 'Building Footprints 3D • Custodian: Department of Municipalities and Transport (DMT)'}
             </p>
           </div>
 

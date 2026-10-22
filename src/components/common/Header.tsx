@@ -91,9 +91,9 @@ export const Header: React.FC = () => {
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
                 placeholder={language === 'ar' ? 'ابحث في البيانات...' : 'Search catalogue...'}
-                className="w-40 xl:w-52 pl-8 pr-3 py-1.5 text-xs bg-canvas border border-border rounded-lg focus:outline-none focus:ring-1 focus:ring-blue-600 focus:bg-white text-text-primary placeholder:text-text-muted transition-all"
+                className="w-40 xl:w-52 pl-8 pr-3 rtl:pl-3 rtl:pr-8 py-1.5 text-xs bg-canvas border border-border rounded-lg focus:outline-none focus:ring-1 focus:ring-blue-600 focus:bg-white text-text-primary placeholder:text-text-muted transition-all"
               />
-              <MagnifyingGlass className="w-3.5 h-3.5 text-text-secondary absolute left-2.5 pointer-events-none" />
+              <MagnifyingGlass className="w-3.5 h-3.5 text-text-secondary absolute left-2.5 rtl:left-auto rtl:right-2.5 pointer-events-none" />
             </form>
 
             {/* Language Switcher */}
@@ -111,8 +111,8 @@ export const Header: React.FC = () => {
               to="/workspace/publishing"
               className="hidden sm:flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-navy-900 text-white hover:bg-navy-700 text-xs font-semibold transition-colors shadow-xs whitespace-nowrap shrink-0"
             >
-              <span>Workspace</span>
-              <ArrowSquareOut className="w-3.5 h-3.5 text-gold-500" />
+              <span>{t('nav.workspace')}</span>
+              <ArrowSquareOut className="w-3.5 h-3.5 text-gold-500 rtl:rotate-180" />
             </Link>
 
             {/* Authentication & Persona Control */}
@@ -127,7 +127,7 @@ export const Header: React.FC = () => {
                   </div>
                   <div className="hidden xl:flex flex-col text-left rtl:text-right shrink-0">
                     <span className="text-navy-900 font-bold leading-tight whitespace-nowrap">{currentUser.name}</span>
-                    <span className="text-[10px] text-text-secondary whitespace-nowrap">{currentUser.role === 'steward' ? 'Data Steward' : currentUser.role === 'partner' ? 'Approved Partner' : 'Visitor'}</span>
+                    <span className="text-[10px] text-text-secondary whitespace-nowrap">{currentUser.role === 'steward' ? (language === 'ar' ? 'مشرف بيانات' : 'Data Steward') : currentUser.role === 'partner' ? (language === 'ar' ? 'شريك معتمد' : 'Approved Partner') : (language === 'ar' ? 'زائر' : 'Visitor')}</span>
                   </div>
                   <CaretDown className="w-3 h-3 text-text-secondary shrink-0" />
                 </button>
@@ -204,7 +204,7 @@ export const Header: React.FC = () => {
                         onClick={() => { logout(); setShowPersonaMenu(false); }}
                         className="w-full text-left rtl:text-right px-4 py-1.5 text-xs text-red-600 hover:bg-red-50 font-medium"
                       >
-                        Sign out
+                        {t('nav.signout')}
                       </button>
                     </div>
                   </div>

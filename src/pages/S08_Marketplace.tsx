@@ -2,6 +2,7 @@ import React, { useState, useMemo, useEffect } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import { Header } from '../components/common/Header';
 import { Footer } from '../components/common/Footer';
+import { useLanguage } from '../context/LanguageContext';
 import { MARKETPLACE_PRODUCTS } from '../data/mockData';
 import { MarketplaceProduct } from '../types';
 import { InteractiveMap } from '../components/map/InteractiveMap';
@@ -30,6 +31,8 @@ import {
 } from '@phosphor-icons/react';
 
 export const S08_Marketplace: React.FC = () => {
+  const { language } = useLanguage();
+  const isAr = language === 'ar';
   const navigate = useNavigate();
 
   const [searchQuery, setSearchQuery] = useState('');
@@ -118,13 +121,15 @@ export const S08_Marketplace: React.FC = () => {
           <div>
             <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-teal-500/20 text-teal-300 border border-teal-500/40 text-xs font-semibold mb-3">
               <Storefront className="w-3.5 h-3.5 text-teal-400" />
-              Module C • Geospatial Exchange
+              {isAr ? 'الوحدة C • منصة تبادل البيانات المكانية' : 'Module C • Geospatial Exchange'}
             </div>
             <h1 className="text-3xl font-extrabold tracking-tight text-white">
-              Geospatial Marketplace
+              {isAr ? 'سوق البيانات المكانية' : 'Geospatial Marketplace'}
             </h1>
             <p className="text-sm text-slate-300 mt-1 max-w-xl leading-relaxed">
-              Trusted data products, 3D meshes, programmatic APIs, and AI models from government entities and approved private sector partners.
+              {isAr
+                ? 'منتجات بيانات موثوقة، ونماذج ثلاثية الأبعاد، وواجهات برمجية، ونماذج ذكاء اصطناعي من الجهات الحكومية والشركاء المعتمدين.'
+                : 'Trusted data products, 3D meshes, programmatic APIs, and AI models from government entities and approved private sector partners.'}
             </p>
           </div>
 
@@ -134,13 +139,13 @@ export const S08_Marketplace: React.FC = () => {
               to="/marketplace/entitlements"
               className="px-4 py-2 rounded-xl bg-teal-600 hover:bg-teal-700 text-white font-semibold text-xs transition-colors shadow-xs"
             >
-              My Entitlements
+              {isAr ? 'اشتراكاتي وصلاحياتي' : 'My Entitlements'}
             </Link>
             <Link
               to="/marketplace/provider"
               className="px-4 py-2 rounded-xl bg-navy-800 hover:bg-navy-700 text-slate-200 border border-navy-600 font-semibold text-xs transition-colors"
             >
-              Provider Workspace
+              {isAr ? 'مساحة عمل المزود' : 'Provider Workspace'}
             </Link>
           </div>
         </div>
@@ -157,10 +162,10 @@ export const S08_Marketplace: React.FC = () => {
                 type="text"
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
-                placeholder="Search products by title, provider, or topic..."
-                className="w-full pl-9 pr-4 py-2 text-xs bg-canvas border border-border rounded-lg focus:outline-none focus:ring-1 focus:ring-teal-600 text-text-primary"
+                placeholder={isAr ? 'ابحث في المنتجات، والمزودين، والتصنيفات...' : 'Search products by title, provider, or topic...'}
+                className="w-full pl-9 pr-4 rtl:pl-4 rtl:pr-9 py-2 text-xs bg-canvas border border-border rounded-lg focus:outline-none focus:ring-1 focus:ring-teal-600 text-text-primary"
               />
-              <MagnifyingGlass className="w-4 h-4 text-text-secondary absolute left-3 top-2.5 pointer-events-none" />
+              <MagnifyingGlass className="w-4 h-4 text-text-secondary absolute left-3 rtl:left-auto rtl:right-3 top-2.5 pointer-events-none" />
             </div>
 
             <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 text-xs">
@@ -169,11 +174,11 @@ export const S08_Marketplace: React.FC = () => {
                 onChange={(e) => setSelectedCategory(e.target.value)}
                 className="p-1.5 bg-canvas border border-border rounded text-[11px] text-text-primary"
               >
-                <option value="all">All Product Types</option>
-                <option value="Datasets">Datasets</option>
-                <option value="Services & APIs">Services & APIs</option>
-                <option value="AI outputs">AI outputs</option>
-                <option value="Imagery">Imagery</option>
+                <option value="all">{isAr ? 'جميع أنواع المنتجات' : 'All Product Types'}</option>
+                <option value="Datasets">{isAr ? 'حزم البيانات' : 'Datasets'}</option>
+                <option value="Services & APIs">{isAr ? 'الخدمات والواجهات' : 'Services & APIs'}</option>
+                <option value="AI outputs">{isAr ? 'مخرجات الذكاء الاصطناعي' : 'AI outputs'}</option>
+                <option value="Imagery">{isAr ? 'الصور والخرائط' : 'Imagery'}</option>
               </select>
 
               <select
@@ -181,9 +186,9 @@ export const S08_Marketplace: React.FC = () => {
                 onChange={(e) => setSelectedProviderType(e.target.value)}
                 className="p-1.5 bg-canvas border border-border rounded text-[11px] text-text-primary"
               >
-                <option value="all">All Providers</option>
-                <option value="Government entity">Government Entity</option>
-                <option value="Approved partner">Approved Partner</option>
+                <option value="all">{isAr ? 'جميع المزودين' : 'All Providers'}</option>
+                <option value="Government entity">{isAr ? 'جهة حكومية' : 'Government Entity'}</option>
+                <option value="Approved partner">{isAr ? 'شريك معتمد' : 'Approved Partner'}</option>
               </select>
 
               <select
@@ -191,10 +196,10 @@ export const S08_Marketplace: React.FC = () => {
                 onChange={(e) => setSelectedLicense(e.target.value)}
                 className="p-1.5 bg-canvas border border-border rounded text-[11px] text-text-primary"
               >
-                <option value="all">All Licences</option>
-                <option value="Government-only">Government-only</option>
-                <option value="Commercial">Commercial</option>
-                <option value="Open">Open</option>
+                <option value="all">{isAr ? 'جميع التراخيص' : 'All Licences'}</option>
+                <option value="Government-only">{isAr ? 'حكومي فقط' : 'Government-only'}</option>
+                <option value="Commercial">{isAr ? 'تجاري' : 'Commercial'}</option>
+                <option value="Open">{isAr ? 'مفتوح' : 'Open'}</option>
               </select>
 
               <select
@@ -202,10 +207,10 @@ export const S08_Marketplace: React.FC = () => {
                 onChange={(e) => setSelectedAccessModel(e.target.value)}
                 className="p-1.5 bg-canvas border border-border rounded text-[11px] text-text-primary"
               >
-                <option value="all">All Access Models</option>
-                <option value="Included">Included</option>
-                <option value="Subscription">Subscription</option>
-                <option value="Pay-per-use">Pay-per-use</option>
+                <option value="all">{isAr ? 'جميع نماذج الوصول' : 'All Access Models'}</option>
+                <option value="Included">{isAr ? 'مشمول ضمن الترخيص' : 'Included'}</option>
+                <option value="Subscription">{isAr ? 'اشتراك' : 'Subscription'}</option>
+                <option value="Pay-per-use">{isAr ? 'الدفع حسب الاستخدام' : 'Pay-per-use'}</option>
               </select>
             </div>
           </div>

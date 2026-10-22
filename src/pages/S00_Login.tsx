@@ -86,7 +86,7 @@ export const S00_Login: React.FC = () => {
         <div className="relative z-10 my-auto py-2 max-w-lg">
           <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-600/25 border border-blue-400/40 text-blue-300 text-xs font-bold mb-4 shadow-xs backdrop-blur-xs">
             <span className="w-2 h-2 rounded-full bg-gold-500 animate-pulse"></span>
-            Authoritative Geospatial Clearinghouse
+            {language === 'ar' ? 'المستودع الجيومكاني المعتمد' : 'Authoritative Geospatial Clearinghouse'}
           </div>
 
           <h1 className="text-2xl sm:text-3xl lg:text-[34px] font-black text-white leading-tight tracking-tight mb-2.5 drop-shadow-sm">
@@ -103,13 +103,13 @@ export const S00_Login: React.FC = () => {
               <div className="w-7 h-7 rounded-lg bg-emerald-500/15 border border-emerald-500/30 flex items-center justify-center shrink-0">
                 <ShieldCheck className="w-4 h-4 text-emerald-400" />
               </div>
-              <span className="text-slate-100 font-semibold text-xs">UAE Sovereign Data Residency</span>
+              <span className="text-slate-100 font-semibold text-xs">{language === 'ar' ? 'الإقامة السيادية للبيانات في الإمارات' : 'UAE Sovereign Data Residency'}</span>
             </div>
             <div className="p-3 rounded-xl bg-[#0F2B52]/80 border border-[#1A427A] flex items-center gap-2.5 shadow-xs">
               <div className="w-7 h-7 rounded-lg bg-gold-500/15 border border-gold-500/30 flex items-center justify-center shrink-0">
                 <UserCheck className="w-4 h-4 text-gold-400" />
               </div>
-              <span className="text-slate-100 font-semibold text-xs">Role-Based Secure Access</span>
+              <span className="text-slate-100 font-semibold text-xs">{language === 'ar' ? 'وصول آمن مبني على الصلاحيات' : 'Role-Based Secure Access'}</span>
             </div>
           </div>
         </div>
@@ -132,9 +132,11 @@ export const S00_Login: React.FC = () => {
                 className="h-8 sm:h-9 w-auto object-contain"
               />
             </Link>
-            <h2 className="text-xl sm:text-2xl font-extrabold text-[#0B2545] tracking-tight">Sign in to AD-SDI</h2>
+            <h2 className="text-xl sm:text-2xl font-extrabold text-[#0B2545] tracking-tight">
+              {language === 'ar' ? 'تسجيل الدخول إلى AD-SDI' : 'Sign in to AD-SDI'}
+            </h2>
             <p className="text-xs text-slate-500 mt-0.5 leading-relaxed">
-              Enter your government credentials or use UAE PASS single sign-on.
+              {language === 'ar' ? 'أدخل بيانات الاعتماد الحكومية أو استخدم الهوية الرقمية UAE PASS.' : 'Enter your government credentials or use UAE PASS single sign-on.'}
             </p>
           </div>
 
@@ -147,13 +149,13 @@ export const S00_Login: React.FC = () => {
             <div className="w-4 h-4 rounded-md bg-gold-500/20 border border-gold-500/40 flex items-center justify-center text-gold-400">
               <Key className="w-3 h-3" />
             </div>
-            <span>Sign in with UAE PASS / Government SSO</span>
+            <span>{language === 'ar' ? 'الدخول بواسطة UAE PASS / الدخول الموحد' : 'Sign in with UAE PASS / Government SSO'}</span>
           </button>
 
           <div className="relative my-3 flex items-center justify-center">
             <div className="border-t border-slate-200 w-full"></div>
             <span className="bg-slate-50 px-2.5 text-[10px] font-bold text-slate-400 uppercase tracking-wider">
-              or continue with email
+              {language === 'ar' ? 'أو المتابعة بالبريد الإلكتروني' : 'or continue with email'}
             </span>
           </div>
 
@@ -167,24 +169,25 @@ export const S00_Login: React.FC = () => {
           <form onSubmit={handleSignIn} className="space-y-2.5">
             <div>
               <label className="block text-xs font-bold text-[#0B2545] mb-1">
-                Government Email Address
+                {language === 'ar' ? 'البريد الإلكتروني الحكومي' : 'Government Email Address'}
               </label>
               <input
                 type="email"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 required
-                className="w-full px-3 py-2 text-xs bg-white border border-slate-200 rounded-lg text-slate-900 focus:outline-none focus:ring-2 focus:ring-blue-600/20 focus:border-blue-600 transition-all font-mono shadow-xs"
+                className="w-full px-3 py-2 text-xs bg-white border border-slate-200 rounded-lg text-slate-900 focus:outline-none focus:ring-2 focus:ring-blue-600/20 focus:border-blue-600 transition-all font-mono shadow-xs text-left"
+                dir="ltr"
               />
             </div>
 
             <div>
               <div className="flex items-center justify-between mb-1">
                 <label className="block text-xs font-bold text-[#0B2545]">
-                  Password
+                  {language === 'ar' ? 'كلمة المرور' : 'Password'}
                 </label>
                 <span className="text-[11px] font-semibold text-blue-600 hover:text-blue-700 hover:underline cursor-pointer">
-                  Forgot password?
+                  {language === 'ar' ? 'نسيت كلمة المرور؟' : 'Forgot password?'}
                 </span>
               </div>
               <div className="relative">
@@ -193,7 +196,8 @@ export const S00_Login: React.FC = () => {
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
                   required
-                  className="w-full px-3 py-2 text-xs bg-white border border-slate-200 rounded-lg text-slate-900 focus:outline-none focus:ring-2 focus:ring-blue-600/20 focus:border-blue-600 text-text-primary pr-9 rtl:pr-3 rtl:pl-9 transition-all font-mono shadow-xs"
+                  className="w-full px-3 py-2 text-xs bg-white border border-slate-200 rounded-lg text-slate-900 focus:outline-none focus:ring-2 focus:ring-blue-600/20 focus:border-blue-600 text-text-primary pr-9 rtl:pr-3 rtl:pl-9 transition-all font-mono shadow-xs text-left"
+                  dir="ltr"
                 />
                 <button
                   type="button"
@@ -213,7 +217,9 @@ export const S00_Login: React.FC = () => {
                   onChange={(e) => setRememberDevice(e.target.checked)}
                   className="rounded border-slate-300 text-blue-600 focus:ring-blue-600 w-3.5 h-3.5"
                 />
-                <span className="text-slate-600 text-xs font-medium">Remember this device for 30 days</span>
+                <span className="text-slate-600 text-xs font-medium">
+                  {language === 'ar' ? 'تذكر هذا الجهاز لمدة 30 يوماً' : 'Remember this device for 30 days'}
+                </span>
               </label>
             </div>
 
@@ -221,7 +227,7 @@ export const S00_Login: React.FC = () => {
               type="submit"
               className="w-full py-2.5 px-4 rounded-xl bg-blue-600 hover:bg-blue-700 text-white font-bold text-xs flex items-center justify-center gap-2 transition-all shadow-md hover:shadow-lg active:scale-[0.99]"
             >
-              <span>Sign In</span>
+              <span>{language === 'ar' ? 'تسجيل الدخول' : 'Sign In'}</span>
               <ArrowRight className="w-4 h-4 rtl:rotate-180" />
             </button>
           </form>
@@ -230,28 +236,37 @@ export const S00_Login: React.FC = () => {
           <div className="mt-3 p-2.5 rounded-xl bg-blue-50/70 border border-blue-100 flex items-start gap-2 text-[11px] text-slate-600 leading-relaxed shadow-xs">
             <Lock className="w-3.5 h-3.5 text-blue-600 shrink-0 mt-0.5" />
             <div>
-              <span className="font-bold text-[#0B2545]">Multi-Factor Authentication (MFA):</span> Privileged data steward and partner accounts require hardware token or authenticator app confirmation.
+              <span className="font-bold text-[#0B2545]">
+                {language === 'ar' ? 'المصادقة متعددة العوامل (MFA): ' : 'Multi-Factor Authentication (MFA): '}
+              </span>
+              {language === 'ar'
+                ? 'تتطلب حسابات المشرفين والشركاء المعتمدين تأكيداً عبر رمز أمان أو تطبيق المصادقة.'
+                : 'Privileged data steward and partner accounts require hardware token or authenticator app confirmation.'}
             </div>
           </div>
 
           {/* Service Operational status */}
           <div className="mt-2.5 flex items-center justify-center gap-2 text-xs text-emerald-700 font-semibold">
             <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse"></span>
-            <span>All AD-SDI gateway services operational (99.95%)</span>
+            <span>
+              {language === 'ar'
+                ? 'جميع خدمات بوابة AD-SDI تعمل بكفاءة (99.95%)'
+                : 'All AD-SDI gateway services operational (99.95%)'}
+            </span>
           </div>
         </div>
 
         {/* Footer Links */}
         <div className="px-6 sm:px-8 py-3 border-t border-slate-200 text-xs text-slate-500 flex items-center justify-between bg-white shrink-0">
           <div className="space-x-3 rtl:space-x-reverse font-medium">
-            <span className="hover:text-slate-900 cursor-pointer transition-colors">Help</span>
+            <span className="hover:text-slate-900 cursor-pointer transition-colors">{language === 'ar' ? 'المساعدة' : 'Help'}</span>
             <span>•</span>
-            <span className="hover:text-slate-900 cursor-pointer transition-colors">Privacy</span>
+            <span className="hover:text-slate-900 cursor-pointer transition-colors">{language === 'ar' ? 'الخصوصية' : 'Privacy'}</span>
             <span>•</span>
-            <span className="hover:text-slate-900 cursor-pointer transition-colors">Accessibility</span>
+            <span className="hover:text-slate-900 cursor-pointer transition-colors">{language === 'ar' ? 'إمكانية الوصول' : 'Accessibility'}</span>
           </div>
           <Link to="/" className="text-blue-600 hover:text-blue-700 font-semibold hover:underline transition-colors">
-            Return to Public Home
+            {language === 'ar' ? 'العودة إلى الصفحة الرئيسية' : 'Return to Public Home'}
           </Link>
         </div>
       </div>

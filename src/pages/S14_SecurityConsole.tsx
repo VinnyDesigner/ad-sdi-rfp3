@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { WorkspaceLayout } from '../components/common/WorkspaceLayout';
+import { useLanguage } from '../context/LanguageContext';
 import {
   ShieldCheck,
   Lock,
@@ -17,6 +18,7 @@ import {
 } from '@phosphor-icons/react';
 
 export const S14_SecurityConsole: React.FC = () => {
+  const { language } = useLanguage();
   const [activeTab, setActiveTab] = useState<'overview' | 'requests' | 'roles' | 'classification' | 'audit'>('overview');
   const [selectedAuditFilter, setSelectedAuditFilter] = useState<'all' | 'denied' | 'approved'>('all');
   const [toastMsg, setToastMsg] = useState<string | null>(null);
@@ -67,13 +69,13 @@ export const S14_SecurityConsole: React.FC = () => {
 
   const handleApprove = (id: string, name: string) => {
     setAccessRequests((prev) => prev.filter((r) => r.id !== id));
-    setToastMsg(`Access request for "${name}" approved. Key generated and recorded in audit log.`);
+    setToastMsg(language === 'ar' ? `تم اعتماد طلب الوصول لـ "${name}" بنجاح.` : `Access request for "${name}" approved. Key generated and recorded in audit log.`);
     setTimeout(() => setToastMsg(null), 4000);
   };
 
   const handleReject = (id: string, name: string) => {
     setAccessRequests((prev) => prev.filter((r) => r.id !== id));
-    setToastMsg(`Access request for "${name}" denied. Reason logged in security register.`);
+    setToastMsg(language === 'ar' ? `تم رفض طلب الوصول لـ "${name}".` : `Access request for "${name}" denied. Reason logged in security register.`);
     setTimeout(() => setToastMsg(null), 4000);
   };
 
@@ -90,22 +92,24 @@ export const S14_SecurityConsole: React.FC = () => {
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
           <div>
             <div className="flex items-center gap-2 text-xs text-text-secondary mb-1">
-              <span>GOVERN</span>
+              <span>{language === 'ar' ? 'حوكمة' : 'GOVERN'}</span>
               <span>/</span>
-              <span className="font-semibold text-navy-900">Security & Access Console</span>
+              <span className="font-semibold text-navy-900">{language === 'ar' ? 'لوحة الأمان والصلاحيات' : 'Security & Access Console'}</span>
             </div>
             <h1 className="text-2xl font-bold text-navy-900 tracking-tight">
-              Security, Classification & Access Governance
+              {language === 'ar' ? 'حوكمة الأمان والتصنيف وإدارة الصلاحيات' : 'Security, Classification & Access Governance'}
             </h1>
             <p className="text-xs text-text-secondary mt-0.5">
-              Role-based permission matrices, classification compliance, and real-time security gate audits.
+              {language === 'ar'
+                ? 'مصفوفات الصلاحيات القائمة على الأدوار، والامتثال لمعايير التصنيف، وتدقيق بوابات الأمان الحية.'
+                : 'Role-based permission matrices, classification compliance, and real-time security gate audits.'}
             </p>
           </div>
 
           <div className="flex items-center gap-2">
             <span className="text-xs px-3 py-1.5 rounded-lg bg-emerald-50 text-emerald-800 border border-emerald-200 font-semibold flex items-center gap-1.5">
               <ShieldCheck className="w-4 h-4 text-emerald-600" />
-              <span>Gate Release: R-2027.09 Approved</span>
+              <span>{language === 'ar' ? 'اعتماد الإصدار: R-2027.09 معتمد' : 'Gate Release: R-2027.09 Approved'}</span>
             </span>
           </div>
         </div>
@@ -113,12 +117,12 @@ export const S14_SecurityConsole: React.FC = () => {
         {/* Sovereign Security & Compliance Strip */}
         <div className="p-3.5 rounded-2xl bg-white border border-border shadow-xs flex flex-wrap items-center justify-between gap-3 text-xs">
           {[
-            'UAE Sovereign Data Residency',
-            'FedRAMP / DESC Approved Hosting',
-            'AES-256 Encrypted (Transit & Rest)',
-            '24/7 Security Monitoring (SOC)',
-            'Release Gate R-2027.09 Approved',
-            'Penetration Test Passed (Jul 2027)',
+            language === 'ar' ? 'استضافة سيادية داخل دولة الإمارات' : 'UAE Sovereign Data Residency',
+            language === 'ar' ? 'استضافة معتمدة وفق DESC / FedRAMP' : 'FedRAMP / DESC Approved Hosting',
+            language === 'ar' ? 'تشفير AES-256 (أثناء النقل والتخزين)' : 'AES-256 Encrypted (Transit & Rest)',
+            language === 'ar' ? 'مراقبة أمنية على مدار الساعة (SOC)' : '24/7 Security Monitoring (SOC)',
+            language === 'ar' ? 'بوابة الإصدار R-2027.09 معتمدة' : 'Release Gate R-2027.09 Approved',
+            language === 'ar' ? 'اجتياز اختبار الاختراق بنجاح (يوليو 2027)' : 'Penetration Test Passed (Jul 2027)',
           ].map((item, idx) => (
             <div key={idx} className="flex items-center gap-1.5 text-navy-900 font-medium">
               <CheckCircle className="w-4 h-4 text-emerald-600 shrink-0" />
@@ -130,33 +134,33 @@ export const S14_SecurityConsole: React.FC = () => {
         {/* 5 KPI Cards */}
         <div className="grid grid-cols-2 lg:grid-cols-5 gap-3.5">
           <div className="bg-white rounded-2xl border border-border p-4 shadow-xs">
-            <div className="text-[11px] font-bold text-text-secondary uppercase tracking-wider">Active Users</div>
+            <div className="text-[11px] font-bold text-text-secondary uppercase tracking-wider">{language === 'ar' ? 'المستخدمون النشطون' : 'Active Users'}</div>
             <div className="text-2xl font-extrabold text-navy-900 font-mono mt-1">4,820</div>
-            <div className="text-[11px] text-text-muted mt-2">Government & Partner</div>
+            <div className="text-[11px] text-text-muted mt-2">{language === 'ar' ? 'جهات حكومية وشركاء' : 'Government & Partner'}</div>
           </div>
 
           <div className="bg-white rounded-2xl border border-border p-4 shadow-xs">
-            <div className="text-[11px] font-bold text-text-secondary uppercase tracking-wider">Datasets Classified</div>
+            <div className="text-[11px] font-bold text-text-secondary uppercase tracking-wider">{language === 'ar' ? 'البيانات المصنفة' : 'Datasets Classified'}</div>
             <div className="text-2xl font-extrabold text-emerald-600 font-mono mt-1">100%</div>
-            <div className="text-[11px] text-text-muted mt-2">Zero unclassified assets</div>
+            <div className="text-[11px] text-text-muted mt-2">{language === 'ar' ? 'لا توجد أصول غير مصنفة' : 'Zero unclassified assets'}</div>
           </div>
 
           <div className="bg-white rounded-2xl border border-border p-4 shadow-xs">
-            <div className="text-[11px] font-bold text-text-secondary uppercase tracking-wider">Pending Requests</div>
+            <div className="text-[11px] font-bold text-text-secondary uppercase tracking-wider">{language === 'ar' ? 'الطلبات المعلقة' : 'Pending Requests'}</div>
             <div className="text-2xl font-extrabold text-amber-600 font-mono mt-1">17</div>
-            <div className="text-[11px] text-text-muted mt-2">Awaiting custodian action</div>
+            <div className="text-[11px] text-text-muted mt-2">{language === 'ar' ? 'بانتظار إجراء المشرف' : 'Awaiting custodian action'}</div>
           </div>
 
           <div className="bg-white rounded-2xl border border-border p-4 shadow-xs">
-            <div className="text-[11px] font-bold text-text-secondary uppercase tracking-wider">Blocked Attempts (30d)</div>
+            <div className="text-[11px] font-bold text-text-secondary uppercase tracking-wider">{language === 'ar' ? 'المحاولات المحظورة (30 يوماً)' : 'Blocked Attempts (30d)'}</div>
             <div className="text-2xl font-extrabold text-navy-900 font-mono mt-1">23</div>
-            <div className="text-[11px] text-emerald-600 font-semibold mt-2">All mitigated by WAF</div>
+            <div className="text-[11px] text-emerald-600 font-semibold mt-2">{language === 'ar' ? 'تم التصدي لها عبر WAF' : 'All mitigated by WAF'}</div>
           </div>
 
           <div className="bg-white rounded-2xl border border-border p-4 shadow-xs">
-            <div className="text-[11px] font-bold text-text-secondary uppercase tracking-wider">MFA Enforcement</div>
+            <div className="text-[11px] font-bold text-text-secondary uppercase tracking-wider">{language === 'ar' ? 'المصادقة الثنائية (MFA)' : 'MFA Enforcement'}</div>
             <div className="text-2xl font-extrabold text-emerald-600 font-mono mt-1">100%</div>
-            <div className="text-[11px] text-text-muted mt-2">Privileged & Partner</div>
+            <div className="text-[11px] text-text-muted mt-2">{language === 'ar' ? 'الحسابات الإدارية والشركاء' : 'Privileged & Partner'}</div>
           </div>
         </div>
 
@@ -176,11 +180,11 @@ export const S14_SecurityConsole: React.FC = () => {
         {/* Tabs */}
         <div className="flex items-center gap-1 border-b border-border text-xs">
           {[
-            { id: 'overview', label: 'Security & Classification Overview' },
-            { id: 'requests', label: 'Access Requests Queue (3)' },
-            { id: 'roles', label: 'Role-Permission Matrix' },
-            { id: 'classification', label: 'Data Classification Rules' },
-            { id: 'audit', label: 'Immutable Audit Log' },
+            { id: 'overview', label: language === 'ar' ? 'نظرة عامة على الأمان والتصنيف' : 'Security & Classification Overview' },
+            { id: 'requests', label: language === 'ar' ? 'قائمة طلبات الوصول (3)' : 'Access Requests Queue (3)' },
+            { id: 'roles', label: language === 'ar' ? 'مصفوفة الصلاحيات والأدوار' : 'Role-Permission Matrix' },
+            { id: 'classification', label: language === 'ar' ? 'قواعد وسياسات التصنيف' : 'Data Classification Rules' },
+            { id: 'audit', label: language === 'ar' ? 'سجل التدقيق غير القابل للتعديل' : 'Immutable Audit Log' },
           ].map((tab) => (
             <button
               key={tab.id}
@@ -203,16 +207,18 @@ export const S14_SecurityConsole: React.FC = () => {
             <div className="lg:col-span-6 bg-white rounded-2xl border border-border p-6 shadow-xs space-y-4">
               <div className="border-b border-border pb-3">
                 <h3 className="text-sm font-bold text-navy-900">
-                  Emirate Spatial Data Classification Breakdown
+                  {language === 'ar' ? 'توزيع تصنيفات البيانات المكانية للإمارة' : 'Emirate Spatial Data Classification Breakdown'}
                 </h3>
-                <p className="text-[11px] text-text-secondary">Mandatory categorization under Abu Dhabi Information Security Standards</p>
+                <p className="text-[11px] text-text-secondary">
+                  {language === 'ar' ? 'تصنيف إلزامي وفق معايير أمن المعلومات لحكومة أبوظبي' : 'Mandatory categorization under Abu Dhabi Information Security Standards'}
+                </p>
               </div>
 
               <div className="space-y-3.5 text-xs">
                 <div>
                   <div className="flex justify-between mb-1">
-                    <span className="font-semibold text-emerald-700">Open Public Data (26%)</span>
-                    <span className="font-mono font-bold text-navy-900">640 Datasets</span>
+                    <span className="font-semibold text-emerald-700">{language === 'ar' ? 'بيانات عامة مفتوحة (26%)' : 'Open Public Data (26%)'}</span>
+                    <span className="font-mono font-bold text-navy-900">640 {language === 'ar' ? 'مجموعة بيانات' : 'Datasets'}</span>
                   </div>
                   <div className="w-full h-2.5 rounded-full bg-canvas overflow-hidden">
                     <div className="h-full bg-emerald-500 rounded-full" style={{ width: '26%' }}></div>
@@ -221,8 +227,8 @@ export const S14_SecurityConsole: React.FC = () => {
 
                 <div>
                   <div className="flex justify-between mb-1">
-                    <span className="font-semibold text-blue-700">Shared – Government Inter-Agency (54%)</span>
-                    <span className="font-mono font-bold text-navy-900">1,339 Datasets</span>
+                    <span className="font-semibold text-blue-700">{language === 'ar' ? 'مشتركة – بين الجهات الحكومية (54%)' : 'Shared – Government Inter-Agency (54%)'}</span>
+                    <span className="font-mono font-bold text-navy-900">1,339 {language === 'ar' ? 'مجموعة بيانات' : 'Datasets'}</span>
                   </div>
                   <div className="w-full h-2.5 rounded-full bg-canvas overflow-hidden">
                     <div className="h-full bg-blue-600 rounded-full" style={{ width: '54%' }}></div>
@@ -231,8 +237,8 @@ export const S14_SecurityConsole: React.FC = () => {
 
                 <div>
                   <div className="flex justify-between mb-1">
-                    <span className="font-semibold text-amber-700">Restricted – Critical Infrastructure (17%)</span>
-                    <span className="font-mono font-bold text-navy-900">421 Datasets</span>
+                    <span className="font-semibold text-amber-700">{language === 'ar' ? 'مقيدة – بنية تحتية حيوية (17%)' : 'Restricted – Critical Infrastructure (17%)'}</span>
+                    <span className="font-mono font-bold text-navy-900">421 {language === 'ar' ? 'مجموعة بيانات' : 'Datasets'}</span>
                   </div>
                   <div className="w-full h-2.5 rounded-full bg-canvas overflow-hidden">
                     <div className="h-full bg-amber-500 rounded-full" style={{ width: '17%' }}></div>
@@ -241,8 +247,8 @@ export const S14_SecurityConsole: React.FC = () => {
 
                 <div>
                   <div className="flex justify-between mb-1">
-                    <span className="font-semibold text-red-700">Confidential – National Defense & Security (3%)</span>
-                    <span className="font-mono font-bold text-navy-900">80 Datasets</span>
+                    <span className="font-semibold text-red-700">{language === 'ar' ? 'سرية – الدفاع والأمن الوطني (3%)' : 'Confidential – National Defense & Security (3%)'}</span>
+                    <span className="font-mono font-bold text-navy-900">80 {language === 'ar' ? 'مجموعة بيانات' : 'Datasets'}</span>
                   </div>
                   <div className="w-full h-2.5 rounded-full bg-canvas overflow-hidden">
                     <div className="h-full bg-red-600 rounded-full" style={{ width: '3%' }}></div>
@@ -255,17 +261,19 @@ export const S14_SecurityConsole: React.FC = () => {
             <div className="lg:col-span-6 bg-white rounded-2xl border border-border p-6 shadow-xs space-y-4">
               <div className="border-b border-border pb-3">
                 <h3 className="text-sm font-bold text-navy-900">
-                  Release R-2027.09 Security Gate Status
+                  {language === 'ar' ? 'حالة بوابة الأمان للإصدار R-2027.09' : 'Release R-2027.09 Security Gate Status'}
                 </h3>
-                <p className="text-[11px] text-text-secondary">Mandatory 4-stage cybersecurity pre-release checklist</p>
+                <p className="text-[11px] text-text-secondary">
+                  {language === 'ar' ? 'قائمة الفحص الإلزامية للأمن السيبراني المكونة من 4 مراحل قبل الإطلاق' : 'Mandatory 4-stage cybersecurity pre-release checklist'}
+                </p>
               </div>
 
               <div className="space-y-2 text-xs">
                 {[
-                  { name: '1. Architecture & Threat Assessment', date: 'Passed (28 Aug 2027)', desc: 'Zero critical CVEs in container base images' },
-                  { name: '2. External Penetration Testing', date: 'Passed (15 Jul 2027)', desc: 'Conducted by accredited UAE cybersecurity vendor' },
-                  { name: '3. API IP Whitelisting & Gateway Routing', date: 'Verified (02 Sep 2027)', desc: 'mTLS mutual authentication established' },
-                  { name: '4. Executive Security Sign-off', date: 'Approved (10 Sep 2027)', desc: 'Formal release clearance granted by CISO' },
+                  { name: language === 'ar' ? '1. تقييم التهديدات والبنية المعمارية' : '1. Architecture & Threat Assessment', date: language === 'ar' ? 'اجتياز (28 أغسطس 2027)' : 'Passed (28 Aug 2027)', desc: language === 'ar' ? 'صفر ثغرات أمنية حرجة في صور الحاويات الأساسية' : 'Zero critical CVEs in container base images' },
+                  { name: language === 'ar' ? '2. اختبار الاختراق الخارجي' : '2. External Penetration Testing', date: language === 'ar' ? 'اجتياز (15 يوليو 2027)' : 'Passed (15 Jul 2027)', desc: language === 'ar' ? 'تم تنفيذه بواسطة جهة سيبرانية معتمدة في الدولة' : 'Conducted by accredited UAE cybersecurity vendor' },
+                  { name: language === 'ar' ? '3. القائمة البيضاء للـ IP وتوجيه البوابة' : '3. API IP Whitelisting & Gateway Routing', date: language === 'ar' ? 'تحقق (02 سبتمبر 2027)' : 'Verified (02 Sep 2027)', desc: language === 'ar' ? 'تم تفعيل التوثيق المشترك mTLS بنجاح' : 'mTLS mutual authentication established' },
+                  { name: language === 'ar' ? '4. الاعتماد الأمني النهائي' : '4. Executive Security Sign-off', date: language === 'ar' ? 'معتمد (10 سبتمبر 2027)' : 'Approved (10 Sep 2027)', desc: language === 'ar' ? 'تم منح تصريح الإطلاق الرسمي من رئيس أمن المعلومات' : 'Formal release clearance granted by CISO' },
                 ].map((stg) => (
                   <div key={stg.name} className="p-3 rounded-xl bg-canvas border border-border flex items-start justify-between">
                     <div>
@@ -287,9 +295,11 @@ export const S14_SecurityConsole: React.FC = () => {
           <div className="bg-white rounded-2xl border border-border shadow-xs overflow-hidden">
             <div className="p-4 border-b border-border flex items-center justify-between">
               <h3 className="text-xs font-bold text-navy-900 uppercase tracking-wider">
-                Access Request Review Queue
+                {language === 'ar' ? 'قائمة مراجعة طلبات الوصول للبيانات' : 'Access Request Review Queue'}
               </h3>
-              <span className="text-[11px] text-text-muted">Review purpose and linked Data Sharing Agreement</span>
+              <span className="text-[11px] text-text-muted">
+                {language === 'ar' ? 'مراجعة مبررات الاستخدام واتفاقيات مشاركة البيانات المرتبطة' : 'Review purpose and linked Data Sharing Agreement'}
+              </span>
             </div>
 
             <div className="divide-y divide-border">
@@ -308,17 +318,17 @@ export const S14_SecurityConsole: React.FC = () => {
                     </div>
 
                     <div className="font-semibold text-navy-900 pt-0.5">
-                      Requested Dataset: <span className="text-blue-600">{req.dataset}</span>
+                      {language === 'ar' ? 'مجموعة البيانات المطلوبة:' : 'Requested Dataset:'} <span className="text-blue-600">{req.dataset}</span>
                     </div>
 
                     <p className="text-[11px] text-text-secondary leading-relaxed">
-                      <strong>Purpose:</strong> {req.purpose}
+                      <strong>{language === 'ar' ? 'مبرر الاستخدام:' : 'Purpose:'}</strong> {req.purpose}
                     </p>
 
                     <div className="text-[10px] text-text-muted flex items-center gap-4 pt-1">
-                      <span>Agreement: <strong className="text-navy-900">{req.agreement}</strong></span>
-                      <span>Assigned Approver: <strong className="text-navy-900">{req.approver}</strong></span>
-                      <span className="font-mono">Waiting: {req.waiting}</span>
+                      <span>{language === 'ar' ? 'الاتفاقية:' : 'Agreement:'} <strong className="text-navy-900">{req.agreement}</strong></span>
+                      <span>{language === 'ar' ? 'المعتمد المعين:' : 'Assigned Approver:'} <strong className="text-navy-900">{req.approver}</strong></span>
+                      <span className="font-mono">{language === 'ar' ? 'فترة الانتظار:' : 'Waiting:'} {req.waiting}</span>
                     </div>
                   </div>
 
@@ -328,14 +338,14 @@ export const S14_SecurityConsole: React.FC = () => {
                       className="px-3.5 py-2 rounded-lg bg-emerald-600 hover:bg-emerald-700 text-white font-semibold text-xs flex items-center gap-1.5 shadow-xs transition-colors"
                     >
                       <Check className="w-4 h-4" />
-                      <span>Approve Request</span>
+                      <span>{language === 'ar' ? 'اعتماد الطلب' : 'Approve Request'}</span>
                     </button>
                     <button
                       onClick={() => handleReject(req.id, req.dataset)}
                       className="px-3.5 py-2 rounded-lg border border-red-200 bg-red-50 hover:bg-red-100 text-red-700 font-semibold text-xs flex items-center gap-1 transition-colors"
                     >
                       <X className="w-4 h-4" />
-                      <span>Reject</span>
+                      <span>{language === 'ar' ? 'رفض' : 'Reject'}</span>
                     </button>
                   </div>
                 </div>
@@ -349,41 +359,41 @@ export const S14_SecurityConsole: React.FC = () => {
           <div className="bg-white rounded-2xl border border-border shadow-xs overflow-hidden">
             <div className="p-4 border-b border-border">
               <h3 className="text-xs font-bold text-navy-900 uppercase tracking-wider">
-                Role-Based Spatial Access Control Matrix
+                {language === 'ar' ? 'مصفوفة التحكم في الصلاحيات المكانية القائمة على الأدوار' : 'Role-Based Spatial Access Control Matrix'}
               </h3>
             </div>
             <div className="overflow-x-auto text-xs">
-              <table className="w-full text-left">
+              <table className="w-full text-left rtl:text-right">
                 <thead className="bg-canvas border-b border-border text-[11px] uppercase tracking-wider text-text-secondary">
                   <tr>
-                    <th className="p-3">User Role Category</th>
-                    <th className="p-3">Open Data</th>
-                    <th className="p-3">Shared – Government</th>
-                    <th className="p-3">Restricted</th>
-                    <th className="p-3">Publishing Rights</th>
+                    <th className="p-3">{language === 'ar' ? 'فئة دور المستخدم' : 'User Role Category'}</th>
+                    <th className="p-3">{language === 'ar' ? 'البيانات المفتوحة' : 'Open Data'}</th>
+                    <th className="p-3">{language === 'ar' ? 'المشتركة – الحكومية' : 'Shared – Government'}</th>
+                    <th className="p-3">{language === 'ar' ? 'المقيدة' : 'Restricted'}</th>
+                    <th className="p-3">{language === 'ar' ? 'صلاحيات النشر' : 'Publishing Rights'}</th>
                   </tr>
                 </thead>
                 <tbody className="divide-y divide-border">
                   <tr>
-                    <td className="p-3 font-bold text-navy-900">Government Data Steward</td>
-                    <td className="p-3 text-emerald-600 font-bold">Full Access</td>
-                    <td className="p-3 text-emerald-600 font-bold">Full Access</td>
-                    <td className="p-3 text-amber-600 font-medium">Subject to DSA</td>
-                    <td className="p-3 text-emerald-600 font-bold">Authorized Sign-off</td>
+                    <td className="p-3 font-bold text-navy-900">{language === 'ar' ? 'مشرف بيانات حكومي' : 'Government Data Steward'}</td>
+                    <td className="p-3 text-emerald-600 font-bold">{language === 'ar' ? 'وصول كامل' : 'Full Access'}</td>
+                    <td className="p-3 text-emerald-600 font-bold">{language === 'ar' ? 'وصول كامل' : 'Full Access'}</td>
+                    <td className="p-3 text-amber-600 font-medium">{language === 'ar' ? 'مشروط باتفاقية DSA' : 'Subject to DSA'}</td>
+                    <td className="p-3 text-emerald-600 font-bold">{language === 'ar' ? 'اعتماد ونشر رسمي' : 'Authorized Sign-off'}</td>
                   </tr>
                   <tr>
-                    <td className="p-3 font-bold text-navy-900">Approved Commercial Partner</td>
-                    <td className="p-3 text-emerald-600 font-bold">Full Access</td>
-                    <td className="p-3 text-blue-600 font-medium">Marketplace Subscription</td>
-                    <td className="p-3 text-red-600 font-bold">Denied</td>
-                    <td className="p-3 text-slate-400">Read-Only</td>
+                    <td className="p-3 font-bold text-navy-900">{language === 'ar' ? 'شريك تجاري معتمد' : 'Approved Commercial Partner'}</td>
+                    <td className="p-3 text-emerald-600 font-bold">{language === 'ar' ? 'وصول كامل' : 'Full Access'}</td>
+                    <td className="p-3 text-blue-600 font-medium">{language === 'ar' ? 'اشتراك عبر سوق البيانات' : 'Marketplace Subscription'}</td>
+                    <td className="p-3 text-red-600 font-bold">{language === 'ar' ? 'محظور' : 'Denied'}</td>
+                    <td className="p-3 text-slate-400">{language === 'ar' ? 'قراءة فقط' : 'Read-Only'}</td>
                   </tr>
                   <tr>
-                    <td className="p-3 font-bold text-navy-900">Public Visitor</td>
-                    <td className="p-3 text-emerald-600 font-bold">Full Access</td>
-                    <td className="p-3 text-red-600 font-bold">Denied</td>
-                    <td className="p-3 text-red-600 font-bold">Denied</td>
-                    <td className="p-3 text-slate-400">Read-Only</td>
+                    <td className="p-3 font-bold text-navy-900">{language === 'ar' ? 'زائر عام' : 'Public Visitor'}</td>
+                    <td className="p-3 text-emerald-600 font-bold">{language === 'ar' ? 'وصول كامل' : 'Full Access'}</td>
+                    <td className="p-3 text-red-600 font-bold">{language === 'ar' ? 'محظور' : 'Denied'}</td>
+                    <td className="p-3 text-red-600 font-bold">{language === 'ar' ? 'محظور' : 'Denied'}</td>
+                    <td className="p-3 text-slate-400">{language === 'ar' ? 'قراءة فقط' : 'Read-Only'}</td>
                   </tr>
                 </tbody>
               </table>
@@ -394,9 +404,11 @@ export const S14_SecurityConsole: React.FC = () => {
         {/* Tab 4: Classification Rules */}
         {activeTab === 'classification' && (
           <div className="bg-white rounded-2xl border border-border p-6 shadow-xs space-y-4 text-xs">
-            <h3 className="text-base font-bold text-navy-900">Data Classification Taxonomy</h3>
+            <h3 className="text-base font-bold text-navy-900">{language === 'ar' ? 'تصنيف ومستويات البيانات المكانية' : 'Data Classification Taxonomy'}</h3>
             <p className="text-text-secondary leading-relaxed">
-              Every spatial dataset published in the AD-SDI Clearinghouse must be tagged with one of four formal tiers defined by the Abu Dhabi Government Information Security Guidelines.
+              {language === 'ar'
+                ? 'يجب وسم كل مجموعة بيانات مكانية تُنشر في مستودع AD-SDI بأحد المستويات الرسمية الأربعة المحددة في معايير أمن المعلومات لحكومة أبوظبي.'
+                : 'Every spatial dataset published in the AD-SDI Clearinghouse must be tagged with one of four formal tiers defined by the Abu Dhabi Government Information Security Guidelines.'}
             </p>
           </div>
         )}
@@ -406,20 +418,20 @@ export const S14_SecurityConsole: React.FC = () => {
           <div className="bg-white rounded-2xl border border-border shadow-xs overflow-hidden">
             <div className="p-4 border-b border-border flex items-center justify-between">
               <h3 className="text-xs font-bold text-navy-900 uppercase tracking-wider">
-                Immutable Geospatial Audit Log
+                {language === 'ar' ? 'سجل التدقيق الجيومكاني غير القابل للتعديل' : 'Immutable Geospatial Audit Log'}
               </h3>
               <div className="flex items-center gap-2 text-xs">
                 <button
                   onClick={() => setSelectedAuditFilter('all')}
                   className={`px-2.5 py-1 rounded text-[11px] font-medium ${selectedAuditFilter === 'all' ? 'bg-navy-900 text-white' : 'text-text-secondary'}`}
                 >
-                  All Logs
+                  {language === 'ar' ? 'كافة السجلات' : 'All Logs'}
                 </button>
                 <button
                   onClick={() => setSelectedAuditFilter('denied')}
                   className={`px-2.5 py-1 rounded text-[11px] font-medium ${selectedAuditFilter === 'denied' ? 'bg-red-600 text-white' : 'text-text-secondary'}`}
                 >
-                  Blocked Denials
+                  {language === 'ar' ? 'المحاولات المحظورة' : 'Blocked Denials'}
                 </button>
               </div>
             </div>
@@ -432,12 +444,12 @@ export const S14_SecurityConsole: React.FC = () => {
                       <span className={`px-2 py-0.5 rounded text-[10px] font-bold ${
                         log.status === 'Blocked' ? 'bg-red-50 text-red-700 border border-red-200' : 'bg-emerald-50 text-emerald-700 border border-emerald-200'
                       }`}>
-                        {log.status}
+                        {log.status === 'Blocked' ? (language === 'ar' ? 'محظور' : 'Blocked') : (language === 'ar' ? 'مسموح' : 'Allowed')}
                       </span>
                       <span className="font-bold text-navy-900">{log.action}</span>
                     </div>
                     <div className="text-[11px] text-text-secondary mt-1">
-                      User: <strong>{log.user}</strong> • Target: {log.dataset}
+                      {language === 'ar' ? 'المستخدم:' : 'User:'} <strong>{log.user}</strong> • {language === 'ar' ? 'الهدف:' : 'Target:'} {log.dataset}
                     </div>
                   </div>
 

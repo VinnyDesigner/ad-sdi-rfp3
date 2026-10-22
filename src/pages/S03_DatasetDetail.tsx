@@ -3,6 +3,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import { Header } from '../components/common/Header';
 import { Footer } from '../components/common/Footer';
 import { InteractiveMap } from '../components/map/InteractiveMap';
+import { useLanguage } from '../context/LanguageContext';
 import { KHALIFA_CITY_PARCELS_GEOJSON, KHALIFA_CITY_CENTER } from '../data/geoData';
 import {
   CheckCircle,
@@ -22,6 +23,8 @@ import {
 } from '@phosphor-icons/react';
 
 export const S03_DatasetDetail: React.FC = () => {
+  const { language } = useLanguage();
+  const isAr = language === 'ar';
   const navigate = useNavigate();
   const [activeTab, setActiveTab] = useState<'overview' | 'metadata' | 'services' | 'quality' | 'lineage' | 'access' | 'versions' | 'audit'>('overview');
   const [copiedUrl, setCopiedUrl] = useState<string | null>(null);
@@ -34,14 +37,14 @@ export const S03_DatasetDetail: React.FC = () => {
   };
 
   const tabs = [
-    { id: 'overview', label: 'Overview' },
-    { id: 'metadata', label: 'Metadata' },
-    { id: 'services', label: 'Services & APIs' },
-    { id: 'quality', label: 'Quality' },
-    { id: 'lineage', label: 'Lineage' },
-    { id: 'access', label: 'Access' },
-    { id: 'versions', label: 'Versions' },
-    { id: 'audit', label: 'Audit Trail' },
+    { id: 'overview', label: isAr ? 'نظرة عامة والخريطة' : 'Overview' },
+    { id: 'metadata', label: isAr ? 'البيانات الوصفية' : 'Metadata' },
+    { id: 'services', label: isAr ? 'الخدمات والواجهات' : 'Services & APIs' },
+    { id: 'quality', label: isAr ? 'الجودة والمطابقة' : 'Quality' },
+    { id: 'lineage', label: isAr ? 'المصدر والتتبع' : 'Lineage' },
+    { id: 'access', label: isAr ? 'الصلاحيات والترخيص' : 'Access' },
+    { id: 'versions', label: isAr ? 'الإصدارات' : 'Versions' },
+    { id: 'audit', label: isAr ? 'سجل التدقيق' : 'Audit Trail' },
   ];
 
   const servicesList = [
@@ -60,19 +63,19 @@ export const S03_DatasetDetail: React.FC = () => {
       <div className="bg-white border-b border-border px-4 sm:px-6 lg:px-8 py-3">
         <div className="max-w-7xl mx-auto flex items-center justify-between">
           <div className="flex items-center gap-2 text-xs text-text-secondary">
-            <Link to="/" className="hover:text-blue-600">Home</Link>
+            <Link to="/" className="hover:text-blue-600">{isAr ? 'الرئيسية' : 'Home'}</Link>
             <span>/</span>
-            <Link to="/catalogue" className="hover:text-blue-600">Geospatial Catalogue</Link>
+            <Link to="/catalogue" className="hover:text-blue-600">{isAr ? 'فهرس البيانات المكانية' : 'Geospatial Catalogue'}</Link>
             <span>/</span>
-            <span className="font-semibold text-navy-900">Land Parcels (Cadastre)</span>
+            <span className="font-semibold text-navy-900">{isAr ? 'القطع العقارية (المسح العقاري)' : 'Land Parcels (Cadastre)'}</span>
           </div>
 
           <div className="flex items-center gap-2">
             <span className="text-[11px] font-mono text-emerald-700 bg-emerald-50 px-2 py-0.5 rounded border border-emerald-200 flex items-center gap-1">
-              <CheckCircle className="w-3.5 h-3.5" /> Quality Passed
+              <CheckCircle className="w-3.5 h-3.5" /> {isAr ? 'اجتاز معايير الجودة' : 'Quality Passed'}
             </span>
             <span className="text-[11px] font-mono text-blue-700 bg-blue-50 px-2 py-0.5 rounded border border-blue-200">
-              Data currency: On schedule
+              {isAr ? 'حداثة البيانات: منتظمة' : 'Data currency: On schedule'}
             </span>
           </div>
         </div>
@@ -86,42 +89,44 @@ export const S03_DatasetDetail: React.FC = () => {
               {/* Badges Strip */}
               <div className="flex items-center gap-2 flex-wrap text-xs">
                 <span className="px-2.5 py-0.5 rounded bg-blue-50 text-blue-800 font-bold border border-blue-200 text-[11px]">
-                  FGDS – Fundamental
+                  {isAr ? 'بيانات أساسية FGDS' : 'FGDS – Fundamental'}
                 </span>
                 <span className="px-2.5 py-0.5 rounded bg-navy-50 text-navy-800 font-semibold border border-navy-200 text-[11px]">
-                  Shared – Government
+                  {isAr ? 'مشترك حكومي' : 'Shared – Government'}
                 </span>
                 <span className="px-2 py-0.5 rounded bg-canvas text-text-secondary border border-border text-[11px]">
-                  Internal
+                  {isAr ? 'استخدام داخلي' : 'Internal'}
                 </span>
                 <span className="px-2 py-0.5 rounded bg-teal-50 text-teal-800 border border-teal-200 text-[11px]">
-                  Marketplace Eligible
+                  {isAr ? 'مؤهل لسوق البيانات' : 'Marketplace Eligible'}
                 </span>
               </div>
 
               <h1 className="text-2xl sm:text-3xl font-extrabold text-navy-900 tracking-tight">
-                Land Parcels (Cadastre)
+                {isAr ? 'القطع العقارية وحدود المسح العقاري' : 'Land Parcels (Cadastre)'}
               </h1>
 
               <div className="flex items-center gap-4 text-xs text-text-secondary flex-wrap">
                 <div>
-                  <span className="text-text-muted">Custodian: </span>
-                  <span className="font-semibold text-navy-900">Department of Municipalities and Transport (DMT)</span>
+                  <span className="text-text-muted">{isAr ? 'الجهة المسؤولة: ' : 'Custodian: '}</span>
+                  <span className="font-semibold text-navy-900">{isAr ? 'دائرة البلديات والنقل (DMT)' : 'Department of Municipalities and Transport (DMT)'}</span>
                 </div>
                 <span>•</span>
                 <div>
-                  <span className="text-text-muted">Data Steward: </span>
-                  <span className="font-semibold text-navy-900">Khalid M.</span>
+                  <span className="text-text-muted">{isAr ? 'مشرف البيانات: ' : 'Data Steward: '}</span>
+                  <span className="font-semibold text-navy-900">{isAr ? 'خالد م.' : 'Khalid M.'}</span>
                 </div>
                 <span>•</span>
                 <div>
-                  <span className="text-text-muted">Licence: </span>
+                  <span className="text-text-muted">{isAr ? 'رمز الترخيص: ' : 'Licence: '}</span>
                   <span className="font-semibold text-blue-600">DSA-2027-014</span>
                 </div>
               </div>
 
               <p className="text-xs sm:text-sm text-text-secondary leading-relaxed">
-                Fundamental authoritative spatial cadastre representing all registered land parcels, parcel identifiers, zoning rules, plot geometry, and boundary marks throughout the Abu Dhabi Emirate.
+                {isAr
+                  ? 'المسح العقاري الجيومكاني الأساسي المعتمد الذي يمثل كافة القطع العقارية المسجلة وأرقامها وقواعد التخطيط الحضري وهندسة الأراضي والحدود عبر إمارة أبوظبي.'
+                  : 'Fundamental authoritative spatial cadastre representing all registered land parcels, parcel identifiers, zoning rules, plot geometry, and boundary marks throughout the Abu Dhabi Emirate.'}
               </p>
             </div>
 
@@ -132,7 +137,7 @@ export const S03_DatasetDetail: React.FC = () => {
                 className="px-4 py-2.5 rounded-xl bg-blue-600 hover:bg-blue-700 text-white font-semibold text-xs flex items-center justify-center gap-2 shadow-xs transition-colors"
               >
                 <MapTrifold className="w-4 h-4" />
-                <span>Open in Map Viewer</span>
+                <span>{isAr ? 'فتح في مستعرض الخرائط' : 'Open in Map Viewer'}</span>
               </button>
 
               <button
@@ -140,7 +145,7 @@ export const S03_DatasetDetail: React.FC = () => {
                 className="px-4 py-2.5 rounded-xl bg-navy-900 hover:bg-navy-800 text-white font-semibold text-xs flex items-center justify-center gap-2 shadow-xs transition-colors"
               >
                 <LockKeyOpen className="w-4 h-4 text-gold-500" />
-                <span>Request API Access</span>
+                <span>{isAr ? 'طلب اشتراك الواجهة API' : 'Request API Access'}</span>
               </button>
 
               <button
@@ -148,7 +153,7 @@ export const S03_DatasetDetail: React.FC = () => {
                 className="px-4 py-2.5 rounded-xl border border-border bg-canvas hover:bg-canvas-subtle text-text-primary font-medium text-xs flex items-center justify-center gap-2 transition-colors"
               >
                 {copiedUrl === 'main-api' ? <Check className="w-4 h-4 text-emerald-600" /> : <Copy className="w-4 h-4" />}
-                <span>{copiedUrl === 'main-api' ? 'Copied URL!' : 'Copy OGC API URL'}</span>
+                <span>{copiedUrl === 'main-api' ? (isAr ? 'تم نسخ الرابط!' : 'Copied URL!') : (isAr ? 'نسخ رابط OGC API' : 'Copy OGC API URL')}</span>
               </button>
             </div>
           </div>

@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { WorkspaceLayout } from '../components/common/WorkspaceLayout';
+import { useLanguage } from '../context/LanguageContext';
 import {
   ChartLineUp,
   CheckCircle,
@@ -14,16 +15,18 @@ import {
 } from '@phosphor-icons/react';
 
 export const S05_QualityDashboard: React.FC = () => {
+  const { language } = useLanguage();
+  const isAr = language === 'ar';
   const [timePeriod, setTimePeriod] = useState<'90d' | '30d' | '7d'>('90d');
   const [selectedEntity, setSelectedEntity] = useState<string>('all');
   const [exported, setExported] = useState(false);
 
   const kpis = [
-    { label: 'Platform Availability', value: '99.95%', target: 'Target 99.9%', trend: '+0.02%', status: 'optimal' },
-    { label: 'Data Currency', value: '94%', target: 'Target 90%', trend: '+3.1%', status: 'optimal' },
-    { label: 'Data Quality Gateway', value: '96%', target: 'Target 95%', trend: '+1.4%', status: 'optimal' },
-    { label: 'Support Responsiveness', value: '97%', target: 'Target 95%', trend: '+2.0%', status: 'optimal' },
-    { label: 'Active Entity Adoption', value: '41 / 64', target: 'Baseline 32', trend: '+9 Entities', status: 'optimal' },
+    { label: isAr ? 'جاهزية المنصة' : 'Platform Availability', value: '99.95%', target: isAr ? 'المستهدف 99.9%' : 'Target 99.9%', trend: '+0.02%', status: 'optimal' },
+    { label: isAr ? 'حداثة البيانات' : 'Data Currency', value: '94%', target: isAr ? 'المستهدف 90%' : 'Target 90%', trend: '+3.1%', status: 'optimal' },
+    { label: isAr ? 'اجتياز بوابة الجودة' : 'Data Quality Gateway', value: '96%', target: isAr ? 'المستهدف 95%' : 'Target 95%', trend: '+1.4%', status: 'optimal' },
+    { label: isAr ? 'سرعة استجابة الدعم' : 'Support Responsiveness', value: '97%', target: isAr ? 'المستهدف 95%' : 'Target 95%', trend: '+2.0%', status: 'optimal' },
+    { label: isAr ? 'الجهات النشطة المشاركة' : 'Active Entity Adoption', value: '41 / 64', target: isAr ? 'خط الأساس 32' : 'Baseline 32', trend: isAr ? '+9 جهات' : '+9 Entities', status: 'optimal' },
   ];
 
   const entityCompliance = [
@@ -61,15 +64,17 @@ export const S05_QualityDashboard: React.FC = () => {
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
           <div>
             <div className="flex items-center gap-2 text-xs text-text-secondary mb-1">
-              <span>GOVERN</span>
+              <span>{isAr ? 'حوكمة' : 'GOVERN'}</span>
               <span>/</span>
-              <span className="font-semibold text-navy-900">Quality & SLA</span>
+              <span className="font-semibold text-navy-900">{isAr ? 'الجودة ومستوى الخدمة' : 'Quality & SLA'}</span>
             </div>
             <h1 className="text-2xl font-bold text-navy-900 tracking-tight">
-              Quality & SLA Governance Dashboard
+              {isAr ? 'لوحة قياس جودة البيانات ومستوى الخدمة SLA' : 'Quality & SLA Governance Dashboard'}
             </h1>
             <p className="text-xs text-text-secondary mt-0.5">
-              Continuous monitoring of SDI automated gateway validations, spatial currency, and entity compliance.
+              {isAr
+                ? 'مراقبة مستمرة للتحقق الآلي من بوابات جودة البيانات، وحداثة المعالم، والتزام الجهات الحكومية.'
+                : 'Continuous monitoring of SDI automated gateway validations, spatial currency, and entity compliance.'}
             </p>
           </div>
 
@@ -83,7 +88,7 @@ export const S05_QualityDashboard: React.FC = () => {
                   timePeriod === '90d' ? 'bg-navy-900 text-white' : 'text-text-secondary hover:text-navy-900'
                 }`}
               >
-                Last 90 days
+                {isAr ? 'آخر 90 يوماً' : 'Last 90 days'}
               </button>
               <button
                 type="button"
@@ -92,7 +97,7 @@ export const S05_QualityDashboard: React.FC = () => {
                   timePeriod === '30d' ? 'bg-navy-900 text-white' : 'text-text-secondary hover:text-navy-900'
                 }`}
               >
-                Last 30 days
+                {isAr ? 'آخر 30 يوماً' : 'Last 30 days'}
               </button>
               <button
                 type="button"
@@ -101,7 +106,7 @@ export const S05_QualityDashboard: React.FC = () => {
                   timePeriod === '7d' ? 'bg-navy-900 text-white' : 'text-text-secondary hover:text-navy-900'
                 }`}
               >
-                Last 7 days
+                {isAr ? 'آخر 7 أيام' : 'Last 7 days'}
               </button>
             </div>
 
@@ -111,7 +116,7 @@ export const S05_QualityDashboard: React.FC = () => {
               className="px-3.5 py-1.5 rounded-lg bg-blue-600 hover:bg-blue-700 text-white font-semibold text-xs flex items-center gap-1.5 shadow-xs transition-colors"
             >
               <DownloadSimple className="w-4 h-4" />
-              <span>{exported ? 'Report Downloaded!' : 'Export SLA CSV'}</span>
+              <span>{exported ? (isAr ? 'تم تحميل التقرير!' : 'Report Downloaded!') : (isAr ? 'تصدير تقرير الجودة CSV' : 'Export SLA CSV')}</span>
             </button>
           </div>
         </div>

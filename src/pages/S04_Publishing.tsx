@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { WorkspaceLayout } from '../components/common/WorkspaceLayout';
+import { useLanguage } from '../context/LanguageContext';
 import { PUBLISHING_SUBMISSIONS } from '../data/mockData';
 import { PublishingSubmission } from '../types';
 import {
@@ -17,6 +18,8 @@ import {
 } from '@phosphor-icons/react';
 
 export const S04_Publishing: React.FC = () => {
+  const { language } = useLanguage();
+  const isAr = language === 'ar';
   const [activeTab, setActiveTab] = useState<'queue' | 'dmt' | 'published' | 'withdrawn'>('queue');
   const [submissions, setSubmissions] = useState<PublishingSubmission[]>(PUBLISHING_SUBMISSIONS);
   const [selectedSubmissionId, setSelectedSubmissionId] = useState<string>('sub-1');
@@ -83,21 +86,23 @@ export const S04_Publishing: React.FC = () => {
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
           <div>
             <div className="flex items-center gap-2 text-xs text-text-secondary mb-1">
-              <span>GOVERN</span>
+              <span>{isAr ? 'حوكمة' : 'GOVERN'}</span>
               <span>/</span>
-              <span className="font-semibold text-navy-900">Publishing & Approvals</span>
+              <span className="font-semibold text-navy-900">{isAr ? 'النشر والاعتمادات' : 'Publishing & Approvals'}</span>
             </div>
             <h1 className="text-2xl font-bold text-navy-900 tracking-tight">
-              Publishing Pipeline & Approvals
+              {isAr ? 'خط اعتماد ونشر البيانات المكانية' : 'Publishing Pipeline & Approvals'}
             </h1>
             <p className="text-xs text-text-secondary mt-0.5">
-              Review spatial submissions, verify automated quality gateway outputs, and approve release to the clearinghouse.
+              {isAr
+                ? 'مراجعة طلبات نشر البيانات الجيومكانية والتحقق من نتائج بوابات الجودة الآلية واعتمادها للمستودع الرقمي.'
+                : 'Review spatial submissions, verify automated quality gateway outputs, and approve release to the clearinghouse.'}
             </p>
           </div>
 
           <div className="flex items-center gap-3">
             <span className="text-xs px-3 py-1.5 rounded-lg bg-white border border-border text-navy-900 font-semibold shadow-xs">
-              Persona: Khalid M. (DMT Data Steward)
+              {isAr ? 'المستخدم: خالد م. (مشرف بيانات DMT)' : 'Persona: Khalid M. (DMT Data Steward)'}
             </span>
           </div>
         </div>
@@ -110,7 +115,7 @@ export const S04_Publishing: React.FC = () => {
               <span className="font-semibold">{successToast}</span>
             </div>
             <button onClick={() => setSuccessToast(null)} className="text-emerald-700 hover:text-emerald-950 font-bold">
-              Dismiss
+              {isAr ? 'إغلاق' : 'Dismiss'}
             </button>
           </div>
         )}
@@ -118,11 +123,11 @@ export const S04_Publishing: React.FC = () => {
         {/* Pipeline Stage Counts Bar (Preserve Source Counts) */}
         <div className="grid grid-cols-2 sm:grid-cols-5 gap-3">
           {[
-            { label: 'Provider Onboarding', count: '12', active: false },
-            { label: 'Submitted', count: '24', active: true },
-            { label: 'Quality Gateway', count: '6', active: true },
-            { label: 'Classification & Audience', count: '4', active: true },
-            { label: 'Custodian Approval', count: '5', active: true, highlight: true },
+            { label: isAr ? 'تسجيل المزودين' : 'Provider Onboarding', count: '12', active: false },
+            { label: isAr ? 'تم الإرسال' : 'Submitted', count: '24', active: true },
+            { label: isAr ? 'بوابة الجودة' : 'Quality Gateway', count: '6', active: true },
+            { label: isAr ? 'التصنيف والجمهور' : 'Classification & Audience', count: '4', active: true },
+            { label: isAr ? 'اعتماد المشرف' : 'Custodian Approval', count: '5', active: true, highlight: true },
           ].map((stage) => (
             <div
               key={stage.label}
@@ -146,19 +151,19 @@ export const S04_Publishing: React.FC = () => {
         <div className="flex items-center justify-between px-4 py-2.5 rounded-xl bg-white border border-border text-xs">
           <div className="flex items-center gap-2">
             <CheckCircle className="w-4 h-4 text-emerald-600" />
-            <span className="text-text-secondary">Authoritative datasets published in the last 30 days:</span>
+            <span className="text-text-secondary">{isAr ? 'مجموعات البيانات المعتمدة المنشورة خلال آخر 30 يوماً:' : 'Authoritative datasets published in the last 30 days:'}</span>
             <span className="font-mono font-bold text-navy-900">132</span>
           </div>
-          <span className="text-[11px] text-text-muted">Target SLA compliance: 98.4%</span>
+          <span className="text-[11px] text-text-muted">{isAr ? 'الامتثال لمستوى الخدمة المستهدف: 98.4%' : 'Target SLA compliance: 98.4%'}</span>
         </div>
 
         {/* Tabs */}
         <div className="flex items-center gap-1 border-b border-border text-xs">
           {[
-            { id: 'queue', label: 'My Queue (5)' },
-            { id: 'dmt', label: 'Submitted by DMT (14)' },
-            { id: 'published', label: 'Published (132)' },
-            { id: 'withdrawn', label: 'Withdrawn (2)' },
+            { id: 'queue', label: isAr ? 'قائمتي بانتظار الاعتماد (5)' : 'My Queue (5)' },
+            { id: 'dmt', label: isAr ? 'مقدمة من DMT (14)' : 'Submitted by DMT (14)' },
+            { id: 'published', label: isAr ? 'منشورة (132)' : 'Published (132)' },
+            { id: 'withdrawn', label: isAr ? 'مسحوبة (2)' : 'Withdrawn (2)' },
           ].map((tab) => (
             <button
               key={tab.id}

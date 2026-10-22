@@ -3,6 +3,7 @@ import { useNavigate, useSearchParams, Link } from 'react-router-dom';
 import { Header } from '../components/common/Header';
 import { Footer } from '../components/common/Footer';
 import { InteractiveMap } from '../components/map/InteractiveMap';
+import { useLanguage } from '../context/LanguageContext';
 import { DATASETS } from '../data/mockData';
 import { MANGROVE_GEOJSON, EASTERN_MANGROVES_CENTER } from '../data/geoData';
 import { DatasetItem } from '../types';
@@ -21,6 +22,7 @@ import {
 } from '@phosphor-icons/react';
 
 export const S02_Catalogue: React.FC = () => {
+  const { language } = useLanguage();
   const [searchParams, setSearchParams] = useSearchParams();
   const navigate = useNavigate();
 
@@ -148,11 +150,11 @@ export const S02_Catalogue: React.FC = () => {
       <div className="bg-white border-b border-border px-4 sm:px-6 lg:px-8 py-3">
         <div className="max-w-7xl mx-auto flex flex-col sm:flex-row sm:items-center justify-between gap-3">
           <div className="flex items-center gap-2 text-xs text-text-secondary">
-            <Link to="/" className="hover:text-blue-600">Home</Link>
+            <Link to="/" className="hover:text-blue-600">{language === 'ar' ? 'الرئيسية' : 'Home'}</Link>
             <span>/</span>
-            <span className="font-semibold text-navy-900">Geospatial Catalogue</span>
+            <span className="font-semibold text-navy-900">{language === 'ar' ? 'فهرس البيانات المكانية' : 'Geospatial Catalogue'}</span>
             <span>/</span>
-            <span className="text-text-muted">Abu Dhabi Clearinghouse</span>
+            <span className="text-text-muted">{language === 'ar' ? 'المستودع الرقمي لأبوظبي' : 'Abu Dhabi Clearinghouse'}</span>
           </div>
 
           <div className="flex items-center gap-3">
@@ -167,7 +169,7 @@ export const S02_Catalogue: React.FC = () => {
                 title="Split Map & List View"
               >
                 <SquaresFour className="w-3.5 h-3.5" />
-                <span className="hidden sm:inline">Split View</span>
+                <span className="hidden sm:inline">{language === 'ar' ? 'عرض مزدوج' : 'Split View'}</span>
               </button>
               <button
                 type="button"
@@ -178,7 +180,7 @@ export const S02_Catalogue: React.FC = () => {
                 title="Full List View"
               >
                 <ListIcon className="w-3.5 h-3.5" />
-                <span className="hidden sm:inline">List Only</span>
+                <span className="hidden sm:inline">{language === 'ar' ? 'قائمة فقط' : 'List Only'}</span>
               </button>
               <button
                 type="button"
@@ -189,7 +191,7 @@ export const S02_Catalogue: React.FC = () => {
                 title="Full Map View"
               >
                 <MapPin className="w-3.5 h-3.5" />
-                <span className="hidden sm:inline">Map Only</span>
+                <span className="hidden sm:inline">{language === 'ar' ? 'خريطة فقط' : 'Map Only'}</span>
               </button>
             </div>
           </div>
@@ -207,14 +209,14 @@ export const S02_Catalogue: React.FC = () => {
                 type="text"
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
-                placeholder="Search datasets, services, publishers..."
-                className="w-full pl-9 pr-8 py-2 text-xs bg-canvas border border-border rounded-lg focus:outline-none focus:ring-1 focus:ring-blue-600 focus:bg-white text-text-primary"
+                placeholder={language === 'ar' ? 'ابحث في مجموعات البيانات، والخدمات، والجهات...' : 'Search datasets, services, publishers...'}
+                className="w-full pl-9 pr-8 rtl:pl-8 rtl:pr-9 py-2 text-xs bg-canvas border border-border rounded-lg focus:outline-none focus:ring-1 focus:ring-blue-600 focus:bg-white text-text-primary"
               />
-              <MagnifyingGlass className="w-4 h-4 text-text-secondary absolute left-3 top-2.5 pointer-events-none" />
+              <MagnifyingGlass className="w-4 h-4 text-text-secondary absolute left-3 rtl:left-auto rtl:right-3 top-2.5 pointer-events-none" />
               {searchQuery && (
                 <button
                   onClick={() => setSearchQuery('')}
-                  className="absolute right-2.5 top-2.5 text-text-muted hover:text-navy-900"
+                  className="absolute right-2.5 rtl:right-auto rtl:left-2.5 top-2.5 text-text-muted hover:text-navy-900"
                 >
                   <X className="w-3.5 h-3.5" />
                 </button>
@@ -228,13 +230,13 @@ export const S02_Catalogue: React.FC = () => {
                 onChange={(e) => setSelectedTheme(e.target.value)}
                 className="p-1.5 bg-canvas border border-border rounded text-text-primary text-[11px] focus:outline-none focus:ring-1 focus:ring-blue-600"
               >
-                <option value="">All Themes</option>
-                <option value="Environment">Environment</option>
-                <option value="Land & Cadastre">Land & Cadastre</option>
-                <option value="Transport">Transport</option>
-                <option value="Buildings & 3D">Buildings & 3D</option>
-                <option value="Utilities">Utilities</option>
-                <option value="Population">Population</option>
+                <option value="">{language === 'ar' ? 'جميع المجالات' : 'All Themes'}</option>
+                <option value="Environment">{language === 'ar' ? 'البيئة' : 'Environment'}</option>
+                <option value="Land & Cadastre">{language === 'ar' ? 'الأراضي والمسح العقاري' : 'Land & Cadastre'}</option>
+                <option value="Transport">{language === 'ar' ? 'النقل والمواصلات' : 'Transport'}</option>
+                <option value="Buildings & 3D">{language === 'ar' ? 'المباني والتوأم 3D' : 'Buildings & 3D'}</option>
+                <option value="Utilities">{language === 'ar' ? 'المرافق والبنية التحتية' : 'Utilities'}</option>
+                <option value="Population">{language === 'ar' ? 'السكان والإحصاء' : 'Population'}</option>
               </select>
 
               <select
@@ -242,11 +244,11 @@ export const S02_Catalogue: React.FC = () => {
                 onChange={(e) => setSelectedPublisher(e.target.value)}
                 className="p-1.5 bg-canvas border border-border rounded text-text-primary text-[11px] focus:outline-none focus:ring-1 focus:ring-blue-600"
               >
-                <option value="">All Publishers</option>
-                <option value="EAD">EAD (Environment)</option>
-                <option value="DMT">DMT (Municipalities)</option>
-                <option value="SCAD">SCAD (Statistics)</option>
-                <option value="ADEK">ADEK (Education)</option>
+                <option value="">{language === 'ar' ? 'جميع الجهات' : 'All Publishers'}</option>
+                <option value="EAD">{language === 'ar' ? 'هيئة البيئة (EAD)' : 'EAD (Environment)'}</option>
+                <option value="DMT">{language === 'ar' ? 'البلديات والنقل (DMT)' : 'DMT (Municipalities)'}</option>
+                <option value="SCAD">{language === 'ar' ? 'مركز الإحصاء (SCAD)' : 'SCAD (Statistics)'}</option>
+                <option value="ADEK">{language === 'ar' ? 'التعليم والمعرفة (ADEK)' : 'ADEK (Education)'}</option>
               </select>
 
               <select
@@ -254,11 +256,11 @@ export const S02_Catalogue: React.FC = () => {
                 onChange={(e) => setSelectedClassification(e.target.value)}
                 className="p-1.5 bg-canvas border border-border rounded text-text-primary text-[11px] focus:outline-none focus:ring-1 focus:ring-blue-600"
               >
-                <option value="">Classification</option>
-                <option value="Open">Open</option>
-                <option value="Shared – Government">Shared – Govt</option>
-                <option value="FGDS – Fundamental">FGDS Fundamental</option>
-                <option value="Restricted">Restricted</option>
+                <option value="">{language === 'ar' ? 'التصنيف' : 'Classification'}</option>
+                <option value="Open">{language === 'ar' ? 'بيانات مفتوحة' : 'Open'}</option>
+                <option value="Shared – Government">{language === 'ar' ? 'مشترك حكومي' : 'Shared – Govt'}</option>
+                <option value="FGDS – Fundamental">{language === 'ar' ? 'أساسي FGDS' : 'FGDS Fundamental'}</option>
+                <option value="Restricted">{language === 'ar' ? 'مقيد' : 'Restricted'}</option>
               </select>
 
               <select
@@ -266,18 +268,18 @@ export const S02_Catalogue: React.FC = () => {
                 onChange={(e) => setSelectedAudience(e.target.value)}
                 className="p-1.5 bg-canvas border border-border rounded text-text-primary text-[11px] focus:outline-none focus:ring-1 focus:ring-blue-600"
               >
-                <option value="">Audience</option>
-                <option value="Public">Public</option>
-                <option value="Government Only">Government Only</option>
-                <option value="Approved Partners">Approved Partners</option>
+                <option value="">{language === 'ar' ? 'الفئة المستهدفة' : 'Audience'}</option>
+                <option value="Public">{language === 'ar' ? 'عام' : 'Public'}</option>
+                <option value="Government Only">{language === 'ar' ? 'جهات حكومية فقط' : 'Government Only'}</option>
+                <option value="Approved Partners">{language === 'ar' ? 'شركاء معتمدون' : 'Approved Partners'}</option>
               </select>
             </div>
 
             {/* Filter Summary & Clear All */}
             <div className="flex items-center justify-between mt-3 pt-3 border-t border-border/70 text-[11px]">
               <div className="flex items-center gap-1.5 text-text-secondary">
-                <span className="font-bold text-navy-900">{displayCount}</span> datasets found
-                {searchQuery && <span>for "{searchQuery}"</span>}
+                <span className="font-bold text-navy-900">{displayCount}</span> {language === 'ar' ? 'مجموعة بيانات متوفرة' : 'datasets found'}
+                {searchQuery && <span>{language === 'ar' ? `لـ "${searchQuery}"` : `for "${searchQuery}"`}</span>}
               </div>
 
               {(searchQuery || selectedTheme || selectedPublisher || selectedClassification || selectedAudience) && (
@@ -287,7 +289,7 @@ export const S02_Catalogue: React.FC = () => {
                   className="text-blue-600 hover:text-navy-900 font-medium flex items-center gap-1"
                 >
                   <X className="w-3 h-3" />
-                  Clear all
+                  {language === 'ar' ? 'مسح التصفية' : 'Clear all'}
                 </button>
               )}
             </div>
@@ -346,7 +348,7 @@ export const S02_Catalogue: React.FC = () => {
 
                         {/* Title */}
                         <h3 className="text-sm font-bold text-navy-900 group-hover:text-blue-600 transition-colors leading-snug">
-                          {dataset.title}
+                          {language === 'ar' ? (dataset.titleAr || dataset.title) : dataset.title}
                         </h3>
 
                         {/* Publisher */}
@@ -356,7 +358,7 @@ export const S02_Catalogue: React.FC = () => {
 
                         {/* Description snippet */}
                         <p className="text-xs text-text-secondary line-clamp-2 mt-2 leading-relaxed">
-                          {dataset.description}
+                          {language === 'ar' ? (dataset.descriptionAr || dataset.description) : dataset.description}
                         </p>
 
                         {/* Metadata tags */}
@@ -367,7 +369,7 @@ export const S02_Catalogue: React.FC = () => {
                               {dataset.qualityStatus}
                             </span>
                             <span>•</span>
-                            <span>Updated {dataset.updatedAt}</span>
+                            <span>{language === 'ar' ? `تحديث ${dataset.updatedAt}` : `Updated ${dataset.updatedAt}`}</span>
                           </div>
 
                           <div className="flex items-center gap-1">
@@ -385,7 +387,7 @@ export const S02_Catalogue: React.FC = () => {
                         <button
                           type="button"
                           onClick={(e) => toggleBookmark(dataset.id, e)}
-                          title={isBookmarked ? 'Remove bookmark' : 'Bookmark dataset'}
+                          title={isBookmarked ? (language === 'ar' ? 'إزالة الإشارة' : 'Remove bookmark') : (language === 'ar' ? 'إضافة إلى الإشارات' : 'Bookmark dataset')}
                           className={`p-1.5 rounded-lg border transition-colors ${
                             isBookmarked
                               ? 'bg-amber-50 border-amber-300 text-amber-600'
@@ -398,10 +400,10 @@ export const S02_Catalogue: React.FC = () => {
                         <Link
                           to={dataset.slug === 'land-parcels' ? '/catalogue/land-parcels' : `/catalogue/land-parcels?dataset=${dataset.slug}`}
                           onClick={(e) => e.stopPropagation()}
-                          title="Open Dataset Details"
+                          title={language === 'ar' ? 'عرض تفاصيل مجموعة البيانات' : 'Open Dataset Details'}
                           className="p-1.5 rounded-lg border border-border bg-canvas hover:bg-blue-50 hover:text-blue-600 hover:border-blue-200 transition-colors text-text-secondary"
                         >
-                          <ArrowSquareOut className="w-4 h-4" />
+                          <ArrowSquareOut className="w-4 h-4 rtl:rotate-180" />
                         </Link>
                       </div>
                     </div>
@@ -430,20 +432,20 @@ export const S02_Catalogue: React.FC = () => {
 
           {/* Floating Spatial Selection Helper */}
           {isSpatialFilterActive && (
-            <div className="absolute top-16 left-3 z-[1000] bg-amber-500/90 text-navy-900 font-medium text-xs px-3 py-1.5 rounded-lg backdrop-blur-sm shadow border border-amber-300 flex items-center gap-2">
+            <div className="absolute top-16 left-3 rtl:left-auto rtl:right-3 z-[1000] bg-amber-500/90 text-navy-900 font-medium text-xs px-3 py-1.5 rounded-lg backdrop-blur-sm shadow border border-amber-300 flex items-center gap-2">
               <span className="w-2 h-2 rounded-full bg-white animate-pulse"></span>
-              <span>Spatial Bounding Box Filter Active (Eastern Mangroves & Coastline)</span>
+              <span>{language === 'ar' ? 'تصفية النطاق الجغرافي نشطة (القرم الشرقي والساحل)' : 'Spatial Bounding Box Filter Active (Eastern Mangroves & Coastline)'}</span>
             </div>
           )}
 
           {/* Quick Dataset Detail Drawer Link */}
-          <div className="absolute bottom-12 left-3 z-[1000]">
+          <div className="absolute bottom-12 left-3 rtl:left-auto rtl:right-3 z-[1000]">
             <Link
               to="/catalogue/land-parcels"
               className="px-3.5 py-2 rounded-xl bg-navy-900/95 hover:bg-navy-800 text-white text-xs font-semibold backdrop-blur-md shadow-lg border border-navy-700 flex items-center gap-2 transition-all"
             >
-              <span>Inspect Cadastral Land Parcels (S03)</span>
-              <ArrowRight className="w-3.5 h-3.5 text-gold-500" />
+              <span>{language === 'ar' ? 'معاينة القطع العقارية والمسح العقاري (S03)' : 'Inspect Cadastral Land Parcels (S03)'}</span>
+              <ArrowRight className="w-3.5 h-3.5 text-gold-500 rtl:rotate-180" />
             </Link>
           </div>
         </div>

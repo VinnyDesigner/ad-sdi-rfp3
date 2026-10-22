@@ -262,7 +262,7 @@ summary(habitats_sf)`
                     className="px-5 py-2.5 rounded-xl bg-blue-600 hover:bg-blue-700 text-white font-bold text-xs sm:text-sm flex items-center gap-2 transition-all shadow-md active:scale-[0.99]"
                   >
                     <Key className="w-4 h-4 text-gold-300" />
-                    <span>Get API Key / Sandbox Access</span>
+                    <span>{language === 'ar' ? 'طلب مفتاح تجريبي / بيئة الاختبار' : 'Get API Key / Sandbox Access'}</span>
                   </button>
 
                   <a
@@ -270,14 +270,14 @@ summary(habitats_sf)`
                     className="px-5 py-2.5 rounded-xl bg-navy-800/90 hover:bg-navy-700 border border-blue-400/30 text-white font-semibold text-xs sm:text-sm flex items-center gap-2 transition-all shadow-xs"
                   >
                     <CodeBlock className="w-4 h-4 text-blue-400" />
-                    <span>Quickstart Guide</span>
+                    <span>{language === 'ar' ? 'دليل البدء السريع' : 'Quickstart Guide'}</span>
                   </a>
 
                   <a
                     href="#api-directory"
                     className="px-4 py-2.5 rounded-xl bg-transparent hover:bg-white/10 text-slate-300 hover:text-white font-semibold text-xs transition-colors"
                   >
-                    <span>Browse 1,150+ Services ↓</span>
+                    <span>{language === 'ar' ? 'تصفح أكثر من 1,150 خدمة ↓' : 'Browse 1,150+ Services ↓'}</span>
                   </a>
                 </div>
               </div>
@@ -285,34 +285,36 @@ summary(habitats_sf)`
               {/* Live Gateway Metrics Card */}
               <div className="w-full lg:w-80 rounded-2xl bg-navy-800/90 border border-[#1A427A] p-5 backdrop-blur-md shadow-xl space-y-4 shrink-0">
                 <div className="flex items-center justify-between border-b border-[#1A427A] pb-3">
-                  <span className="text-xs font-bold text-slate-200 uppercase tracking-wider">Gateway Status</span>
+                  <span className="text-xs font-bold text-slate-200 uppercase tracking-wider">
+                    {language === 'ar' ? 'حالة البوابة' : 'Gateway Status'}
+                  </span>
                   <span className="inline-flex items-center gap-1.5 text-xs font-bold text-emerald-400 bg-emerald-500/10 px-2 py-0.5 rounded-full border border-emerald-500/20">
                     <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span>
-                    Operational
+                    {language === 'ar' ? 'تعمل بكفاءة' : 'Operational'}
                   </span>
                 </div>
 
                 <div className="grid grid-cols-2 gap-3 text-xs">
                   <div className="p-2.5 rounded-lg bg-navy-900/60 border border-[#1A427A]/60">
-                    <div className="text-[11px] text-slate-400">P95 Latency</div>
+                    <div className="text-[11px] text-slate-400">{language === 'ar' ? 'زمن الاستجابة P95' : 'P95 Latency'}</div>
                     <div className="text-lg font-bold text-white font-mono mt-0.5">38ms</div>
                   </div>
                   <div className="p-2.5 rounded-lg bg-navy-900/60 border border-[#1A427A]/60">
-                    <div className="text-[11px] text-slate-400">Monthly SLA</div>
+                    <div className="text-[11px] text-slate-400">{language === 'ar' ? 'مستوى الخدمة' : 'Monthly SLA'}</div>
                     <div className="text-lg font-bold text-emerald-400 font-mono mt-0.5">99.98%</div>
                   </div>
                   <div className="p-2.5 rounded-lg bg-navy-900/60 border border-[#1A427A]/60">
-                    <div className="text-[11px] text-slate-400">Open Features</div>
+                    <div className="text-[11px] text-slate-400">{language === 'ar' ? 'طبقات مفتوحة' : 'Open Features'}</div>
                     <div className="text-lg font-bold text-white font-mono mt-0.5">640+</div>
                   </div>
                   <div className="p-2.5 rounded-lg bg-navy-900/60 border border-[#1A427A]/60">
-                    <div className="text-[11px] text-slate-400">Active Devs</div>
+                    <div className="text-[11px] text-slate-400">{language === 'ar' ? 'مطور نشط' : 'Active Devs'}</div>
                     <div className="text-lg font-bold text-gold-400 font-mono mt-0.5">520+</div>
                   </div>
                 </div>
 
                 <div className="text-[11px] text-slate-400 flex items-center justify-between pt-1">
-                  <span>GeoServer & OGC Cluster</span>
+                  <span>{language === 'ar' ? 'عنقود GeoServer & OGC' : 'GeoServer & OGC Cluster'}</span>
                   <span className="font-mono text-slate-300">v2.24-enterprise</span>
                 </div>
               </div>
@@ -325,10 +327,16 @@ summary(habitats_sf)`
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="flex flex-col md:flex-row md:items-end justify-between gap-4 mb-6">
               <div>
-                <span className="text-xs font-bold uppercase tracking-wider text-blue-600">Developer Quickstart</span>
-                <h2 className="text-2xl font-bold text-navy-900 mt-1">Interactive Code Snippets</h2>
+                <span className="text-xs font-bold uppercase tracking-wider text-blue-600">
+                  {language === 'ar' ? 'البدء السريع للمطورين' : 'Developer Quickstart'}
+                </span>
+                <h2 className="text-2xl font-bold text-navy-900 mt-1">
+                  {language === 'ar' ? 'أمثلة برمجية تفاعلية' : 'Interactive Code Snippets'}
+                </h2>
                 <p className="text-xs sm:text-sm text-text-secondary mt-1">
-                  Connect your frontend map or data pipeline in 3 lines of code using official OGC API standards.
+                  {language === 'ar'
+                    ? 'اربط تطبيقك الخرائطي أو مسار البيانات بثلاثة أسطر برمجية بالاعتماد على معايير OGC API الرسمية.'
+                    : 'Connect your frontend map or data pipeline in 3 lines of code using official OGC API standards.'}
                 </p>
               </div>
 
@@ -363,7 +371,7 @@ summary(habitats_sf)`
                     <span className="w-3 h-3 rounded-full bg-red-500/80"></span>
                     <span className="w-3 h-3 rounded-full bg-yellow-500/80"></span>
                     <span className="w-3 h-3 rounded-full bg-green-500/80"></span>
-                    <span className="font-mono text-[11px] text-slate-400 ml-2">
+                    <span className="font-mono text-[11px] text-slate-400 ml-2" dir="ltr">
                       {activeTab === 'curl' && 'bash — cURL'}
                       {activeTab === 'js' && 'main.ts — TypeScript'}
                       {activeTab === 'python' && 'pipeline.py — Python 3.10'}
@@ -378,19 +386,19 @@ summary(habitats_sf)`
                     {copiedCode ? (
                       <>
                         <Check className="w-3.5 h-3.5 text-emerald-400" />
-                        <span className="text-emerald-400">Copied!</span>
+                        <span className="text-emerald-400">{language === 'ar' ? 'تم النسخ!' : 'Copied!'}</span>
                       </>
                     ) : (
                       <>
                         <Copy className="w-3.5 h-3.5 text-slate-400" />
-                        <span>Copy Code</span>
+                        <span>{language === 'ar' ? 'نسخ الكود' : 'Copy Code'}</span>
                       </>
                     )}
                   </button>
                 </div>
 
-                <div className="p-4 sm:p-5 font-mono text-xs leading-relaxed overflow-x-auto flex-1 bg-[#07182F]">
-                  <pre className="text-blue-300 whitespace-pre">
+                <div className="p-4 sm:p-5 font-mono text-xs leading-relaxed overflow-x-auto flex-1 bg-[#07182F]" dir="ltr">
+                  <pre className="text-blue-300 whitespace-pre text-left">
                     {codeSnippets[activeTab]}
                   </pre>
                 </div>
@@ -398,7 +406,7 @@ summary(habitats_sf)`
                 <div className="px-4 py-2.5 bg-navy-900/60 border-t border-navy-800 flex items-center justify-between text-[11px] text-slate-400">
                   <span className="flex items-center gap-1.5">
                     <ShieldCheck className="w-3.5 h-3.5 text-emerald-400" />
-                    TLS 1.3 Strict • Sovereign UAE Gateway
+                    {language === 'ar' ? 'تشفير صارم TLS 1.3 • بوابة سيادية لدولة الإمارات' : 'TLS 1.3 Strict • Sovereign UAE Gateway'}
                   </span>
                   <a
                     href="https://swagger.io"
@@ -406,7 +414,7 @@ summary(habitats_sf)`
                     rel="noreferrer"
                     className="text-blue-400 hover:text-blue-300 hover:underline flex items-center gap-1"
                   >
-                    <span>View Swagger JSON Spec</span>
+                    <span>{language === 'ar' ? 'عرض مواصفات Swagger JSON' : 'View Swagger JSON Spec'}</span>
                     <ArrowSquareOut className="w-3 h-3" />
                   </a>
                 </div>
@@ -418,7 +426,9 @@ summary(habitats_sf)`
                   <div className="flex items-center justify-between pb-3 border-b border-border">
                     <div className="flex items-center gap-2">
                       <Terminal className="w-4 h-4 text-emerald-600" />
-                      <span className="text-xs font-bold text-navy-900">Standard OGC GeoJSON Output</span>
+                      <span className="text-xs font-bold text-navy-900">
+                        {language === 'ar' ? 'مخرجات OGC GeoJSON القياسية' : 'Standard OGC GeoJSON Output'}
+                      </span>
                     </div>
                     <span className="text-[10px] font-mono font-bold text-emerald-700 bg-emerald-50 px-2 py-0.5 rounded border border-emerald-200">
                       HTTP 200 OK
@@ -426,22 +436,26 @@ summary(habitats_sf)`
                   </div>
 
                   <p className="text-xs text-text-secondary mt-3 mb-3">
-                    All vector collections return clean, validated RFC 7946 GeoJSON with native EPSG:4326 (WGS84) or EPSG:32640 (UTM 40N) coordinates.
+                    {language === 'ar'
+                      ? 'تُرجع جميع مجموعات المتجهات بيانات GeoJSON قياسية وصحيحة وفق RFC 7946 بنظام EPSG:4326 أو EPSG:32640 الوطني.'
+                      : 'All vector collections return clean, validated RFC 7946 GeoJSON with native EPSG:4326 (WGS84) or EPSG:32640 (UTM 40N) coordinates.'}
                   </p>
 
-                  <div className="p-3 bg-canvas rounded-xl font-mono text-[11px] text-navy-900 overflow-x-auto max-h-64 border border-border">
-                    <pre className="text-slate-800">{jsonResponsePreview}</pre>
+                  <div className="p-3 bg-canvas rounded-xl font-mono text-[11px] text-navy-900 overflow-x-auto max-h-64 border border-border" dir="ltr">
+                    <pre className="text-slate-800 text-left">{jsonResponsePreview}</pre>
                   </div>
                 </div>
 
                 <div className="pt-4 border-t border-border mt-4 flex items-center justify-between">
-                  <div className="text-xs text-text-secondary font-medium">Ready to test with Postman?</div>
+                  <div className="text-xs text-text-secondary font-medium">
+                    {language === 'ar' ? 'جاهز للاختبار عبر Postman؟' : 'Ready to test with Postman?'}
+                  </div>
                   <button
                     onClick={() => alert('AD-SDI Postman Collection downloaded (v2.1).')}
                     className="px-3 py-1.5 rounded-lg border border-border bg-canvas hover:bg-slate-100 text-navy-900 font-semibold text-xs flex items-center gap-1.5 transition-colors"
                   >
                     <DownloadSimple className="w-3.5 h-3.5 text-blue-600" />
-                    <span>Download Postman Collection</span>
+                    <span>{language === 'ar' ? 'تنزيل ملفات Postman' : 'Download Postman Collection'}</span>
                   </button>
                 </div>
               </div>
@@ -454,10 +468,16 @@ summary(habitats_sf)`
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="flex flex-col md:flex-row md:items-end justify-between gap-4 mb-8">
               <div>
-                <span className="text-xs font-bold uppercase tracking-wider text-emerald-700">Authoritative Gateway</span>
-                <h2 className="text-2xl font-bold text-navy-900 mt-1">Spatial APIs & Services Directory</h2>
+                <span className="text-xs font-bold uppercase tracking-wider text-emerald-700">
+                  {language === 'ar' ? 'البوابة الرسمية' : 'Authoritative Gateway'}
+                </span>
+                <h2 className="text-2xl font-bold text-navy-900 mt-1">
+                  {language === 'ar' ? 'دليل واجهات برمجة التطبيقات والخدمات المكانية' : 'Spatial APIs & Services Directory'}
+                </h2>
                 <p className="text-xs sm:text-sm text-text-secondary mt-1">
-                  Explore endpoints certified against Abu Dhabi Fundamental Geospatial Data Standards (FGDS).
+                  {language === 'ar'
+                    ? 'استكشف نقاط النهاية المعتمدة وفق معايير البيانات المكانية الأساسية لإمارة أبوظبي (FGDS).'
+                    : 'Explore endpoints certified against Abu Dhabi Fundamental Geospatial Data Standards (FGDS).'}
                 </p>
               </div>
 
@@ -467,22 +487,22 @@ summary(habitats_sf)`
                   type="text"
                   value={searchFilter}
                   onChange={(e) => setSearchFilter(e.target.value)}
-                  placeholder="Filter APIs, formats, layers..."
-                  className="w-full pl-9 pr-3 py-2 text-xs bg-white border border-border rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-600/20 text-navy-900 shadow-xs"
+                  placeholder={language === 'ar' ? 'تصفية الواجهات، الصيغ، الطبقات...' : 'Filter APIs, formats, layers...'}
+                  className="w-full pl-9 pr-3 rtl:pl-3 rtl:pr-9 py-2 text-xs bg-white border border-border rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-600/20 text-navy-900 shadow-xs"
                 />
-                <MagnifyingGlass className="w-4 h-4 text-slate-400 absolute left-3 top-2.5" />
+                <MagnifyingGlass className="w-4 h-4 text-slate-400 absolute left-3 rtl:left-auto rtl:right-3 top-2.5 pointer-events-none" />
               </div>
             </div>
 
             {/* Category Filter Pills */}
             <div className="flex items-center gap-2 overflow-x-auto pb-4 text-xs">
               {[
-                { id: 'all', label: 'All Services (6)' },
-                { id: 'features', label: 'OGC API Features' },
-                { id: 'tiles', label: 'Map Tiles & WMTS' },
-                { id: 'geoai', label: 'GeoAI Inference' },
-                { id: 'search', label: 'Geocoding & Search' },
-                { id: '3d', label: '3D Tiles & Mesh' },
+                { id: 'all', label: language === 'ar' ? 'جميع الخدمات (6)' : 'All Services (6)' },
+                { id: 'features', label: language === 'ar' ? 'واجهة المعالم OGC' : 'OGC API Features' },
+                { id: 'tiles', label: language === 'ar' ? 'بلاطات الخرائط و WMTS' : 'Map Tiles & WMTS' },
+                { id: 'geoai', label: language === 'ar' ? 'استدلال الذكاء الاصطناعي' : 'GeoAI Inference' },
+                { id: 'search', label: language === 'ar' ? 'الترميز الجغرافي والبحث' : 'Geocoding & Search' },
+                { id: '3d', label: language === 'ar' ? 'بلاطات ثلاثية الأبعاد' : '3D Tiles & Mesh' },
               ].map((pill) => (
                 <button
                   key={pill.id}
@@ -525,7 +545,7 @@ summary(habitats_sf)`
                     </p>
 
                     <div className="p-2.5 bg-canvas rounded-xl font-mono text-[11px] text-slate-700 flex items-center justify-between gap-2 border border-border mb-3">
-                      <span className="truncate">{api.endpoint}</span>
+                      <span className="truncate" dir="ltr">{api.endpoint}</span>
                       <button
                         onClick={() => handleCopyEndpoint(api.endpoint)}
                         className="text-slate-400 hover:text-navy-900 shrink-0"
@@ -542,7 +562,8 @@ summary(habitats_sf)`
 
                   <div className="pt-3 border-t border-border flex items-center justify-between text-xs">
                     <span className="text-[11px] text-text-secondary font-medium">
-                      Auth: <span className="font-semibold text-navy-900">{api.auth}</span>
+                      {language === 'ar' ? 'المصادقة: ' : 'Auth: '}
+                      <span className="font-semibold text-navy-900">{api.auth}</span>
                     </span>
                     <span className="font-mono text-[11px] text-emerald-700 bg-emerald-50 px-2 py-0.5 rounded font-bold">
                       {api.latency}
@@ -558,10 +579,16 @@ summary(habitats_sf)`
         <section className="py-14 bg-white border-b border-border">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="text-center max-w-2xl mx-auto mb-10">
-              <span className="text-xs font-bold uppercase tracking-wider text-blue-600">Developer Ecosystem</span>
-              <h2 className="text-2xl sm:text-3xl font-bold text-navy-900 mt-1">Official Client Libraries & SDKs</h2>
+              <span className="text-xs font-bold uppercase tracking-wider text-blue-600">
+                {language === 'ar' ? 'منظومة المطورين' : 'Developer Ecosystem'}
+              </span>
+              <h2 className="text-2xl sm:text-3xl font-bold text-navy-900 mt-1">
+                {language === 'ar' ? 'المكتبات وحزم تطوير البرمجيات الرسمية (SDKs)' : 'Official Client Libraries & SDKs'}
+              </h2>
               <p className="text-xs sm:text-sm text-text-secondary mt-1">
-                Zero-boilerplate packages pre-configured with authentication, automatic spatial retry logic, and Arabic RTL support.
+                {language === 'ar'
+                  ? 'حزم برمجية جاهزة مهيأة مسبقاً بالمصادقة وإعادة المحاولة التلقائية ودعم اتجاه النص العربي (RTL).'
+                  : 'Zero-boilerplate packages pre-configured with authentication, automatic spatial retry logic, and Arabic RTL support.'}
               </p>
             </div>
 
@@ -576,7 +603,7 @@ summary(habitats_sf)`
                     TypeScript client for MapLibre GL, Leaflet, and OpenLayers with auto-token rotation and vector tile caching.
                   </p>
                 </div>
-                <div className="p-2.5 bg-white rounded-xl border border-border font-mono text-xs text-slate-800 flex items-center justify-between">
+                <div className="p-2.5 bg-white rounded-xl border border-border font-mono text-xs text-slate-800 flex items-center justify-between" dir="ltr">
                   <span>npm i @adsdi/web-sdk</span>
                   <button onClick={() => { navigator.clipboard.writeText('npm i @adsdi/web-sdk'); alert('Command copied'); }}>
                     <Copy className="w-3.5 h-3.5 text-slate-400 hover:text-navy-900" />
@@ -594,7 +621,7 @@ summary(habitats_sf)`
                     Native Python interface for Jupyter notebooks, GeoPandas, rasterio, and direct GeoAI inference integration.
                   </p>
                 </div>
-                <div className="p-2.5 bg-white rounded-xl border border-border font-mono text-xs text-slate-800 flex items-center justify-between">
+                <div className="p-2.5 bg-white rounded-xl border border-border font-mono text-xs text-slate-800 flex items-center justify-between" dir="ltr">
                   <span>pip install adsdi-geokit</span>
                   <button onClick={() => { navigator.clipboard.writeText('pip install adsdi-geokit'); alert('Command copied'); }}>
                     <Copy className="w-3.5 h-3.5 text-slate-400 hover:text-navy-900" />
@@ -612,7 +639,7 @@ summary(habitats_sf)`
                     Official desktop GIS plugins providing one-click access to all authenticated Abu Dhabi government data layers.
                   </p>
                 </div>
-                <div className="p-2.5 bg-white rounded-xl border border-border font-mono text-xs text-slate-800 flex items-center justify-between">
+                <div className="p-2.5 bg-white rounded-xl border border-border font-mono text-xs text-slate-800 flex items-center justify-between" dir="ltr">
                   <span>Plugin v2.4.1 (ZIP)</span>
                   <button onClick={() => alert('Downloading AD-SDI QGIS Plugin...')}>
                     <DownloadSimple className="w-3.5 h-3.5 text-purple-600" />
@@ -630,11 +657,17 @@ summary(habitats_sf)`
               <div className="space-y-3 relative z-10 max-w-2xl">
                 <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-gold-500/20 text-gold-400 text-xs font-bold border border-gold-500/30">
                   <Sparkle className="w-3.5 h-3.5" />
-                  <span>Registrations Open • AED 250,000 Prize Pool</span>
+                  <span>
+                    {language === 'ar' ? 'التسجيل مفتوح • جوائز بقيمة 250,000 درهم' : 'Registrations Open • AED 250,000 Prize Pool'}
+                  </span>
                 </div>
-                <h3 className="text-2xl sm:text-3xl font-extrabold tracking-tight">Abu Dhabi GeoHack 2028</h3>
+                <h3 className="text-2xl sm:text-3xl font-extrabold tracking-tight">
+                  {language === 'ar' ? 'هاكاثون أبوظبي للبيانات المكانية 2028' : 'Abu Dhabi GeoHack 2028'}
+                </h3>
                 <p className="text-xs sm:text-sm text-slate-300 leading-relaxed">
-                  Join 500+ developers, data scientists, and urban innovators to solve Emirate challenges in clean mobility, urban heat islands, and coastal ecology using AD-SDI APIs.
+                  {language === 'ar'
+                    ? 'انضم إلى أكثر من 500 مطور وعالم بيانات ومبتكر لمواجهة تحديات الإمارة في التنقل النظيف والجزر الحرارية والبيئة الساحلية باستخدام واجهات AD-SDI.'
+                    : 'Join 500+ developers, data scientists, and urban innovators to solve Emirate challenges in clean mobility, urban heat islands, and coastal ecology using AD-SDI APIs.'}
                 </p>
               </div>
 
@@ -643,13 +676,13 @@ summary(habitats_sf)`
                   to="/open-data"
                   className="w-full sm:w-auto px-5 py-3 rounded-xl bg-gold-500 hover:bg-gold-400 text-navy-900 font-bold text-xs shadow-md transition-colors text-center"
                 >
-                  Register for GeoHack 2028
+                  {language === 'ar' ? 'التسجيل في الهاكاثون' : 'Register for GeoHack 2028'}
                 </Link>
                 <Link
                   to="/catalogue"
                   className="w-full sm:w-auto px-5 py-3 rounded-xl bg-navy-800 hover:bg-navy-700 border border-navy-600 text-white font-semibold text-xs transition-colors text-center"
                 >
-                  Explore Datasets
+                  {language === 'ar' ? 'استكشاف مجموعات البيانات' : 'Explore Datasets'}
                 </Link>
               </div>
             </div>
@@ -664,7 +697,9 @@ summary(habitats_sf)`
             <div className="flex items-center justify-between border-b border-border pb-3">
               <div className="flex items-center gap-2">
                 <Key className="w-5 h-5 text-blue-600" />
-                <h3 className="font-bold text-navy-900 text-base">Generate Sandbox API Key</h3>
+                <h3 className="font-bold text-navy-900 text-base">
+                  {language === 'ar' ? 'إنشاء مفتاح بيئة الاختبار (Sandbox)' : 'Generate Sandbox API Key'}
+                </h3>
               </div>
               <button onClick={() => { setShowSandboxModal(false); setSandboxSuccess(false); }} className="text-slate-400 hover:text-slate-700">
                 ✕
@@ -677,17 +712,23 @@ summary(habitats_sf)`
                   <CheckCircle className="w-6 h-6" />
                 </div>
                 <div>
-                  <h4 className="font-bold text-navy-900 text-sm">Sandbox Key Generated!</h4>
-                  <p className="text-xs text-text-secondary mt-1">Your sandbox API key is active with a 50,000 monthly request quota.</p>
+                  <h4 className="font-bold text-navy-900 text-sm">
+                    {language === 'ar' ? 'تم إنشاء المفتاح التجريبي بنجاح!' : 'Sandbox Key Generated!'}
+                  </h4>
+                  <p className="text-xs text-text-secondary mt-1">
+                    {language === 'ar'
+                      ? 'مفتاح Sandbox الخاص بك مفعل بحصة شهرية تبلغ 50,000 طلب.'
+                      : 'Your sandbox API key is active with a 50,000 monthly request quota.'}
+                  </p>
                 </div>
-                <div className="p-3 bg-canvas rounded-xl font-mono text-xs text-slate-800 border border-border select-all break-all">
+                <div className="p-3 bg-canvas rounded-xl font-mono text-xs text-slate-800 border border-border select-all break-all" dir="ltr">
                   adsdi_sb_9f82d1c7e4a05b382901ef
                 </div>
                 <button
                   onClick={() => { setShowSandboxModal(false); setSandboxSuccess(false); }}
                   className="w-full py-2.5 bg-navy-900 text-white rounded-xl text-xs font-semibold"
                 >
-                  Done
+                  {language === 'ar' ? 'إغلاق' : 'Done'}
                 </button>
               </div>
             ) : (
@@ -699,7 +740,9 @@ summary(habitats_sf)`
                 className="space-y-3"
               >
                 <div>
-                  <label className="block text-xs font-bold text-navy-900 mb-1">Developer or Entity Name</label>
+                  <label className="block text-xs font-bold text-navy-900 mb-1">
+                    {language === 'ar' ? 'اسم المطور أو الجهة' : 'Developer or Entity Name'}
+                  </label>
                   <input
                     type="text"
                     required
@@ -708,7 +751,9 @@ summary(habitats_sf)`
                   />
                 </div>
                 <div>
-                  <label className="block text-xs font-bold text-navy-900 mb-1">Government or Organization Email</label>
+                  <label className="block text-xs font-bold text-navy-900 mb-1">
+                    {language === 'ar' ? 'البريد الإلكتروني المؤسسي' : 'Government or Organization Email'}
+                  </label>
                   <input
                     type="email"
                     required
@@ -717,12 +762,14 @@ summary(habitats_sf)`
                   />
                 </div>
                 <div>
-                  <label className="block text-xs font-bold text-navy-900 mb-1">Primary Use Case</label>
+                  <label className="block text-xs font-bold text-navy-900 mb-1">
+                    {language === 'ar' ? 'حالة الاستخدام الرئيسية' : 'Primary Use Case'}
+                  </label>
                   <select className="w-full px-3 py-2 text-xs border border-border rounded-lg bg-canvas text-navy-900">
-                    <option>Civic Mobile / Web Application</option>
-                    <option>Academic or Scientific Research</option>
-                    <option>Commercial Enterprise Integration</option>
-                    <option>GeoAI Model Training & Validation</option>
+                    <option>{language === 'ar' ? 'تطبيق جوال أو ويب مجتمعي' : 'Civic Mobile / Web Application'}</option>
+                    <option>{language === 'ar' ? 'بحث أكاديمي أو علمي' : 'Academic or Scientific Research'}</option>
+                    <option>{language === 'ar' ? 'تكامل تجاري ومؤسسي' : 'Commercial Enterprise Integration'}</option>
+                    <option>{language === 'ar' ? 'تدريب نماذج الذكاء الاصطناعي الجغرافي' : 'GeoAI Model Training & Validation'}</option>
                   </select>
                 </div>
                 <div className="pt-2">
@@ -730,7 +777,7 @@ summary(habitats_sf)`
                     type="submit"
                     className="w-full py-2.5 bg-blue-600 hover:bg-blue-700 text-white font-bold text-xs rounded-xl shadow-md transition-colors"
                   >
-                    Generate Instant Sandbox Key
+                    {language === 'ar' ? 'إنشاء مفتاح تجريبي فوري' : 'Generate Instant Sandbox Key'}
                   </button>
                 </div>
               </form>
